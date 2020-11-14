@@ -1,6 +1,12 @@
 #pragma once
 
 #include <QMainWindow>
+#include "ATM/Model/atmcard2.h"
+#include "ATM/atm.h"
+#include "ATM/Socket/atmselectorsocket.h"
+#include "ATM/Model/atmparams.h"
+#include "ATMSelector/atmselector.h"
+#include "ATMSelector/atmselectorwidget.h"
 
 namespace Ui {
 class MainWindow;
@@ -11,7 +17,9 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(const size_t , QWidget *parent = nullptr);
+   // ATM ATMstart(const size_t id);
+   // void startSelector();
     ~MainWindow();
 
 private slots:
@@ -69,7 +77,7 @@ private slots:
 
     void on_num0_2_clicked();
 
-    void on_clearOne_clicked();
+    void on_clearOneclicked();
 
     void on_backButton_page2_clicked();
 
@@ -93,6 +101,10 @@ private slots:
 
     void on_Button_otherATMs_clicked();
 
+    void on_backButton_page7_clicked();
+
+    //-----------------Sum selection page-------------------------
+
     void on_Button_20grn_clicked();
 
     void on_Button_50grn_clicked();
@@ -109,6 +121,8 @@ private slots:
 
     void on_Button_AnySum_clicked();
 
+
+    //----------------Another sum input page----------------------
     void on_num1_6_clicked();
 
     void on_num2_6_clicked();
@@ -139,6 +153,10 @@ private slots:
 
     void on_okButton_page6_clicked();
 
+
+
+    //---------------page QR------------------------
+
     void on_num1_3_clicked();
 
     void on_num2_3_clicked();
@@ -165,7 +183,13 @@ private slots:
 
     void on_okButton_page3_clicked();
 
+
+
 private:
+    ATM* atm_;
     Ui::MainWindow *ui;
+    ATMSocket* socket_;
+    ATMParams* par_;
+    ATMCard* card_;
 };
 

@@ -8,13 +8,22 @@
 #include "ATMSelector/atmselector.h"
 #include "ATMSelector/atmselectorwidget.h"
 
+//    card_(atm->card()),
+//    par_(atm->par()),
+//    atm_(atm)
 
 
-MainWindow::MainWindow(QWidget *parent) :
+
+MainWindow::MainWindow(const size_t id, QWidget *parent) :
     QMainWindow(parent),
+    atm_(new ATM(id)),
     ui(new Ui::MainWindow)
+
 {
+    qDebug() << "pidar";
+
     ui->setupUi(this);
+    //startSelector();
     //ui->mainStackedWidget->addWidget(ATMSelectorWidget::ui());
 
     ui->lineEdit_cardNum->setInputMask("9999-9999-9999-9999");
@@ -24,7 +33,16 @@ MainWindow::MainWindow(QWidget *parent) :
     //ui->lineEdit_PIN->setInputMask("9999");//поставити обмеження на ПІН в чотири символи
     ui->lineEdit_PIN->setEchoMode(QLineEdit::PasswordEchoOnEdit);
     ui->lineEdit_attemptNum->setInputMask("9");
+
 }
+
+
+//void MainWindow::startSelector()
+//{
+//    ATMSelector selector;
+//    ATMSelectorWidget widget0(&selector);
+//    ui->mainStackedWidget->insertWidget(8,&widget0);
+//}
 
 MainWindow::~MainWindow()
 {
@@ -162,7 +180,7 @@ void MainWindow::on_num0_2_clicked()
     ui->lineEdit_PIN->insert("0");
 }
 
-void MainWindow::on_clearOne_clicked()
+void MainWindow::on_clearOneclicked()
 {
     ui->lineEdit_PIN->backspace();
 }
@@ -221,6 +239,11 @@ void MainWindow::on_Button_otherATMs_clicked()//перехід на сторін
     //ATMSelectorWidget atm;
 
     //ui->mainStackedWidget->setCurrentIndex(ui->mainStackedWidget->indexOf())
+}
+
+void MainWindow::on_backButton_page7_clicked()
+{
+    ui->mainStackedWidget->setCurrentIndex(1);
 }
 
 
@@ -408,3 +431,5 @@ void MainWindow::on_okButton_page3_clicked()
 {
 
 }
+
+

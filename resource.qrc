@@ -2,5 +2,6 @@
     <qresource prefix="/imgs">
         <file>img/atm-250.png</file>
         <file>img/bagel_90x95.png</file>
+        <file>img/Bun-PNG-Image-Transparent.png</file>
     </qresource>
 </RCC>

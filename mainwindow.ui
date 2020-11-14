@@ -80,16 +80,16 @@
      <widget class="QLabel" name="page0_label">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>90</x>
         <y>210</y>
-        <width>461</width>
+        <width>361</width>
         <height>31</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Futura</family>
-        <pointsize>27</pointsize>
+        <pointsize>21</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -102,16 +102,16 @@
      <widget class="QLabel" name="page0_label_2">
       <property name="geometry">
        <rect>
-        <x>90</x>
-        <y>260</y>
-        <width>331</width>
-        <height>71</height>
+        <x>150</x>
+        <y>250</y>
+        <width>221</width>
+        <height>51</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Futura</family>
-        <pointsize>45</pointsize>
+        <pointsize>30</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -146,7 +146,7 @@
         <x>30</x>
         <y>330</y>
         <width>451</width>
-        <height>31</height>
+        <height>16</height>
        </rect>
       </property>
       <property name="orientation">
@@ -156,10 +156,10 @@
      <widget class="QPushButton" name="insertButton_page0">
       <property name="geometry">
        <rect>
-        <x>190</x>
+        <x>200</x>
         <y>370</y>
-        <width>141</width>
-        <height>51</height>
+        <width>131</width>
+        <height>41</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -171,7 +171,7 @@
       <property name="font">
        <font>
         <family>Futura</family>
-        <pointsize>27</pointsize>
+        <pointsize>18</pointsize>
         <stylestrategy>PreferAntialias</stylestrategy>
        </font>
       </property>
@@ -216,16 +216,16 @@ border-width: 5px;
      <widget class="QLabel" name="page1_label">
       <property name="geometry">
        <rect>
-        <x>280</x>
+        <x>310</x>
         <y>20</y>
-        <width>241</width>
+        <width>171</width>
         <height>41</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>32</pointsize>
+        <pointsize>22</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -247,7 +247,7 @@ border-width: 5px;
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>20</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -278,7 +278,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>20</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -309,7 +309,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>20</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -340,7 +340,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>20</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -391,6 +391,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>12</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -415,7 +416,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
-           <pointsize>13</pointsize>
+           <pointsize>12</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -440,6 +441,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>12</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -464,6 +466,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>12</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -488,6 +491,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>12</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -512,6 +516,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>12</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -536,6 +541,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>12</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -560,6 +566,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>12</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -584,6 +591,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>12</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -608,6 +616,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>12</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -632,6 +641,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>12</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -656,16 +666,16 @@ border-color: rgb(0, 0, 0);
      <widget class="QLabel" name="label_page2">
       <property name="geometry">
        <rect>
-        <x>290</x>
+        <x>310</x>
         <y>40</y>
-        <width>221</width>
+        <width>171</width>
         <height>41</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>30</pointsize>
+        <pointsize>22</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -687,7 +697,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>21</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -721,7 +731,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>21</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -752,7 +762,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>21</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -783,7 +793,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>17</pointsize>
+        <pointsize>16</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -821,7 +831,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>22</pointsize>
+        <pointsize>18</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -856,7 +866,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>22</pointsize>
+        <pointsize>18</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -890,7 +900,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>20</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -929,7 +939,7 @@ color: rgb(0, 0, 0);</string>
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>21</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -960,7 +970,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>21</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -984,8 +994,8 @@ border-color: rgb(0, 0, 0);
        <rect>
         <x>20</x>
         <y>30</y>
-        <width>91</width>
-        <height>91</height>
+        <width>90</width>
+        <height>95</height>
        </rect>
       </property>
       <property name="text">
@@ -1047,6 +1057,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>11</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -1071,6 +1082,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>11</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -1095,6 +1107,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>11</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -1119,6 +1132,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>11</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -1143,6 +1157,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>11</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -1167,6 +1182,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>11</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -1191,6 +1207,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>11</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -1215,6 +1232,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>11</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -1239,7 +1257,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
-           <pointsize>13</pointsize>
+           <pointsize>11</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -1264,6 +1282,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>11</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -1288,6 +1307,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>11</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -1321,7 +1341,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>20</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -1334,16 +1354,16 @@ border-color: rgb(0, 0, 0);
      <widget class="QLabel" name="label_3_4">
       <property name="geometry">
        <rect>
-        <x>60</x>
+        <x>130</x>
         <y>260</y>
-        <width>681</width>
+        <width>581</width>
         <height>21</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>20</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -1365,7 +1385,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>20</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -1391,7 +1411,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>20</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -1408,7 +1428,7 @@ border-color: rgb(0, 0, 0);</string>
      <widget class="QLabel" name="label_5">
       <property name="geometry">
        <rect>
-        <x>490</x>
+        <x>450</x>
         <y>20</y>
         <width>121</width>
         <height>21</height>
@@ -1417,7 +1437,7 @@ border-color: rgb(0, 0, 0);</string>
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>20</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -1435,16 +1455,16 @@ border-color: rgb(0, 0, 0);</string>
      <widget class="QLabel" name="page4_label">
       <property name="geometry">
        <rect>
-        <x>250</x>
+        <x>280</x>
         <y>40</y>
-        <width>261</width>
+        <width>221</width>
         <height>31</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>27</pointsize>
+        <pointsize>22</pointsize>
        </font>
       </property>
       <property name="text">
@@ -1455,9 +1475,9 @@ border-color: rgb(0, 0, 0);</string>
       <property name="geometry">
        <rect>
         <x>260</x>
-        <y>140</y>
+        <y>160</y>
         <width>271</width>
-        <height>271</height>
+        <height>211</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_4">
@@ -1481,6 +1501,7 @@ border-color: rgb(0, 0, 0);</string>
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>11</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -1505,6 +1526,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>11</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -1529,6 +1551,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>11</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -1553,6 +1576,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>11</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -1577,6 +1601,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>11</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -1601,6 +1626,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>11</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -1625,6 +1651,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>11</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -1649,6 +1676,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>11</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -1673,7 +1701,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
-           <pointsize>13</pointsize>
+           <pointsize>11</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -1698,6 +1726,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>11</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -1722,6 +1751,7 @@ border-color: rgb(0, 0, 0);
          <property name="font">
           <font>
            <family>Arial Black</family>
+           <pointsize>11</pointsize>
           </font>
          </property>
          <property name="cursor">
@@ -1758,7 +1788,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>21</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -1789,7 +1819,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>21</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -1820,7 +1850,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>21</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -1883,7 +1913,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>24</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -1911,16 +1941,16 @@ border-color: rgb(0, 0, 0);
      <widget class="QLabel" name="label_page5">
       <property name="geometry">
        <rect>
-        <x>300</x>
+        <x>320</x>
         <y>30</y>
-        <width>201</width>
+        <width>141</width>
         <height>41</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>32</pointsize>
+        <pointsize>22</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -1942,8 +1972,11 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>20</pointsize>
+        <pointsize>17</pointsize>
        </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="styleSheet">
        <string notr="true">color: rgb(0, 0, 0);
@@ -1970,8 +2003,11 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>20</pointsize>
+        <pointsize>17</pointsize>
        </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="styleSheet">
        <string notr="true">color: rgb(0, 0, 0);
@@ -1998,8 +2034,11 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>20</pointsize>
+        <pointsize>17</pointsize>
        </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="styleSheet">
        <string notr="true">color: rgb(0, 0, 0);
@@ -2026,8 +2065,11 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>20</pointsize>
+        <pointsize>17</pointsize>
        </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="styleSheet">
        <string notr="true">color: rgb(0, 0, 0);
@@ -2054,8 +2096,11 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>20</pointsize>
+        <pointsize>17</pointsize>
        </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="styleSheet">
        <string notr="true">color: rgb(0, 0, 0);
@@ -2082,8 +2127,11 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>20</pointsize>
+        <pointsize>17</pointsize>
        </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="styleSheet">
        <string notr="true">color: rgb(0, 0, 0);
@@ -2100,7 +2148,7 @@ border-color: rgb(0, 0, 0);
      </widget>
      <widget class="QPushButton" name="backButton_page5">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
@@ -2113,7 +2161,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>21</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -2144,7 +2192,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>21</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -2506,7 +2554,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>27</pointsize>
+        <pointsize>22</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -2534,7 +2582,7 @@ border-color: rgb(0, 0, 0);
      </widget>
      <widget class="QPushButton" name="backButton_page6">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
@@ -2547,7 +2595,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>21</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -2578,7 +2626,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>21</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -2609,7 +2657,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>21</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -2640,7 +2688,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>20</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -2671,8 +2719,11 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>20</pointsize>
+        <pointsize>17</pointsize>
        </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="styleSheet">
        <string notr="true">color: rgb(0, 0, 0);
@@ -2699,8 +2750,11 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>20</pointsize>
+        <pointsize>17</pointsize>
        </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="styleSheet">
        <string notr="true">color: rgb(0, 0, 0);
@@ -2730,7 +2784,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>21</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -2752,16 +2806,16 @@ border-color: rgb(0, 0, 0);
      <widget class="QLabel" name="page7_label_2">
       <property name="geometry">
        <rect>
-        <x>290</x>
+        <x>320</x>
         <y>50</y>
-        <width>231</width>
+        <width>161</width>
         <height>31</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>30</pointsize>
+        <pointsize>22</pointsize>
        </font>
       </property>
       <property name="styleSheet">

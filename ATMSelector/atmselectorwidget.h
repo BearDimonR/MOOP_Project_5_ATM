@@ -3,7 +3,8 @@
 
 #include"ATM/Model/atmparams.h"
 #include <QMainWindow>
-#include<QListWidgetItem>
+#include <QListWidgetItem>
+#include "mainwindow.h"
 
 class ATMSelector;
 
@@ -16,6 +17,8 @@ class ATMSelectorWidget : public QWidget
 {
     Q_OBJECT
 public:
+    QHash<QString,size_t> hash;
+
     explicit ATMSelectorWidget(ATMSelector* out, QWidget *parent = nullptr);
 
     const QStringList takeParamsFromServer(ATMParams &params) const;
@@ -26,6 +29,7 @@ public:
 
 private slots:
 
+
     void onParamsUpdated();
 
 //signals:
@@ -35,8 +39,10 @@ private slots:
     void on_atmsList_itemActivated(QListWidgetItem *item);
 
 private:
+
     ATMSelector* out_;
     Ui::ATMSelectorWidget *ui_;
+    QMainWindow* mw;
 };
 
 #endif // ATMSELECTORWIDGET_H
