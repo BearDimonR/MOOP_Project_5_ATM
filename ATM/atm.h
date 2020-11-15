@@ -38,9 +38,9 @@ public:
     virtual ~ATM();
 
     ATMCard* card();
-    ATMSocket *socket() const;
-    ATMParams *par() const;
 
+
+public slots:
     void insertCard(const QString&);
     void freeCard();
     void validatePin(const size_t);
@@ -48,8 +48,6 @@ public:
     void sendToCard(const QString&, const size_t);
     void checkBal();
     void takeCash(const size_t);
-
-
 
 
 signals:

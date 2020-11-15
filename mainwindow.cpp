@@ -37,6 +37,7 @@ MainWindow::MainWindow(const size_t id, QWidget *parent) :
 }
 
 
+
 //void MainWindow::startSelector()
 //{
 //    ATMSelector selector;
@@ -128,6 +129,21 @@ void MainWindow::on_backButton_page4_clicked()
 }
 
 
+void MainWindow::on_lineEdit_cardNum_editingFinished()
+
+{
+    connect(atm_,SIGNAL(cardInserted()), this, SLOT(insertCard(ui->lineEdit_cardNum->text())));
+
+    //перевірити якщо відповідь від сервера ОК то --> виконаты дії нижче
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Info");
+    msgBox.setText("Ваша картка була успішно вставлена");
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    ui->mainStackedWidget->setCurrentIndex(2);
+
+}
+
+
 
 //page 2 enter PIN after card insertion (2d index page)
 void MainWindow::on_num1_2_clicked()
@@ -190,15 +206,25 @@ void MainWindow::on_backButton_page2_clicked()
     ui->mainStackedWidget->setCurrentIndex(4);
 }
 
-void MainWindow::on_okButton_page2_clicked()
-{
-    ui->mainStackedWidget->setCurrentIndex(1);
-}
+
+
 //сделать проверку пина
 //сделать скрытие пина под *
 void MainWindow::on_lineEdit_PIN_editingFinished()//проверка пина
 {
-    //connect()
+  //якщо пін правильний то переходимо в головне меню картки
+    connect(atm_,SIGNAL(pinSuccess()), this, SLOT());
+    ui->mainStackedWidget->setCurrentIndex(1);
+
+    //Якщо пін не правильний то червоний екран, повідомлення про помилку --> перехід на сторінку вставити картку
+    ui->page2_pin->setStyleSheet("background-color: rgb(252, 1, 7);");
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Обмеження роботи з карткою");
+    msgBox.setText("Нажаль Ви 3 рази ввели неправильний PIN \n"
+                   "Робота з даною карткою закінчена" );
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    ui->mainStackedWidget->setCurrentIndex(0);
+
 }
 
 
@@ -212,9 +238,13 @@ void MainWindow::on_cashTransfersButton_clicked()
 
 void MainWindow::on_cardBalanceButton_clicked()
 {
-    //            QMessageBox::information(this, "Баланс по картці");
-    //            QMessageBox msgBox;
-    //            msgBox.setText("Баланс на вашій картці = " + ATM::checkBal());
+
+    connect(atm_,SIGNAL(balChecked()), this, SLOT(checkBal()));
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Баланс вашої картки");
+    msgBox.setText("Баланс на вашій картці = " + atm_->card()->bal());
+    msgBox.setStandardButtons(QMessageBox::Ok);
+
 }
 
 void MainWindow::on_cardSettingsButton_clicked()
@@ -227,18 +257,24 @@ void MainWindow::on_cashWithdrawalButton_clicked()
     ui->mainStackedWidget->setCurrentIndex(5);
 }
 
+void MainWindow::on_FinishWorkButton_1_clicked()
+{
+    connect(atm_,SIGNAL(cardFree()), this, SLOT(freeCard()));
+    ui->mainStackedWidget->setCurrentIndex(0);
+}
+
 
 //page 7 -- settings
 void MainWindow::on_Button_changePin_clicked()//перехід на сторінку зміни піна
 {
-    ui->mainStackedWidget->setCurrentIndex(2);
+    ui->mainStackedWidget->setCurrentIndex(8);
 }
 
 void MainWindow::on_Button_otherATMs_clicked()//перехід на сторінку з вибором доступних атм
 {
-    //ATMSelectorWidget atm;
-
-    //ui->mainStackedWidget->setCurrentIndex(ui->mainStackedWidget->indexOf())
+    ATMSelector selector;
+    ATMSelectorWidget widget(&selector);
+    widget.show();
 }
 
 void MainWindow::on_backButton_page7_clicked()
@@ -250,32 +286,33 @@ void MainWindow::on_backButton_page7_clicked()
 //page 5 Sum select
 void MainWindow::on_Button_20grn_clicked()//вивести повідомлення про те що гроші були успішно зняті і показати поточний баланс картки
 {
+    moneyWithdrawProcess(20);
 
 }
 
 void MainWindow::on_Button_50grn_clicked()
 {
-
+    moneyWithdrawProcess(50);
 }
 
 void MainWindow::on_Button_100grn_clicked()
 {
-
+    moneyWithdrawProcess(100);
 }
 
 void MainWindow::on_Button_200grn_clicked()
 {
-
+    moneyWithdrawProcess(200);
 }
 
 void MainWindow::on_Button_500grn_clicked()
 {
-
+    moneyWithdrawProcess(500);
 }
 
 void MainWindow::on_Button_1000grn_clicked()
 {
-
+    moneyWithdrawProcess(1000);
 }
 
 void MainWindow::on_backButton_page5_clicked()
@@ -287,6 +324,18 @@ void MainWindow::on_Button_AnySum_clicked()
 {
     ui->mainStackedWidget->setCurrentIndex(6);
 }
+
+
+void MainWindow::moneyWithdrawProcess(const size_t& suma)
+{
+    connect(atm_,SIGNAL(cashSend()), this, SLOT(takeCash(suma)));
+    connect(atm_,SIGNAL(balChecked()), this, SLOT(checkBal()));
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Баланс вашої картки");
+    msgBox.setText("Баланс на вашій картці = " + atm_->card()->bal());
+    msgBox.setStandardButtons(QMessageBox::Ok);
+}
+
 
 //page 6 Another sum input for take off
 void MainWindow::on_num1_6_clicked()
@@ -361,12 +410,10 @@ void MainWindow::on_backButton_page6_clicked()
 
 void MainWindow::on_okButton_page6_clicked()//вивести повідомлення про те що гроші були успішно зняті і показати поточний баланс картки
 {
-
+    moneyWithdrawProcess(ui->lineEdit_enterSum->text().toLong());
 }
 
 //page 3 QR
-
-
 void MainWindow::on_num1_3_clicked()
 {
     ui->lineEdit_telephoneNum->insert("1");
@@ -431,5 +478,9 @@ void MainWindow::on_okButton_page3_clicked()
 {
 
 }
+
+
+//page 8 change PIN page
+
 
 

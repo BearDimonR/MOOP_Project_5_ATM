@@ -18,8 +18,7 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(const size_t , QWidget *parent = nullptr);
-   // ATM ATMstart(const size_t id);
-   // void startSelector();
+    void moneyWithdrawProcess(const size_t &);
     ~MainWindow();
 
 private slots:
@@ -55,7 +54,7 @@ private slots:
 
     void on_backButton_page4_clicked();
 
-   //---------------PIN input page---------------------
+    //---------------PIN input page---------------------
 
     void on_num1_2_clicked();
 
@@ -81,15 +80,13 @@ private slots:
 
     void on_backButton_page2_clicked();
 
-    void on_okButton_page2_clicked();
-
-     void on_lineEdit_PIN_editingFinished();
+    void on_lineEdit_PIN_editingFinished();
 
     //----------------Main menu page-------------------
 
-     void on_cashTransfersButton_clicked();
+    void on_cashTransfersButton_clicked();
 
-     void on_cardBalanceButton_clicked();
+    void on_cardBalanceButton_clicked();
 
     void on_cardSettingsButton_clicked();
 
@@ -184,6 +181,10 @@ private slots:
     void on_okButton_page3_clicked();
 
 
+
+    void on_lineEdit_cardNum_editingFinished();
+
+    void on_FinishWorkButton_1_clicked();
 
 private:
     ATM* atm_;

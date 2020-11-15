@@ -98,15 +98,6 @@ ATMCard *ATM::card()
     return card_;
 }
 
-ATMSocket *ATM::socket() const
-{
-    return socket_;
-}
-
-ATMParams *ATM::par() const
-{
-    return par_;
-}
 
 
 
