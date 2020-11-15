@@ -20,20 +20,25 @@ MainWindow::MainWindow(const size_t id, QWidget *parent) :
     ui(new Ui::MainWindow)
 
 {
-    qDebug() << "pidar";
+    //qDebug() << "pidar";
 
     ui->setupUi(this);
-    //startSelector();
-    //ui->mainStackedWidget->addWidget(ATMSelectorWidget::ui());
+
 
     ui->lineEdit_cardNum->setInputMask("9999-9999-9999-9999");
+
     ui->lineEdit_anotherCardNum->setInputMask("9999-9999-9999-9999");
+
     ui->lineEdit_telephoneNum->setInputMask("999-999-99-99");
+
     ui->lineEdit_enterSum->setInputMask("9999999");//поставити обмеження на картку
+
     //ui->lineEdit_PIN->setInputMask("9999");//поставити обмеження на ПІН в чотири символи
     ui->lineEdit_PIN->setEchoMode(QLineEdit::PasswordEchoOnEdit);
-    ui->lineEdit_attemptNum->setInputMask("9");
-
+    ui->lineEdit_attemptNum->setInputMask("9")
+            ;
+    ui->lineEdit_changePIN->setInputMask("9999");
+    ui->lineEdit_repeatChangePIN->setInputMask("9999");
 }
 
 
@@ -233,7 +238,7 @@ void MainWindow::on_lineEdit_PIN_editingFinished()//проверка пина
 //page 1 -- main card menu
 void MainWindow::on_cashTransfersButton_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(4);
+    ui->mainStackedWidget->setCurrentIndex(9);
 }
 
 void MainWindow::on_cardBalanceButton_clicked()
@@ -410,10 +415,19 @@ void MainWindow::on_backButton_page6_clicked()
 
 void MainWindow::on_okButton_page6_clicked()//вивести повідомлення про те що гроші були успішно зняті і показати поточний баланс картки
 {
+    //перевірка чи введена сума < суми що лежить на карті якщо так то
     moneyWithdrawProcess(ui->lineEdit_enterSum->text().toLong());
+    //якщо ні, то виведення повідомлення про помилку і очищення поля
+//    QMessageBox msgBox;
+//    msgBox.setWindowTitle("Помилка");
+//    msgBox.setText("Введена Вами сума більша за поточний баланс на вашій картці");
+//    msgBox.setStandardButtons(QMessageBox::Ok);
+//    ui->lineEdit_enterSum->clear();
 }
 
-//page 3 QR
+
+
+//page 3 QR ?????
 void MainWindow::on_num1_3_clicked()
 {
     ui->lineEdit_telephoneNum->insert("1");
@@ -481,6 +495,57 @@ void MainWindow::on_okButton_page3_clicked()
 
 
 //page 8 change PIN page
+void MainWindow::on_num1_8_clicked()
+{
 
+}
 
+void MainWindow::on_num2_8_clicked()
+{
 
+}
+
+void MainWindow::on_num3_8_clicked()
+{
+
+}
+
+void MainWindow::on_num4_8_clicked()
+{
+
+}
+
+void MainWindow::on_num5_8_clicked()
+{
+
+}
+
+void MainWindow::on_num6_8_clicked()
+{
+
+}
+
+void MainWindow::on_num7_8_clicked()
+{
+
+}
+
+void MainWindow::on_num8_8_clicked()
+{
+
+}
+
+void MainWindow::on_num9_8_clicked()
+{
+
+}
+
+void MainWindow::on_num0_8_clicked()
+{
+
+}
+
+void MainWindow::on_clearOne_8_clicked()
+{
+
+}

@@ -186,6 +186,28 @@ private slots:
 
     void on_FinishWorkButton_1_clicked();
 
+    void on_num1_8_clicked();
+
+    void on_num2_8_clicked();
+
+    void on_num3_8_clicked();
+
+    void on_num4_8_clicked();
+
+    void on_num5_8_clicked();
+
+    void on_num6_8_clicked();
+
+    void on_num7_8_clicked();
+
+    void on_num8_8_clicked();
+
+    void on_num9_8_clicked();
+
+    void on_num0_8_clicked();
+
+    void on_clearOne_8_clicked();
+
 private:
     ATM* atm_;
     Ui::MainWindow *ui;
