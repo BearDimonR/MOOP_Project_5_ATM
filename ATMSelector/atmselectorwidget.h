@@ -3,7 +3,9 @@
 
 #include"ATM/Model/atmparams.h"
 #include <QMainWindow>
+#include <QListWidgetItem>
 
+class ATM;
 class ATMSelector;
 
 
@@ -24,12 +26,12 @@ public:
     Ui::ATMSelectorWidget *ui() const;
 
 private slots:
-
     void onParamsUpdated();
-
-//signals:
-//    void on_refreshButton_clicked();
     void on_refreshButton_clicked();
+    void on_atmsList_itemPressed(QListWidgetItem *item);
+
+signals:
+    void atm_selected(const size_t);
 
 private:
     ATMSelector* out_;

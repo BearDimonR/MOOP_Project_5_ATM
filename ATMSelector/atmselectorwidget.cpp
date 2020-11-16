@@ -1,6 +1,8 @@
 #include "atmselectorwidget.h"
 #include "ui_atmselectorwidget.h"
 #include "atmselector.h"
+#include "ATM/atm.h"
+#include "mainwindow.h"
 
 class ATMParams;
 
@@ -41,4 +43,11 @@ Ui::ATMSelectorWidget *ATMSelectorWidget::ui() const
 void ATMSelectorWidget::on_refreshButton_clicked()
 {
     out_->refreshATMParams();
+}
+
+void ATMSelectorWidget::on_atmsList_itemPressed(QListWidgetItem *item)
+{
+    // get id from text
+    item->text();
+    emit atm_selected(1);
 }

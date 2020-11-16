@@ -16,6 +16,7 @@ private:
     static QList<QString> EVENT_STRINGS;
     enum EVENTS { START_ATM, INSERT_CARD, CHECK_PIN, SUCCESS_PIN, FREE_CARD, SEND_TO_CARD, TAKE_FROM_CARD, CHECK_BAL, CHANGE_PIN };
 
+    void doOnConnected() override;
     void doOnTextMessageReceived(const QJsonObject &) override;
     QJsonObject formJson(const size_t);
 
@@ -40,6 +41,7 @@ public slots:
     void askTakeCash(const size_t);
 
 signals:
+    void replyOnConnected();
     void replyOnStart(const ATMParams&);
     void replyOnError(const QString&);
     void replyOnInsertedCard();

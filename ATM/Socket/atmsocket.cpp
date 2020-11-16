@@ -9,6 +9,12 @@
 
 QList<QString> ATMSocket::EVENT_STRINGS = Utility::getInstance().getStringArr("ATMSocket_events");
 
+void ATMSocket::doOnConnected()
+{
+    AppSocket::doOnConnected();
+    emit replyOnConnected();
+}
+
 void ATMSocket::doOnTextMessageReceived(const QJsonObject & in)
 {
     //TO REMOVE
@@ -81,7 +87,9 @@ ATMSocket::~ATMSocket()
 
 void ATMSocket::askStart(const size_t atm_id)
 {
-    sendMessage(EVENT_STRINGS.at(EVENTS::START_ATM), QString::number(atm_id));
+    QJsonObject obj;
+    obj.insert("number", QJsonValue(static_cast<qint64>(atm_id)));
+    sendMessage(EVENT_STRINGS.at(EVENTS::START_ATM), QJsonDocument(obj).toJson());
 }
 
 void ATMSocket::askInsertCard(const QString & number)

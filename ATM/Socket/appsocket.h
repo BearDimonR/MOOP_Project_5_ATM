@@ -11,7 +11,7 @@ class AppSocket : public QObject
 
     Q_OBJECT
 
-private:
+protected:
 
     static QUrl HOST_URL;
 

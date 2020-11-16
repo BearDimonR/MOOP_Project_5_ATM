@@ -3,7 +3,9 @@
 #include "ATM/Model/atmparams.h"
 #include "ATM/Model/atmcard2.h"
 #include "ATM/Socket/atmsocket.h"
-
+#include "ATM/clienterror.h"
+#include <QTimer>
+#include <QEventLoop>
 
 void ATM::backOnStart(const ATMParams & par)
 {
@@ -80,7 +82,18 @@ ATM::ATM(const size_t atm_id):
     par_(Q_NULLPTR),
     card_(Q_NULLPTR)
 {
-    socket_->askStart(atm_id);
+    // deal with it
+    QTimer timer;
+    timer.setSingleShot(true);
+    QEventLoop loop;
+    connect( socket_, &ATMSocket::replyOnConnected, &loop, &QEventLoop::quit );
+    connect( &timer, &QTimer::timeout, &loop, &QEventLoop::quit );
+    timer.start(5000);
+    loop.exec();
+    if(timer.isActive())
+        socket_->askStart(atm_id);
+    else
+        qFatal(QString(ClientError("Starting error", ClientError::SERVER_REPLY_ERROR, "timeout")).toLatin1().constData());
 }
 
 ATM::~ATM()
