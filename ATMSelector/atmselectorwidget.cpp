@@ -1,5 +1,8 @@
 #include "atmselectorwidget.h"
 #include "ui_atmselectorwidget.h"
+#include <QHash>
+#include <QString>
+#include <iostream>
 #include "atmselector.h"
 #include "ATM/atm.h"
 #include "mainwindow.h"
@@ -10,6 +13,7 @@ ATMSelectorWidget::ATMSelectorWidget(ATMSelector* out,QWidget *parent) :
     QWidget(parent),
     out_(out),
     ui_(new Ui::ATMSelectorWidget)
+
 {
     ui_->setupUi(this);
     connect(out, SIGNAL(paramsChanged()), this, SLOT(onParamsUpdated()));
@@ -19,10 +23,12 @@ ATMSelectorWidget::ATMSelectorWidget(ATMSelector* out,QWidget *parent) :
 ATMSelectorWidget::~ATMSelectorWidget()
 {
     delete ui_;
+    delete mw;
 }
 
 void ATMSelectorWidget::onParamsUpdated()
 {
+
     ui_->atmsList->clear();
     const QList<ATMParams> * newAtms(out_->params());
     for(int i = 0; i < newAtms->length(); ++i){
@@ -31,8 +37,12 @@ void ATMSelectorWidget::onParamsUpdated()
         item.append(QString::number(p->atmId()));
         item.append(", Банк: ");
         item.append(p->bankName());
+        hash.insert(item,i);
         ui_->atmsList->addItem(item);
+        // ui_->atmsList->setCurrentRow(p->atmId());
+
     }
+
 }
 
 Ui::ATMSelectorWidget *ATMSelectorWidget::ui() const
@@ -45,9 +55,15 @@ void ATMSelectorWidget::on_refreshButton_clicked()
     out_->refreshATMParams();
 }
 
-void ATMSelectorWidget::on_atmsList_itemPressed(QListWidgetItem *item)
+//що відбувається коли ми клікаємо на елемент зі списку
+void ATMSelectorWidget::on_atmsList_itemActivated(QListWidgetItem *item)
 {
-    // get id from text
-    item->text();
-    emit atm_selected(1);
+    size_t id = hash.take(item->text());
+
+    mw = new MainWindow(id);
+    mw->show();
+
+
+    cout<<"HUI"<<endl;
+
 }

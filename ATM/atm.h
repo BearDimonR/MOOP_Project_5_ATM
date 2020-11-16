@@ -24,7 +24,7 @@ protected:
     void backChangePin();
     void backSendToCard(const ATMCard&);
     void backCheckBal(const ATMCard&);
-    void backTakeCash(const ATMCard&, const long);
+    void backTakeCash(const ATMCard&, long);
 
     void backError(const QString&);
 
@@ -39,6 +39,8 @@ public:
 
     ATMCard* card();
 
+
+public slots:
     void insertCard(const QString&);
     void freeCard();
     void validatePin(const size_t);
@@ -46,6 +48,7 @@ public:
     void sendToCard(const QString&, const size_t);
     void checkBal();
     void takeCash(const size_t);
+
 
 signals:
     void atmStarted();

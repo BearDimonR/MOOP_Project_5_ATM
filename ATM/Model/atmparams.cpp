@@ -57,7 +57,7 @@ ATMParams::Languages ATMParams::language() const
     return language_;
 }
 
-long ATMParams::cash() const
+const long ATMParams::cash() const
 {
     return cash_;
 }

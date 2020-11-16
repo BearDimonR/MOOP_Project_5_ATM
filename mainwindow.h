@@ -1,6 +1,12 @@
 #pragma once
 
 #include <QMainWindow>
+#include "ATM/Model/atmcard2.h"
+#include "ATM/atm.h"
+#include "ATM/Socket/atmselectorsocket.h"
+#include "ATM/Model/atmparams.h"
+#include "ATMSelector/atmselector.h"
+#include "ATMSelector/atmselectorwidget.h"
 
 namespace Ui {
 class MainWindow;
@@ -11,7 +17,8 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(const size_t , QWidget *parent = nullptr);
+    void moneyWithdrawProcess(const size_t &);
     ~MainWindow();
 
 private slots:
@@ -47,7 +54,7 @@ private slots:
 
     void on_backButton_page4_clicked();
 
-   //---------------PIN input page---------------------
+    //---------------PIN input page---------------------
 
     void on_num1_2_clicked();
 
@@ -69,19 +76,17 @@ private slots:
 
     void on_num0_2_clicked();
 
-    void on_clearOne_clicked();
+    void on_clearOneclicked();
 
     void on_backButton_page2_clicked();
 
-    void on_okButton_page2_clicked();
-
-     void on_lineEdit_PIN_editingFinished();
+    void on_lineEdit_PIN_editingFinished();
 
     //----------------Main menu page-------------------
 
-     void on_cashTransfersButton_clicked();
+    void on_cashTransfersButton_clicked();
 
-     void on_cardBalanceButton_clicked();
+    void on_cardBalanceButton_clicked();
 
     void on_cardSettingsButton_clicked();
 
@@ -93,7 +98,121 @@ private slots:
 
     void on_Button_otherATMs_clicked();
 
+    void on_backButton_page7_clicked();
+
+    //-----------------Sum selection page-------------------------
+
+    void on_Button_20grn_clicked();
+
+    void on_Button_50grn_clicked();
+
+    void on_Button_100grn_clicked();
+
+    void on_Button_200grn_clicked();
+
+    void on_Button_500grn_clicked();
+
+    void on_Button_1000grn_clicked();
+
+    void on_backButton_page5_clicked();
+
+    void on_Button_AnySum_clicked();
+
+
+    //----------------Another sum input page----------------------
+    void on_num1_6_clicked();
+
+    void on_num2_6_clicked();
+
+    void on_num3_6_clicked();
+
+    void on_num4_6_clicked();
+
+    void on_num5_6_clicked();
+
+    void on_num6_6_clicked();
+
+    void on_num7_6_clicked();
+
+    void on_num8_6_clicked();
+
+    void on_num9_6_clicked();
+
+    void on_num00_6_clicked();
+
+    void on_num0_6_clicked();
+
+    void on_clearOne_6_clicked();
+
+    void on_clearButton_page6_clicked();
+
+    void on_backButton_page6_clicked();
+
+    void on_okButton_page6_clicked();
+
+
+
+    //---------------page QR------------------------
+
+    void on_num1_3_clicked();
+
+    void on_num2_3_clicked();
+
+    void on_num3_3_clicked();
+
+    void on_num4_3_clicked();
+
+    void on_num5_3_clicked();
+
+    void on_num6_3_clicked();
+
+    void on_num7_3_clicked();
+
+    void on_num8_3_clicked();
+
+    void on_num9_3_clicked();
+
+    void on_num0_3_clicked();
+
+    void on_clearOne_3_clicked();
+
+    void on_clearButton_page3_clicked();
+
+    void on_okButton_page3_clicked();
+
+
+
+    void on_lineEdit_cardNum_editingFinished();
+
+    void on_FinishWorkButton_1_clicked();
+
+    void on_num1_8_clicked();
+
+    void on_num2_8_clicked();
+
+    void on_num3_8_clicked();
+
+    void on_num4_8_clicked();
+
+    void on_num5_8_clicked();
+
+    void on_num6_8_clicked();
+
+    void on_num7_8_clicked();
+
+    void on_num8_8_clicked();
+
+    void on_num9_8_clicked();
+
+    void on_num0_8_clicked();
+
+    void on_clearOne_8_clicked();
+
 private:
+    ATM* atm_;
     Ui::MainWindow *ui;
+    ATMSocket* socket_;
+    ATMParams* par_;
+    ATMCard* card_;
 };
 

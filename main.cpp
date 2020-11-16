@@ -4,6 +4,7 @@
 #include "ATMSelector/atmselectorwidget.h"
 #include "ATM/atm.h"
 #include <QDebug>
+#include "mainwindow.h"
 
 int main(int argc, char *argv[])
 {
@@ -14,8 +15,20 @@ int main(int argc, char *argv[])
 
     //qDebug() << Utility::UtilityError("", Utility::UtilityError::ErrorCodes::FILE_ERROR);
 
-  //  selector.refreshATMParams();
+
+    //  selector.refreshATMParams();
+
+
+
 
     //TODO add alternate launch ATM
     return a.exec();
 }
+
+// int main(int argc, char *argv[])
+// {
+//     QApplication a(argc, argv);
+//     MainWindow w(0);
+//     w.show();
+//     return a.exec();
+// }
