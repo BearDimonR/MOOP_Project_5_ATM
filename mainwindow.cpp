@@ -61,13 +61,27 @@ void MainWindow::successStart()
     // тестування запитів
     connect(atm_, SIGNAL(cardInserted()), this, SLOT(testInsert()));
     atm_->insertCard("1111111111111111");
-    connect(atm_, SIGNAL(cardFree()), this, SLOT(testFree()));
 }
 
 void MainWindow::testInsert()
 {
     qDebug() << "Insert card successfull";
-    atm_->freeCard();
+    connect(atm_, SIGNAL(pinSuccess()), this, SLOT(testPinSuccess()));
+    connect(atm_, SIGNAL(pinValidated(const size_t)), this, SLOT(testPinValidated(const size_t)));
+    atm_->validatePin(1211);
+}
+
+void MainWindow::testPinSuccess()
+{
+   qDebug() << "Pin successfull";
+   connect(atm_, SIGNAL(cardFree()), this, SLOT(testFree()));
+   atm_->freeCard();
+}
+
+void MainWindow::testPinValidated(const size_t i)
+{
+    qDebug() << "Pin try: " << i;
+    atm_->validatePin(1111);
 }
 
 void MainWindow::testFree()
