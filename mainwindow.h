@@ -37,6 +37,8 @@ private slots:
 
     void successStart();
 
+    void testBack();
+
     void onInsert();
 
     void on_insertButton_page0_clicked();

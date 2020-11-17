@@ -39,9 +39,7 @@ void ATMSelectorWidget::onParamsUpdated()
         hash.insert(item,i);
         ui_->atmsList->addItem(item);
         // ui_->atmsList->setCurrentRow(p->atmId());
-
     }
-
 }
 
 Ui::ATMSelectorWidget *ATMSelectorWidget::ui() const
@@ -57,6 +55,7 @@ void ATMSelectorWidget::on_refreshButton_clicked()
 //що відбувається коли ми клікаємо на елемент зі списку
 void ATMSelectorWidget::on_atmsList_itemActivated(QListWidgetItem *item)
 {
+    // типа не всегда работает почему-то
     size_t id = hash.take(item->text());
     emit atm_selected(id);
 }

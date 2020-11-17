@@ -21,7 +21,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
 
-
     ui->lineEdit_cardNum->setInputMask("9999-9999-9999-9999");
 
     ui->lineEdit_anotherCardNum->setInputMask("9999-9999-9999-9999");
@@ -56,7 +55,17 @@ void MainWindow::activate(size_t id)
 // банкомат запущений, можна тут коннектити до чого треба і тп і тд
 void MainWindow::successStart()
 {
+    this->show();
     qDebug() << "successfull start!";
+
+    // тестування запитів
+    // connect(atm_, SIGNAL(cardInserted()), this, SLOT(testBack()));
+    // atm_->insertCard("");
+}
+
+void MainWindow::testBack()
+{
+    qDebug() << "Back successfull";
 }
 
 // функція бере екземпляр Мейнвіндов і активує його з айдішкою

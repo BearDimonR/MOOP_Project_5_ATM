@@ -92,8 +92,10 @@ ATM::ATM(const size_t atm_id):
     connect( &timer, &QTimer::timeout, &loop, &QEventLoop::quit );
     timer.start(5000);
     loop.exec();
-    if(timer.isActive())
+    if(timer.isActive()) {
+        connect(socket_, SIGNAL(replyOnStart(const ATMParams&)), this, SLOT(backOnStart(const ATMParams&)));
         socket_->askStart(atm_id);
+    }
     else
         qFatal(QString(ClientError("Starting error", ClientError::SERVER_REPLY_ERROR, "timeout")).toLatin1().constData());
 }
@@ -116,8 +118,6 @@ QString ATM::bankName()
 {
     return par_->bankName();
 }
-
-
 
 
 void ATM::insertCard(const QString & number)

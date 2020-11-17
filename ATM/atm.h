@@ -16,6 +16,12 @@ protected:
     ATMParams* par_;
     ATMCard* card_;
 
+    ATM(const ATM&) = delete;
+    ATM(ATM&&) = delete;
+    ATM& operator=(const ATM&) = delete;
+    ATM& operator=(ATM&&) = delete;
+
+private slots:
     void backOnStart(const ATMParams&);
     void backInsertCard();
     void backFreeCard();
@@ -27,11 +33,6 @@ protected:
     void backTakeCash(const ATMCard&, long);
 
     void backError(const QString&);
-
-    ATM(const ATM&) = delete;
-    ATM(ATM&&) = delete;
-    ATM& operator=(const ATM&) = delete;
-    ATM& operator=(ATM&&) = delete;
 
 public:
     explicit ATM(const size_t);
