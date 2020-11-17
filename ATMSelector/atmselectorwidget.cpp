@@ -1,13 +1,11 @@
 #include "atmselectorwidget.h"
 #include "ui_atmselectorwidget.h"
-#include <QHash>
-#include <QString>
-#include <iostream>
 #include "atmselector.h"
 #include "ATM/atm.h"
 #include "mainwindow.h"
-
-class ATMParams;
+#include <QHash>
+#include <QString>
+#include <QMessageBox>
 
 ATMSelectorWidget::ATMSelectorWidget(QWidget *parent) :
     QWidget(parent),
@@ -17,6 +15,7 @@ ATMSelectorWidget::ATMSelectorWidget(QWidget *parent) :
 {
     ui_->setupUi(this);
     connect(out_, SIGNAL(paramsChanged()), this, SLOT(onParamsUpdated()));
+    connect(out_, SIGNAL(errorOccured(const QString&)), this, SLOT(showError(const QString&)));
 }
 
 ATMSelectorWidget &ATMSelectorWidget::getInstance()
@@ -39,6 +38,11 @@ void ATMSelectorWidget::hideSelector()
 ATMSelectorWidget::~ATMSelectorWidget()
 {
     delete ui_;
+}
+
+void ATMSelectorWidget::showError(const QString & er)
+{
+    QMessageBox::critical(this, tr("ATMSelectorWidget"), er);
 }
 
 void ATMSelectorWidget::onParamsUpdated()
@@ -65,7 +69,7 @@ Ui::ATMSelectorWidget *ATMSelectorWidget::ui() const
 
 void ATMSelectorWidget::on_refreshButton_clicked()
 {
-    out_->refreshATMParams();
+   out_->refreshATMParams();
 }
 
 //що відбувається коли ми клікаємо на елемент зі списку

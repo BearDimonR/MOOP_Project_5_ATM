@@ -42,6 +42,7 @@ public:
     virtual ~ATMSelectorWidget();
 
 private slots:
+    void showError(const QString&);
     void onParamsUpdated();
     void on_refreshButton_clicked();
     void on_atmsList_itemActivated(QListWidgetItem *item);

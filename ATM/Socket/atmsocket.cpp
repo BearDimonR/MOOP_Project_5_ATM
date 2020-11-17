@@ -31,25 +31,16 @@ void ATMSocket::doOnTextMessageReceived(const QJsonObject & in)
     QJsonValue ct(plobj["content"]);
     if(!er.isNull() && !er.isUndefined() && er.isString())
     {
-        qDebug() << "error ATMSocket: \n" << er.toString() << "\n\n";
         emit replyOnError(er.toString());
         return;
     }
-
-    // TODO null undefined payload check
-
-
     QJsonObject obj = ct.toObject();
     switch (EVENT_STRINGS.indexOf(ev.toString())) {
         case EVENTS::START_ATM:
-            emit replyOnStart(ATMParams::fromJson(obj));
-            break;
+                emit replyOnStart(ATMParams::fromJson(obj));
+                break;
         case EVENTS::INSERT_CARD:
                 emit replyOnInsertedCard();
-                break;
-        case EVENTS::CHECK_PIN:
-            // error on creating object
-                emit replyOnValidatePin(obj["counter"].toVariant().toULongLong());
                 break;
         case EVENTS::SUCCESS_PIN:
                 emit replyOnSuccessPin();
@@ -57,18 +48,33 @@ void ATMSocket::doOnTextMessageReceived(const QJsonObject & in)
         case EVENTS::FREE_CARD:
                 emit replyOnFreeCard();
                 break;
+        case EVENTS::CHANGE_PIN:
+                emit replyOnChangePin();
+                break;
         case EVENTS::SEND_TO_CARD:
                 emit replyOnSendToCard(ATMCard::fromJson(obj));
-                break;
-        case EVENTS::TAKE_FROM_CARD:
-                emit replyOnTakeCash(ATMCard::fromJson(obj), obj["atm_cash"].toString().toLong());
                 break;
         case EVENTS::CHECK_BAL:
                 emit replyOnCheckBal(ATMCard::fromJson(obj));
                 break;
-        case EVENTS::CHANGE_PIN:
-                emit replyOnChangePin();
-                break;
+        case EVENTS::CHECK_PIN:
+                {
+                    QJsonValue counter(obj["counter"]);
+                    if(counter.isNull() || counter.isUndefined() || !counter.isDouble())
+                                        qFatal("%s", QString(ClientError("ATMSocket on receive json check_pin error",
+                                                       ClientError::PARSING_ERROR, QJsonDocument(in).toJson())).toLatin1().constData());
+                    emit replyOnValidatePin(counter.toVariant().toULongLong());
+                    break;
+                }
+        case EVENTS::TAKE_FROM_CARD:
+                {
+                    QJsonValue cash(obj["atm_cash"]);
+                    if(cash.isNull() || cash.isUndefined() || !cash.isDouble())
+                                        qFatal("%s", QString(ClientError("ATMSocket on receive json take_from_card error",
+                                                       ClientError::PARSING_ERROR, QJsonDocument(in).toJson())).toLatin1().constData());
+                    emit replyOnTakeCash(ATMCard::fromJson(obj), cash.toVariant().toLongLong());
+                    break;
+                }
         default:
                 qFatal("%s", QString(ClientError("ATMSocket on receive json error",
                                ClientError::UNDEFINED_EVENT, QJsonDocument(in).toJson())).toLatin1().constData());

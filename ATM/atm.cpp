@@ -21,6 +21,8 @@ void ATM::backOnStart(const ATMParams & par)
     connect(socket_, SIGNAL(replyOnCheckBal(const ATMCard&)), this, SLOT(backCheckBal(const ATMCard&)));
     connect(socket_, SIGNAL(replyOnTakeCash(const ATMCard&, const long)), this, SLOT(backTakeCash(const ATMCard&, long)));
 
+    connect(socket_, SIGNAL(replyOnError(const QString&)), this, SLOT(backError(const QString&)));
+
     emit atmStarted();
 }
 
@@ -90,13 +92,12 @@ ATM::ATM(const size_t atm_id):
     par_(Q_NULLPTR),
     card_(Q_NULLPTR)
 {
-    // deal with it
     QTimer timer;
     timer.setSingleShot(true);
     QEventLoop loop;
     connect( socket_, &ATMSocket::replyOnConnected, &loop, &QEventLoop::quit );
     connect( &timer, &QTimer::timeout, &loop, &QEventLoop::quit );
-    timer.start(5000);
+    timer.start(20000);
     loop.exec();
     if(timer.isActive()) {
         connect(socket_, SIGNAL(replyOnStart(const ATMParams&)), this, SLOT(backOnStart(const ATMParams&)));

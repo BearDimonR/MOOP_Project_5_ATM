@@ -1,7 +1,9 @@
 #include "appsocket.h"
 #include "Utility/utilities.h"
-#include <QDebug>
 #include "ATM/clienterror.h"
+#include <QDebug>
+#include <QTimer>
+#include <QEventLoop>
 
 QUrl AppSocket::HOST_URL = Utility::getInstance().getString("AppSocket_HOSTNAME");
 
@@ -25,8 +27,7 @@ void AppSocket::doOnSslErrors(const QList<QSslError> &errors)
     QString res;
     for(int i = 0; i < errors.size(); ++i)
         res += errors[i].errorString();
-
-    qFatal("%s", res.toLatin1().constData());
+    qFatal("SSL errors:\n %s", res.toLatin1().constData());
 }
 
 QJsonObject AppSocket::toJson(const QString & str)

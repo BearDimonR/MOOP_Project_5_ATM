@@ -59,9 +59,17 @@ void MainWindow::successStart()
 
     qDebug() << "successfull start!";
 
+    // вивід помилок
+    connect(atm_, SIGNAL(errorOccured(const QString&)), this, SLOT(showError(const QString&)));
+
     // тестування запитів
     connect(atm_, SIGNAL(cardInserted()), this, SLOT(testInsert()));
     atm_->insertCard("1111111111111111");
+}
+
+void MainWindow::showError(const QString & er)
+{
+    QMessageBox::critical(this, tr("ATMSelectorWidget"), er);
 }
 
 void MainWindow::testInsert()

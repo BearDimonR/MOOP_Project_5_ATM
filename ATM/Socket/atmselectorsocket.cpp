@@ -13,9 +13,6 @@ void ATMSelectorSocket::askForATMParams()
 
 void ATMSelectorSocket::doOnTextMessageReceived(const QJsonObject & in)
 {
-    //TO REMOVE
-    qDebug() << "Received json (ATMSelectorSocket):\n" << QJsonDocument(in).toJson() << "\n\n";
-    //TO REMOVE
     QJsonValue ev(in["event"]);
     QJsonValue pl(in["payload"]);
     if(ev.isNull() || ev.isUndefined() || !ev.isString() || pl.isNull() || pl.isUndefined() || !pl.isObject())
@@ -28,8 +25,6 @@ void ATMSelectorSocket::doOnTextMessageReceived(const QJsonObject & in)
         qFatal("%s", QString(ClientError("ATMSelectorSocket on receive json error",
                        ClientError::PARSING_ERROR, QJsonDocument(in).toJson())).toLatin1().constData());
     if(!er.isNull() && !er.isUndefined() && er.isString()) {
-        // REMOVE
-        qDebug() << "error selector: \n" << er.toString() << "\n\n";
         emit errorOccured(er.toString());
     }
     else if(ev.toString() == EVENT_NAME)

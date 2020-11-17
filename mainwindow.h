@@ -36,6 +36,7 @@ public:
 private slots:
 
     void successStart();
+    void showError(const QString&);
 
     void testInsert();
     void testFree();
