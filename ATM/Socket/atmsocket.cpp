@@ -52,7 +52,7 @@ void ATMSocket::doOnTextMessageReceived(const QJsonObject & in)
                 emit replyOnValidatePin(obj["counter"].toVariant().toULongLong());
                 break;
         case EVENTS::SUCCESS_PIN:
-                emit replyOnSuccessPin(ATMCard::fromJson(obj));
+                emit replyOnSuccessPin();
                 break;
         case EVENTS::FREE_CARD:
                 emit replyOnFreeCard();

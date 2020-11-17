@@ -1,16 +1,21 @@
 #include "atmcard2.h"
 #include "ATM/clienterror.h"
 #include <QJsonDocument>
+#include <QVariant>
 
 ATMCard ATMCard::fromJson(const QJsonObject & obj)
 {
-    try {
-        return ATMCard(obj["balance"].toString().toLong(),
-                             obj["creditAvaliable"].toString().toLong(),
-                              obj["creditLimit"].toString().toLong());
-    } catch (...) {
+    QJsonValue bal(obj["balance"]);
+    QJsonValue cre_a(obj["credit_available"]);
+    QJsonValue cre_l(obj["cred_limit"]);
+    if(bal.isNull() || bal.isUndefined() || !bal.isDouble()
+            || cre_a.isNull() || cre_a.isUndefined() || !cre_a.isDouble()
+            || cre_l.isNull() || cre_l.isUndefined() || !cre_l.isDouble())
         qFatal(QString(ClientError("ATMCard json error", ClientError::PARSING_ERROR, QJsonDocument(obj).toBinaryData())).toLatin1().constData());
-    }
+    return ATMCard(bal.toVariant().toLongLong(),
+                         cre_a.toVariant().toLongLong(),
+                          cre_l.toVariant().toLongLong());
+
 }
 
 ATMCard::ATMCard(const long bal, const long credA, const long credL):

@@ -9,14 +9,30 @@
 
 class ATMParams;
 
-ATMSelectorWidget::ATMSelectorWidget(ATMSelector* out,QWidget *parent) :
+ATMSelectorWidget::ATMSelectorWidget(QWidget *parent) :
     QWidget(parent),
-    out_(out),
+    out_(new ATMSelector()),
     ui_(new Ui::ATMSelectorWidget)
 
 {
     ui_->setupUi(this);
-    connect(out, SIGNAL(paramsChanged()), this, SLOT(onParamsUpdated()));
+    connect(out_, SIGNAL(paramsChanged()), this, SLOT(onParamsUpdated()));
+}
+
+ATMSelectorWidget &ATMSelectorWidget::getInstance()
+{
+    static ATMSelectorWidget a;
+    return a;
+}
+
+void ATMSelectorWidget::startSelector()
+{
+    ATMSelectorWidget::getInstance().show();
+}
+
+void ATMSelectorWidget::hideSelector()
+{
+    ATMSelectorWidget::getInstance().hide();
 }
 
 
@@ -57,5 +73,5 @@ void ATMSelectorWidget::on_atmsList_itemActivated(QListWidgetItem *item)
 {
     // типа не всегда работает почему-то
     //size_t id = hash.take(item->text());
-    emit atm_selected(1);
+    MainWindow::startMainWindow(1);
 }

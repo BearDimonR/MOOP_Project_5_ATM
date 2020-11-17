@@ -44,8 +44,7 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::activate(size_t id)
 {
     if (atm_ != Q_NULLPTR)
-        qFatal("%s", QString(ClientError("MainWindow already started",
-                       ClientError::CLIENT_ERROR, atm_->bankName())).toLatin1().constData());
+        delete atm_;
     atm_ = new ATM(id);
     // connect to atmStarted
     connect(atm_, SIGNAL(atmStarted()), this, SLOT(successStart()));
@@ -56,6 +55,8 @@ void MainWindow::activate(size_t id)
 void MainWindow::successStart()
 {
     this->show();
+    ATMSelectorWidget::hideSelector();
+
     qDebug() << "successfull start!";
 
     // тестування запитів
@@ -344,9 +345,8 @@ void MainWindow::on_Button_changePin_clicked()//перехід на сторін
 
 void MainWindow::on_Button_otherATMs_clicked()//перехід на сторінку з вибором доступних атм
 {
-    ATMSelector selector;
-    ATMSelectorWidget widget(&selector);
-    widget.show();
+    ATMSelectorWidget::startSelector();
+    this->close();
 }
 
 void MainWindow::on_backButton_page7_clicked()

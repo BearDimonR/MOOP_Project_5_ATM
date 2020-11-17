@@ -2,15 +2,19 @@
 #include "ATM/clienterror.h"
 #include <QJsonObject>
 #include <QJsonDocument>
+#include <QVariant>
 
 ATMParams ATMParams::fromJson(const QJsonObject & obj)
 {
-    try {
-        return ATMParams(obj["atm_id"].toInt(), obj["bank_name"].toString(),
-                 obj["cash"].toInt(), ATMParams::Languages::UA);
-    } catch (...) {
+    QJsonValue atm_id(obj["atm_id"]);
+    QJsonValue bank_name(obj["bank_name"]);
+    QJsonValue cash(obj["cash"]);
+    if(atm_id.isNull() || atm_id.isUndefined() || !atm_id.isDouble()
+            || bank_name.isNull() || bank_name.isUndefined() || !bank_name.isString()
+            || cash.isNull() || cash.isUndefined() || !cash.isDouble())
         qFatal(QString(ClientError("ATMParams json error", ClientError::PARSING_ERROR, QJsonDocument(obj).toBinaryData())).toLatin1().constData());
-     }
+    return ATMParams(atm_id.toVariant().toULongLong(), bank_name.toVariant().toString(),
+                 cash.toVariant().toULongLong(), ATMParams::Languages::UA);
 }
 
 

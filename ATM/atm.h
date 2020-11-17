@@ -26,7 +26,7 @@ private slots:
     void backInsertCard();
     void backFreeCard();
     void backValidatePin(const size_t);
-    void backPinSuccess(const ATMCard&);
+    void backPinSuccess();
     void backChangePin();
     void backSendToCard(const ATMCard&);
     void backCheckBal(const ATMCard&);

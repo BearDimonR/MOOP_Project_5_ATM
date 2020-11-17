@@ -47,7 +47,7 @@ signals:
     void replyOnInsertedCard();
     void replyOnFreeCard();
     void replyOnValidatePin(const size_t);
-    void replyOnSuccessPin(const ATMCard&);
+    void replyOnSuccessPin();
     void replyOnChangePin();
     void replyOnSendToCard(const ATMCard&);
     void replyOnCheckBal(const ATMCard&);

@@ -15,7 +15,7 @@ void ATM::backOnStart(const ATMParams & par)
     connect(socket_, SIGNAL(replyOnInsertedCard()), this, SLOT(backInsertCard()));
     connect(socket_, SIGNAL(replyOnFreeCard()), this, SLOT(backFreeCard()));
     connect(socket_, SIGNAL(replyOnValidatePin(const size_t)), this, SLOT(backValidatePin(const size_t)));
-    connect(socket_, SIGNAL(replyOnSuccessPin(const ATMCard&)), this, SLOT(backPinSuccess(const ATMCard&)));
+    connect(socket_, SIGNAL(replyOnSuccessPin()), this, SLOT(backPinSuccess()));
     connect(socket_, SIGNAL(replyOnChangePin()), this, SLOT(backChangePin()));
     connect(socket_, SIGNAL(replyOnSendToCard(const ATMCard&)), this, SLOT(backSendToCard(const ATMCard&)));
     connect(socket_, SIGNAL(replyOnCheckBal(const ATMCard&)), this, SLOT(backCheckBal(const ATMCard&)));
@@ -38,10 +38,8 @@ void ATM::backFreeCard()
     emit cardFree();
 }
 
-void ATM::backPinSuccess(const ATMCard & card)
+void ATM::backPinSuccess()
 {
-    assert(card_ == Q_NULLPTR);
-    card_ = new ATMCard(card);
     emit pinSuccess();
 }
 
@@ -53,7 +51,6 @@ void ATM::backValidatePin(const size_t counter)
 
 void ATM::backChangePin()
 {
-    assert(card_ != Q_NULLPTR);
     emit pinChanged();
 }
 
@@ -67,7 +64,6 @@ void ATM::backSendToCard(const ATMCard & card)
 
 void ATM::backCheckBal(const ATMCard & card)
 {
-    assert(card_ != Q_NULLPTR);
     delete card_;
     card_ = new ATMCard(card);
     emit balChecked();
@@ -132,7 +128,6 @@ QString ATM::bankName()
 
 void ATM::insertCard(const QString & number)
 {
-    assert(card_ == Q_NULLPTR);
     socket_->askInsertCard(number);
 }
 
@@ -143,30 +138,25 @@ void ATM::freeCard()
 
 void ATM::validatePin(const size_t pin)
 {
-    assert(card_ == Q_NULLPTR);
     socket_->askValidatePin(pin);
 }
 
 void ATM::changePin(const size_t pin)
 {
-    assert(card_ != Q_NULLPTR);
     socket_->askChangePin(pin);
 }
 
 void ATM::sendToCard(const QString & number, const size_t sum)
 {
-    assert(card_ != Q_NULLPTR);
     socket_->askSendToCard(number, sum);
 }
 
 void ATM::checkBal()
 {
-    assert(card_ != Q_NULLPTR);
     socket_->askCheckBal();
 }
 
 void ATM::takeCash(const size_t sum)
 {
-    assert(card_ != Q_NULLPTR);
     socket_->askTakeCash(sum);
 }

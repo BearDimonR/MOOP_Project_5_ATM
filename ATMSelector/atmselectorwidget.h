@@ -26,23 +26,25 @@ private:
     ATMSelectorWidget& operator=(const ATMSelectorWidget&) = delete;
     ATMSelectorWidget& operator=(ATMSelectorWidget&&) = delete;
 
+    explicit ATMSelectorWidget(QWidget *parent = nullptr);
+
     ATMSelector* out_;
     Ui::ATMSelectorWidget *ui_;
 
+    static ATMSelectorWidget& getInstance();
 public:
+    static void startSelector();
+    static void hideSelector();
+
     QHash<QString,size_t> hash;
     Ui::ATMSelectorWidget *ui() const;
 
-    explicit ATMSelectorWidget(ATMSelector* out, QWidget *parent = nullptr);
-    ~ATMSelectorWidget();
+    virtual ~ATMSelectorWidget();
 
 private slots:
     void onParamsUpdated();
     void on_refreshButton_clicked();
     void on_atmsList_itemActivated(QListWidgetItem *item);
-
-signals:
-    void atm_selected(const size_t);
 };
 
 #endif // ATMSELECTORWIDGET_H

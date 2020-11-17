@@ -11,11 +11,8 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     // опция 1
-    ATMSelector selector;
-    ATMSelectorWidget widget(&selector);
-    widget.show();
     // при выборе банкомата, атмселектор запустит банкомат
-    QObject::connect(&widget, &ATMSelectorWidget::atm_selected, &MainWindow::startMainWindow);
+    ATMSelectorWidget::startSelector();
     // опция 2
     // запустить банкомат самому
     // MainWindow::startMainWindow(1);
