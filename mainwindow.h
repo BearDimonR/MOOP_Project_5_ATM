@@ -8,20 +8,36 @@
 #include "ATMSelector/atmselector.h"
 #include "ATMSelector/atmselectorwidget.h"
 
+class ATM;
+
 namespace Ui {
 class MainWindow;
 }
 
 class MainWindow : public QMainWindow
 {
+
     Q_OBJECT
 
+private:
+    ATM* atm_;
+    Ui::MainWindow *ui;
+
+    explicit MainWindow(QWidget *parent = nullptr);
+
+    void activate(size_t);
+
 public:
-    explicit MainWindow(const size_t , QWidget *parent = nullptr);
+    static void startMainWindow(const size_t);
+
     void moneyWithdrawProcess(const size_t &);
     ~MainWindow();
 
 private slots:
+
+    void successStart();
+
+    void onInsert();
 
     void on_insertButton_page0_clicked();
 
@@ -207,12 +223,5 @@ private slots:
     void on_num0_8_clicked();
 
     void on_clearOne_8_clicked();
-
-private:
-    ATM* atm_;
-    Ui::MainWindow *ui;
-    ATMSocket* socket_;
-    ATMParams* par_;
-    ATMCard* card_;
 };
 

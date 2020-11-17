@@ -25,7 +25,7 @@ public:
     size_t atmId() const;
     const QString& bankName() const;
     Languages language() const;
-    const long cash() const;
+    long cash() const;
 
     void updateCash(const long);
 };

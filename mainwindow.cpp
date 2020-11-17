@@ -7,19 +7,16 @@
 #include "ATM/Model/atmparams.h"
 #include "ATMSelector/atmselector.h"
 #include "ATMSelector/atmselectorwidget.h"
-
-//    card_(atm->card()),
-//    par_(atm->par()),
-//    atm_(atm)
+#include "ATM/clienterror.h"
 
 
-
-MainWindow::MainWindow(const size_t id, QWidget *parent) :
+MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    atm_(new ATM(id)),
+    atm_(Q_NULLPTR),
     ui(new Ui::MainWindow)
 
 {
+    // TODO classic
     //qDebug() << "pidar";
 
     ui->setupUi(this);
@@ -41,18 +38,42 @@ MainWindow::MainWindow(const size_t id, QWidget *parent) :
     ui->lineEdit_repeatChangePIN->setInputMask("9999");
 }
 
+// запускає вікно з банкоматом з айді таким
+// перевірка чи вже запущений має бути
+// видавати помилки іф запущений
+// ДОДАТИ ВИХІД З БАНКОМАТУ!
+void MainWindow::activate(size_t id)
+{
+    if (atm_ != Q_NULLPTR)
+        qFatal("%s", QString(ClientError("MainWindow already started",
+                       ClientError::CLIENT_ERROR, atm_->bankName())).toLatin1().constData());
+    atm_ = new ATM(id);
+    // connect to atmStarted
+    connect(atm_, SIGNAL(atmStarted()), this, SLOT(successStart()));
+    // після того як запустився банкомат коннектити можна і решту сигналів до потрібних функцій
+}
 
+// банкомат запущений, можна тут коннектити до чого треба і тп і тд
+void MainWindow::successStart()
+{
+    qDebug() << "successfull start!";
+}
 
-//void MainWindow::startSelector()
-//{
-//    ATMSelector selector;
-//    ATMSelectorWidget widget0(&selector);
-//    ui->mainStackedWidget->insertWidget(8,&widget0);
-//}
+// функція бере екземпляр Мейнвіндов і активує його з айдішкою
+void MainWindow::startMainWindow(const size_t id)
+{
+    static MainWindow inst;
+    inst.activate(id);
+}
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::onInsert()
+{
+    qDebug() << "insertCard: " << atm_->card()->bal();
 }
 
 

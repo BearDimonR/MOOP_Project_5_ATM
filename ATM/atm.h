@@ -38,6 +38,7 @@ public:
     virtual ~ATM();
 
     ATMCard* card();
+    QString bankName();
 
 
 public slots:

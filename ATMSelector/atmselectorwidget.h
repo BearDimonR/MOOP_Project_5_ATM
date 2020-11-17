@@ -16,34 +16,33 @@ class ATMSelectorWidget;
 
 class ATMSelectorWidget : public QWidget
 {
+
     Q_OBJECT
-public:
-    QHash<QString,size_t> hash;
-
-    explicit ATMSelectorWidget(ATMSelector* out, QWidget *parent = nullptr);
-
-    const QStringList takeParamsFromServer(ATMParams &params) const;
-
-    ~ATMSelectorWidget();
-
-    Ui::ATMSelectorWidget *ui() const;
-
-private slots:
-
-    void onParamsUpdated();
-    void on_refreshButton_clicked();
-    void on_atmsList_itemPressed(QListWidgetItem *item);
-
-signals:
-    void atm_selected(const size_t);
-
-    void on_atmsList_itemActivated(QListWidgetItem *item);
 
 private:
 
+    ATMSelectorWidget(const ATMSelectorWidget&) = delete;
+    ATMSelectorWidget(const ATMSelectorWidget&&) = delete;
+    ATMSelectorWidget& operator=(const ATMSelectorWidget&) = delete;
+    ATMSelectorWidget& operator=(ATMSelectorWidget&&) = delete;
+
     ATMSelector* out_;
     Ui::ATMSelectorWidget *ui_;
-    QMainWindow* mw;
+
+public:
+    QHash<QString,size_t> hash;
+    Ui::ATMSelectorWidget *ui() const;
+
+    explicit ATMSelectorWidget(ATMSelector* out, QWidget *parent = nullptr);
+    ~ATMSelectorWidget();
+
+private slots:
+    void onParamsUpdated();
+    void on_refreshButton_clicked();
+    void on_atmsList_itemActivated(QListWidgetItem *item);
+
+signals:
+    void atm_selected(const size_t);
 };
 
 #endif // ATMSELECTORWIDGET_H

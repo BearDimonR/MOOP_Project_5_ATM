@@ -23,7 +23,6 @@ ATMSelectorWidget::ATMSelectorWidget(ATMSelector* out,QWidget *parent) :
 ATMSelectorWidget::~ATMSelectorWidget()
 {
     delete ui_;
-    delete mw;
 }
 
 void ATMSelectorWidget::onParamsUpdated()
@@ -59,11 +58,5 @@ void ATMSelectorWidget::on_refreshButton_clicked()
 void ATMSelectorWidget::on_atmsList_itemActivated(QListWidgetItem *item)
 {
     size_t id = hash.take(item->text());
-
-    mw = new MainWindow(id);
-    mw->show();
-
-
-    cout<<"HUI"<<endl;
-
+    emit atm_selected(id);
 }

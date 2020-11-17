@@ -19,9 +19,19 @@ ATMCard::ATMCard(const long bal, const long credA, const long credL):
     creditLim_(credL)
 {}
 
-const long &ATMCard::bal() const
+long ATMCard::bal() const
 {
     return bal_;
+}
+
+long ATMCard::creditAval() const
+{
+    return creditAval_;
+}
+
+long ATMCard::creditLim() const
+{
+    return creditLim_;
 }
 
 

@@ -112,6 +112,11 @@ ATMCard *ATM::card()
     return card_;
 }
 
+QString ATM::bankName()
+{
+    return par_->bankName();
+}
+
 
 
 
