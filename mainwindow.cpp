@@ -59,13 +59,20 @@ void MainWindow::successStart()
     qDebug() << "successfull start!";
 
     // тестування запитів
-    // connect(atm_, SIGNAL(cardInserted()), this, SLOT(testBack()));
-    // atm_->insertCard("");
+    connect(atm_, SIGNAL(cardInserted()), this, SLOT(testInsert()));
+    atm_->insertCard("1111111111111111");
+    connect(atm_, SIGNAL(cardFree()), this, SLOT(testFree()));
 }
 
-void MainWindow::testBack()
+void MainWindow::testInsert()
 {
-    qDebug() << "Back successfull";
+    qDebug() << "Insert card successfull";
+    atm_->freeCard();
+}
+
+void MainWindow::testFree()
+{
+    qDebug() << "Free card successfull";
 }
 
 // функція бере екземпляр Мейнвіндов і активує його з айдішкою
@@ -89,6 +96,8 @@ void MainWindow::onInsert()
 //page 0 -- insert card
 void MainWindow::on_insertButton_page0_clicked()
 {
+    // TODO atm_->insertCard("1111111111111111");
+    // відправити номер картки
     ui->mainStackedWidget->setCurrentIndex(4);
 }
 

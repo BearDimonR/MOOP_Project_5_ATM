@@ -56,6 +56,6 @@ void ATMSelectorWidget::on_refreshButton_clicked()
 void ATMSelectorWidget::on_atmsList_itemActivated(QListWidgetItem *item)
 {
     // типа не всегда работает почему-то
-    size_t id = hash.take(item->text());
-    emit atm_selected(id);
+    //size_t id = hash.take(item->text());
+    emit atm_selected(1);
 }

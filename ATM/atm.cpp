@@ -11,6 +11,16 @@ void ATM::backOnStart(const ATMParams & par)
 {
     assert(par_ == Q_NULLPTR);
     par_ = new ATMParams(par);
+    connect(socket_, SIGNAL(replyOnStart(const ATMParams&)), this, SLOT(backOnStart(const ATMParams&)));
+    connect(socket_, SIGNAL(replyOnInsertedCard()), this, SLOT(backInsertCard()));
+    connect(socket_, SIGNAL(replyOnFreeCard()), this, SLOT(backFreeCard()));
+    connect(socket_, SIGNAL(replyOnValidatePin(const size_t)), this, SLOT(backValidatePin(const size_t)));
+    connect(socket_, SIGNAL(replyOnSuccessPin(const ATMCard&)), this, SLOT(backPinSuccess(const ATMCard&)));
+    connect(socket_, SIGNAL(replyOnChangePin()), this, SLOT(backChangePin()));
+    connect(socket_, SIGNAL(replyOnSendToCard(const ATMCard&)), this, SLOT(backSendToCard(const ATMCard&)));
+    connect(socket_, SIGNAL(replyOnCheckBal(const ATMCard&)), this, SLOT(backCheckBal(const ATMCard&)));
+    connect(socket_, SIGNAL(replyOnTakeCash(const ATMCard&, const long)), this, SLOT(backTakeCash(const ATMCard&, long)));
+
     emit atmStarted();
 }
 
@@ -22,8 +32,8 @@ void ATM::backInsertCard()
 
 void ATM::backFreeCard()
 {
-    assert(card_ != Q_NULLPTR);
-    delete card_;
+    if (card_ == Q_NULLPTR)
+        delete card_;
     card_ = Q_NULLPTR;
     emit cardFree();
 }
@@ -128,7 +138,6 @@ void ATM::insertCard(const QString & number)
 
 void ATM::freeCard()
 {
-    assert(card_ != Q_NULLPTR);
     socket_->askFreeCard();
 }
 

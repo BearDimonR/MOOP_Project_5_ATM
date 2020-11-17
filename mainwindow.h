@@ -37,7 +37,8 @@ private slots:
 
     void successStart();
 
-    void testBack();
+    void testInsert();
+    void testFree();
 
     void onInsert();
 
