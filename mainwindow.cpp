@@ -74,14 +74,28 @@ void MainWindow::testInsert()
 void MainWindow::testPinSuccess()
 {
    qDebug() << "Pin successfull";
-   connect(atm_, SIGNAL(cardFree()), this, SLOT(testFree()));
-   atm_->freeCard();
+   connect(atm_, SIGNAL(pinChanged()), this, SLOT(testChangePin()));
+   atm_->changePin(1111);
 }
 
 void MainWindow::testPinValidated(const size_t i)
 {
     qDebug() << "Pin try: " << i;
     atm_->validatePin(1111);
+}
+
+void MainWindow::testChangePin()
+{
+    qDebug() << "Pin changed successfull";
+    connect(atm_, SIGNAL(balChecked()), this, SLOT(testCheckBal()));
+    atm_->checkBal();
+}
+
+void MainWindow::testCheckBal()
+{
+    qDebug() << "Bal check successfull: " << atm_->card()->bal();
+    connect(atm_, SIGNAL(cardFree()), this, SLOT(testFree()));
+    atm_->freeCard();
 }
 
 void MainWindow::testFree()

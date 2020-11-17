@@ -41,6 +41,8 @@ private slots:
     void testFree();
     void testPinSuccess();
     void testPinValidated(const size_t);
+    void testChangePin();
+    void testCheckBal();
 
     void onInsert();
 
