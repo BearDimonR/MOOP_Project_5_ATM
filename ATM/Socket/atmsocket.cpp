@@ -49,7 +49,7 @@ void ATMSocket::doOnTextMessageReceived(const QJsonObject & in)
                 break;
         case EVENTS::CHECK_PIN:
             // error on creating object
-                emit replyOnValidatePin(er.toString().toUInt());
+                emit replyOnValidatePin(obj["counter"].toVariant().toULongLong());
                 break;
         case EVENTS::SUCCESS_PIN:
                 emit replyOnSuccessPin(ATMCard::fromJson(obj));
