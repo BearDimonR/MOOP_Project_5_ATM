@@ -58,8 +58,8 @@ void ATM::backChangePin()
 
 void ATM::backSendToCard(const ATMCard & card)
 {
-    assert(card_ != Q_NULLPTR);
-    delete card_;
+    if(card_ != Q_NULLPTR)
+        delete card_;
     card_ = new ATMCard(card);
     emit cashSend();
 }
