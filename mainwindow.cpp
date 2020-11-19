@@ -469,6 +469,7 @@ void MainWindow::onBalCheckedAnswer()
         msgBox.setIconPixmap(QPixmap(":/imgs/img/580b57fcd9996e24bc43c395.png"));
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.exec();
+        break;
     }
     case 5:
     case 6:{
@@ -477,6 +478,7 @@ void MainWindow::onBalCheckedAnswer()
         if (static_cast<long>(sum_)<=atm_->card()->bal())
             atm_->takeCash(sum_);
         else  errorMsg(ui->lineEdit_enterSum);
+        break;
     }
     case 10:
     case 11:{
@@ -484,6 +486,7 @@ void MainWindow::onBalCheckedAnswer()
              atm_->sendToCard(ui->lineEdit_anotherCardNum->text().remove(QChar('-')),sum_);
 
         else errorMsg(ui->lineEdit_enterSumForTransfer_11);
+        break;
         }
 
     }
@@ -561,9 +564,8 @@ void MainWindow::on_backButton_page7_clicked()
 void MainWindow::checkSum(size_t sum)
 {
 
-    sum_+=sum;
+    sum_ = sum;
     atm_->checkBal();
-    sum=0;
 
     //    //перевірка чи введена сума < суми що лежить на карті якщо так то
     //    // атм кард може бути null, якщо я до цього не перевіряв баланс
@@ -971,12 +973,13 @@ void MainWindow::on_clearButton_page9_clicked()
 
 void MainWindow::on_backButton_page9_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(1);
     ui->lineEdit_anotherCardNum->clear();
+    ui->mainStackedWidget->setCurrentIndex(1);
 }
 
 void MainWindow::on_okButton_page9_clicked()
 {
+    ui->lineEdit_anotherCardNum->clear();
     ui->mainStackedWidget->setCurrentIndex(10);
 }
 
@@ -1013,7 +1016,7 @@ void MainWindow::on_okButton_page9_clicked()
 
 //
 //    }
-}
+// }
 
 
 
