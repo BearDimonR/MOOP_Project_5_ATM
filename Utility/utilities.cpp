@@ -8,7 +8,7 @@
 
 Utility::Utility()
 {
-    QFile file("/Users/sofixeno/Desktop/Booblik/MOOP_Project_5_ATM/config.json");
+    QFile file("/Users/sofixeno/Desktop/Booblik/MOOP_Project_5_ATM/");
     if (!file.open(QIODevice::ReadOnly))
         qFatal("%s", QString(ClientError("Utilities on open file error",
                                        ClientError::FILE_ERROR, file.errorString())).toLatin1().constData());

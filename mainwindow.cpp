@@ -37,8 +37,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->lineEdit_changePIN->setInputMask("9999");
     ui->lineEdit_repeatChangePIN->setInputMask("9999");
+    
     ui->lineEdit_changePIN->setReadOnly(true);
     ui->lineEdit_repeatChangePIN->setReadOnly(true);
+
 
     ui->mainStackedWidget->setCurrentIndex(0);
 }
@@ -383,7 +385,9 @@ void MainWindow::on_clearButton_page2_clicked()
 void MainWindow::on_backButton_page2_clicked()
 {
     // освободить карту надо
-    ui->mainStackedWidget->setCurrentIndex(4);
+    ui->lineEdit_attemptNum->setText("3");
+    pin.clear();
+    ui->lineEdit_PIN->clear();
     atm_->freeCard();
 }
 
@@ -408,6 +412,7 @@ void MainWindow::onSuccessPIN()
 
     qDebug()<<"PIN input success";
     ui->mainStackedWidget->setCurrentIndex(1);
+    ui->lineEdit_attemptNum->setText("3");
 
 }
 
@@ -416,6 +421,7 @@ void MainWindow::onWrongPIN(const size_t attempts)
     //if ((attempts<3)&& (attempts>0))
     //pin.clear();
     ui->lineEdit_PIN->clear();
+    pin.clear();
     ui->lineEdit_attemptNum->setText(QString::number (attempts));
 
     if (attempts==0){  //Якщо пін не правильний 3 рази то червоний екран, повідомлення про помилку --> перехід на сторінку вставити картку
@@ -430,9 +436,9 @@ void MainWindow::onWrongPIN(const size_t attempts)
         msgBox.setIconPixmap(QPixmap(":/imgs/img/unnamed.png"));
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.exec();
-        atm_->freeCard();
-        ui->mainStackedWidget->setCurrentIndex(0);
         ui->page2_pin->setStyleSheet("background-color: rgb(255, 234, 189);");
+
+        atm_->freeCard();
 
     }
 }
@@ -479,8 +485,6 @@ void MainWindow::onSuccessFreeCard()
     qDebug() << "Card was free";
 
     ui->mainStackedWidget->setCurrentIndex(0);
-
-
 }
 
 
@@ -524,18 +528,20 @@ void MainWindow::checkSumForTake(size_t sum)
 {
 
     //перевірка чи введена сума < суми що лежить на карті якщо так то
-    if (static_cast<long>(sum)<=atm_->card()->bal())
+    // атм кард може бути null, якщо я до цього не перевіряв баланс
+    //if (static_cast<long>(sum)<=atm_->card()->bal())
         atm_->takeCash(sum);
     //якщо ні, то виведення повідомлення про помилку і очищення поля
-    else{
-        QMessageBox msgBox;
-        msgBox.setWindowTitle("Помилка");
-        msgBox.setText("Введена Вами сума більша за поточний баланс на вашій картці");
-        msgBox.setIconPixmap(QPixmap(":/imgs/img/unnamed.png"));
-        msgBox.setStandardButtons(QMessageBox::Ok);
-        msgBox.exec();
-        //ui->lineEdit_enterSum->clear();
-    }}
+//    else{
+//        QMessageBox msgBox;
+//        msgBox.setWindowTitle("Помилка");
+//        msgBox.setText("Введена Вами сума більша за поточний баланс на вашій картці");
+//        msgBox.setIconPixmap(QPixmap(":/imgs/img/unnamed.png"));
+//        msgBox.setStandardButtons(QMessageBox::Ok);
+//        msgBox.exec();
+//        //ui->lineEdit_enterSum->clear();
+//  }
+}
 
 
 void MainWindow::on_Button_20grn_clicked()//вивести повідомлення про те що гроші були успішно зняті і показати поточний баланс картки
@@ -584,7 +590,7 @@ void MainWindow::onSuccessCashTaken(const long money)
     msgBox.setWindowTitle("Гроші знято!");
     msgBox.setText("Введена Вами сума була успішно знята з картки! \n"
                    "Баланс на вашій картці = " + QString::number(atm_->card()->bal())+" boobliks.\n"
-                                                                                      "Було знято: " + money +" boobliks.");
+                                                                                      "Було знято: " + QString::number(money) +" boobliks.");
     msgBox.setIconPixmap(QPixmap(":/imgs/img/kisspng-check-mark-bottle-material-green-tick-5ad25467123860.2792666715237336070746.png"));
     msgBox.setStandardButtons(QMessageBox::Ok);
     msgBox.exec();
@@ -833,7 +839,6 @@ void MainWindow::on_clearButton_page8_clicked()
 void MainWindow::on_backButton_page8_clicked()
 {
 
-
     ui->lineEdit_changePIN->clear();
     ui->lineEdit_repeatChangePIN->clear();
     ui->mainStackedWidget->setCurrentIndex(7);
@@ -844,6 +849,8 @@ void MainWindow::on_backButton_page8_clicked()
 void MainWindow::on_OKButton_page8_clicked()
 {
     atm_->changePin(ui->lineEdit_changePIN->text().toUInt());
+    ui->lineEdit_changePIN->clear();
+    ui->lineEdit_repeatChangePIN->clear();
 }
 
 

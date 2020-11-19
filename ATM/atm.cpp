@@ -73,8 +73,8 @@ void ATM::backCheckBal(const ATMCard & card)
 
 void ATM::backTakeCash(const ATMCard & card, const long money)
 {
-    assert(card_ != Q_NULLPTR);
-    delete card_;
+    if(card_ != Q_NULLPTR)
+        delete card_;
     card_ = new ATMCard(card);
     long m = par_->cash();
     //par_->cash() = money;
