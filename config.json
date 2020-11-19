@@ -1,5 +1,5 @@
 {
-        "AppSocket_HOSTNAME" : "wss://boublbank.herokuapp.com",
+        "AppSocket_HOSTNAME" : "ws://localhost:8080",
         "ATMSelectorSocket_event_name" : "atms_list",
         "ATMSocket_events" :
             [
