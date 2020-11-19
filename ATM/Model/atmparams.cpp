@@ -45,6 +45,11 @@ ATMParams &ATMParams::operator=(const ATMParams & that)
     return *this;
 }
 
+ATMParams::operator QString() const
+{
+    return "АТМ: " + QString::number(atm_id_) + ", Банк: " + bank_name_;
+}
+
 size_t ATMParams::atmId() const
 {
     return atm_id_;

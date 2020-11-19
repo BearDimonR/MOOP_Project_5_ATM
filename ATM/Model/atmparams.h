@@ -22,6 +22,8 @@ public:
     ATMParams(const ATMParams&);
     ATMParams& operator=(const ATMParams&);
 
+    operator QString() const;
+
     size_t atmId() const;
     const QString& bankName() const;
     Languages language() const;

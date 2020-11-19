@@ -95,8 +95,6 @@ ATMSocket::ATMSocket(QObject *parent):
 ATMSocket::~ATMSocket()
 {}
 
-// a lot of duplicates
-
 void ATMSocket::askStart(const size_t atm_id)
 {
     QJsonObject obj;
