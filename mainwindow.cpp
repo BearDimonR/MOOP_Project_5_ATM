@@ -111,6 +111,9 @@ void MainWindow::startMainWindow(const size_t id)
 MainWindow::~MainWindow()
 {
     delete ui_;
+    if(atm_ != Q_NULLPTR)
+        delete atm_;
+
 }
 
 

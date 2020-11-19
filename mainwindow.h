@@ -32,7 +32,7 @@ private:
 
 public:
     static void startMainWindow(const size_t);
-    ~MainWindow();
+    virtual ~MainWindow();
 
 private slots:
 
