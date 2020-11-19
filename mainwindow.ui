@@ -58,7 +58,7 @@
 </string>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>8</number>
     </property>
     <widget class="QWidget" name="page0_cardInsertion">
      <widget class="QLabel" name="page0_Logo">
@@ -834,6 +834,9 @@ border-color: rgb(0, 0, 0);
         <pointsize>18</pointsize>
        </font>
       </property>
+      <property name="acceptDrops">
+       <bool>false</bool>
+      </property>
       <property name="styleSheet">
        <string notr="true">color: rgb(0, 0, 0);
 background-color: rgb(255, 255, 230);
@@ -847,11 +850,20 @@ border-color: rgb(0, 0, 0);
       <property name="text">
        <string/>
       </property>
+      <property name="maxLength">
+       <number>100</number>
+      </property>
       <property name="echoMode">
        <enum>QLineEdit::Normal</enum>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
+      </property>
+      <property name="readOnly">
+       <bool>false</bool>
+      </property>
+      <property name="clearButtonEnabled">
+       <bool>false</bool>
       </property>
      </widget>
      <widget class="QLineEdit" name="lineEdit_attemptNum">
@@ -884,6 +896,37 @@ border-color: rgb(0, 0, 0);
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="okButton_page2">
+      <property name="geometry">
+       <rect>
+        <x>580</x>
+        <y>480</y>
+        <width>191</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>17</pointsize>
+       </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(0, 0, 0);
+background-color: rgb(255, 190, 123);
+border-style: solid;
+border-width: 2px;
+border-color: rgb(0, 0, 0);
+
+</string>
+      </property>
+      <property name="text">
+       <string>Далі &gt;&gt;</string>
       </property>
      </widget>
     </widget>
@@ -2846,9 +2889,9 @@ border-color: rgb(0, 0, 0);
      <widget class="QLabel" name="label_page8">
       <property name="geometry">
        <rect>
-        <x>320</x>
+        <x>300</x>
         <y>10</y>
-        <width>171</width>
+        <width>211</width>
         <height>41</height>
        </rect>
       </property>
@@ -2868,9 +2911,9 @@ border-color: rgb(0, 0, 0);
      <widget class="QLabel" name="label_page8_3">
       <property name="geometry">
        <rect>
-        <x>80</x>
-        <y>130</y>
-        <width>261</width>
+        <x>240</x>
+        <y>120</y>
+        <width>311</width>
         <height>41</height>
        </rect>
       </property>
@@ -2887,68 +2930,11 @@ border-color: rgb(0, 0, 0);
        <string>Введіть новий PIN код :</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_page8_2">
-      <property name="geometry">
-       <rect>
-        <x>80</x>
-        <y>220</y>
-        <width>251</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial</family>
-        <pointsize>22</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(0, 0, 0);</string>
-      </property>
-      <property name="text">
-       <string>Повторіть PIN код :</string>
-      </property>
-     </widget>
      <widget class="QLineEdit" name="lineEdit_changePIN">
       <property name="geometry">
        <rect>
-        <x>380</x>
-        <y>130</y>
-        <width>361</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial</family>
-        <pointsize>18</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(0, 0, 0);
-background-color: rgb(255, 255, 230);
-border-style: solid;
-border-width: 2px;
-border-color: rgb(0, 0, 0);
-
-
-</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="echoMode">
-       <enum>QLineEdit::Normal</enum>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEdit_repeatChangePIN">
-      <property name="geometry">
-       <rect>
-        <x>380</x>
-        <y>220</y>
+        <x>220</x>
+        <y>170</y>
         <width>361</width>
         <height>41</height>
        </rect>
@@ -2983,7 +2969,7 @@ border-color: rgb(0, 0, 0);
       <property name="geometry">
        <rect>
         <x>260</x>
-        <y>240</y>
+        <y>210</y>
         <width>261</width>
         <height>261</height>
        </rect>
@@ -4644,7 +4630,7 @@ border-color: rgb(0, 0, 0);
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>

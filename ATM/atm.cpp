@@ -71,13 +71,12 @@ void ATM::backCheckBal(const ATMCard & card)
     emit balChecked();
 }
 
-void ATM::backTakeCash(const ATMCard & card, long money)
+void ATM::backTakeCash(const ATMCard & card, const long money)
 {
     assert(card_ != Q_NULLPTR);
     delete card_;
     card_ = new ATMCard(card);
     long m = par_->cash();
-    money= par_->cash();
     //par_->cash() = money;
     emit cashTaken(m - money);
 }

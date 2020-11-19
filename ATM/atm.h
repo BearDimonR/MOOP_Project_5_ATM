@@ -61,7 +61,7 @@ signals:
     void pinChanged();
     void cashSend();
     void balChecked();
-    void cashTaken(long money);
+    void cashTaken(const long money);
     void errorOccured(const QString&);
 };
 

@@ -21,7 +21,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 private:
-    QString PIN;
+    QString pin;
     ATM* atm_;
     Ui::MainWindow *ui;
 
@@ -63,10 +63,9 @@ private slots:
     void testPinValidated(const size_t);
     void testChangePin();
     void testCheckBal();
-    void testOnInsert();
+    void testOnTakeCash(const long money);
+    void testOnSendCash();
 //---------------------------------------
-    QLineEdit* chooseSelectedLineEdit(QLineEdit* line1, QLineEdit* line2);
-
     //--------------------Buttons------------------------
 
     void on_insertButton_page0_clicked();
@@ -125,8 +124,6 @@ private slots:
     void on_clearOneclicked();
 
     void on_backButton_page2_clicked();
-
-    void on_lineEdit_PIN_editingFinished();
 
     //----------------Main menu page-------------------
 
@@ -302,5 +299,8 @@ private slots:
     void on_backButton_page11_clicked();
     void on_okButton_page11_clicked();
 
+    void on_okButton_page2_clicked();
+    void on_clearOne_2_clicked();
+    void on_clearButton_page2_clicked();
 };
 

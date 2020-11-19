@@ -121,7 +121,7 @@ void ATMSocket::askSendToCard(const QString & number, const size_t sum)
 {
     QJsonObject obj;
     obj.insert("number", number);
-    obj.insert("sum", QString::number(sum));
+    obj.insert("sum", QJsonValue(static_cast<qint64>(sum)));
     sendMessage(EVENT_STRINGS.at(EVENTS::SEND_TO_CARD), QJsonDocument(obj).toJson());
 }
 

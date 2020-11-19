@@ -12,7 +12,7 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    PIN(""),
+    pin(""),
     atm_(Q_NULLPTR),
     ui(new Ui::MainWindow)
 
@@ -29,14 +29,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->lineEdit_enterSum->setInputMask("9999999");//поставити обмеження на картку
 
-    ui->lineEdit_PIN->setInputMask("9999");//поставити обмеження на ПІН в чотири символи
-    //ui->lineEdit_PIN->setEchoMode(QLineEdit::PasswordEchoOnEdit);
+    ui->lineEdit_PIN->setInputMask("XXXX");//поставити обмеження на ПІН в чотири символи
 
     ui->lineEdit_attemptNum->setInputMask("9");
     //ui->lineEdit_attemptNum->setReadOnly()
 
     ui->lineEdit_changePIN->setInputMask("9999");
-    ui->lineEdit_repeatChangePIN->setInputMask("9999");
+
+    ui->mainStackedWidget->setCurrentIndex(0);
 }
 
 //----------------------------------------------------
@@ -70,33 +70,40 @@ void MainWindow::successStart()
 
 
     //вставлення картки
-    connect(atm_,SIGNAL(cardInserted()),this,SLOT(onSuccessCardInsertion()));
+//    connect(atm_,SIGNAL(cardInserted()),this,SLOT(onSuccessCardInsertion()));
 
-    //робота з пінкодом
-    connect(atm_,SIGNAL(pinSuccess()), this, SLOT(onSuccessPIN()));
-    connect(atm_,SIGNAL(pinValidated(const size_t)), this, SLOT(onWrongPIN(const size_t)));
-
-
-    //перевірити баланс по карті
-    connect(atm_,SIGNAL(balChecked()),this,SLOT(onBalCheckedAnswer()));
+//    //робота з пінкодом
+//    connect(atm_,SIGNAL(pinSuccess()), this, SLOT(onSuccessPIN()));
+//    connect(atm_,SIGNAL(pinValidated(const size_t)), this, SLOT(onWrongPIN(const size_t)));
 
 
-    //зняти гроші
-    connect(atm_,SIGNAL(cashTaken(long money)),this,SLOT(onSuccessCashTaken(long money)));
-
-    //перерахувати гроші
-    connect(atm_,SIGNAL(cashSend()),this,SLOT(onSuccessCashSend()));
-
-    //змінити пінкод
-    connect(atm_,SIGNAL(pinChanged()),this,SLOT((onSuccessPINchange())));
+//    //перевірити баланс по карті
+//    connect(atm_,SIGNAL(balChecked()),this,SLOT(onBalCheckedAnswer()));
 
 
-    //закинчити роботу з карткою -- дістати картку
-    connect(atm_,SIGNAL(cardFree()),this, SLOT(onSuccessFreeCard()));
+//    //зняти гроші
+//    connect(atm_,SIGNAL(cashTaken(long money)),this,SLOT(onSuccessCashTaken(long money)));
 
-    // тестування запитів
-    //    connect(atm_, SIGNAL(cardInserted()), this, SLOT(testInsert()));
-    //    atm_->insertCard("1111111111111111");
+//    //перерахувати гроші
+//    connect(atm_,SIGNAL(cashSend()),this,SLOT(onSuccessCashSend()));
+
+//    //змінити пінкод
+//    connect(atm_,SIGNAL(pinChanged()),this,SLOT((onSuccessPINchange())));
+
+
+//    //закинчити роботу з карткою -- дістати картку
+//    connect(atm_,SIGNAL(cardFree()),this, SLOT(onSuccessFreeCard()));
+
+    //тестування запитів
+        connect(atm_, SIGNAL(cardInserted()), this, SLOT(testInsert()));
+        connect(atm_, SIGNAL(pinSuccess()), this, SLOT(testPinSuccess()));
+        connect(atm_, SIGNAL(pinValidated(const size_t)), this, SLOT(testPinValidated(const size_t)));
+        connect(atm_, SIGNAL(balChecked()), this, SLOT(testCheckBal()));
+        connect(atm_, SIGNAL(pinChanged()), this, SLOT(testChangePin()));
+        connect(atm_, SIGNAL(cardFree()), this, SLOT(testFree()));
+        connect(atm_, SIGNAL(cashSend()), this, SLOT(testOnSend()));
+        connect(atm_, SIGNAL(cardFree()), this, SLOT(testFree()));
+        atm_->insertCard("1111111111111111");
 }
 
 void MainWindow::showError(const QString & er)
@@ -108,15 +115,13 @@ void MainWindow::showError(const QString & er)
 void MainWindow::testInsert()
 {
     qDebug() << "Insert card successfull";
-    // connect(atm_, SIGNAL(pinSuccess()), this, SLOT(testPinSuccess()));
-    // connect(atm_, SIGNAL(pinValidated(const size_t)), this, SLOT(testPinValidated(const size_t)));
+
     atm_->validatePin(1211);
 }
 
 void MainWindow::testPinSuccess()
 {
     qDebug() << "Pin successfull";
-    //connect(atm_, SIGNAL(pinChanged()), this, SLOT(testChangePin()));
     atm_->changePin(1111);
 }
 
@@ -129,20 +134,30 @@ void MainWindow::testPinValidated(const size_t i)
 void MainWindow::testChangePin()
 {
     qDebug() << "Pin changed successfull";
-    // connect(atm_, SIGNAL(balChecked()), this, SLOT(testCheckBal()));
     atm_->checkBal();
 }
 
 void MainWindow::testCheckBal()
 {
     qDebug() << "Bal check successfull: " << atm_->card()->bal();
-    // connect(atm_, SIGNAL(cardFree()), this, SLOT(testFree()));
-    atm_->freeCard();
+    atm_->sendToCard("1234123412341234", 100);
 }
 
 void MainWindow::testFree()
 {
     qDebug() << "Free card successfull";
+    atm_->takeCash(100);
+}
+
+void MainWindow::testOnTakeCash(const long money)
+{
+     qDebug() << "takeCash: " << money;
+     atm_->freeCard();
+}
+
+void MainWindow::testOnSendCash()
+{
+    qDebug() << "sendedCash: " << atm_->card()->bal();
 }
 
 // функція бере екземпляр Мейнвіндов і активує його з айдішкою
@@ -152,29 +167,10 @@ void MainWindow::startMainWindow(const size_t id)
     inst.activate(id);
 }
 
-//функція перевіряє довжину піна
-//bool MainWindow::checkPIN(const QLineEdit *line)
-//{
-//    if (line->text().length()==4) ui->lineEdit_PIN->setEnabled(false);
-//    return true;
-//}
-//функція яка має ховати кожне введене число в стрічку для введення піна під *
-
-void MainWindow::testOnInsert()
-{
-    qDebug() << "insertCard: " << atm_->card()->bal();
-}
-
 MainWindow::~MainWindow()
 {
     delete ui;
 }
-
-
-
-
-
-
 
 //page 0 -- insert card
 void MainWindow::on_insertButton_page0_clicked()
@@ -183,10 +179,6 @@ void MainWindow::on_insertButton_page0_clicked()
     // відправити номер картки
     ui->mainStackedWidget->setCurrentIndex(4);
 }
-
-
-
-
 
 
 //page 4 -- enter card number after insertion
@@ -252,7 +244,7 @@ void MainWindow::on_clearButton_page4_clicked()
 
 void MainWindow::on_okButton_page4_clicked()
 {
-    atm_->insertCard(ui->lineEdit_cardNum->text());
+    atm_->insertCard(ui->lineEdit_cardNum->text().remove(QChar('-')));
 }
 
 void MainWindow::on_backButton_page4_clicked()
@@ -264,108 +256,146 @@ void MainWindow::on_backButton_page4_clicked()
 void MainWindow::onSuccessCardInsertion()
 {
     //відповідь від сервера ОК то --> виконаты дії нижче
+    ui->lineEdit_cardNum->clear();
+
     QMessageBox msgBox;
     msgBox.setWindowTitle("Info");
     msgBox.setText("Ваша картка була успішно вставлена");
     msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.show();
+    // тут треба якись таймаут, або чекати на відповідь клієнта, бо вікно ховається
     ui->mainStackedWidget->setCurrentIndex(2);
 }
-
-
-
-
-
 
 
 
 //page 2 enter PIN after card insertion (2d index page)
 void MainWindow::on_num1_2_clicked()
 {
+    if(pin.size() == 4)
+        return;
     ui->lineEdit_PIN->insert("*");
-    PIN.append("1");
+    pin.append("1");
 }
 
 void MainWindow::on_num2_2_clicked()
 {
+    if(pin.size() == 4)
+        return;
     ui->lineEdit_PIN->insert("*");
-    PIN.append("2");
+    pin.append("2");
 }
 
 void MainWindow::on_num3_2_clicked()
 {
+    if(pin.size() == 4)
+        return;
     ui->lineEdit_PIN->insert("*");
-    PIN.append("3");
+    pin.append("3");
 }
 
 void MainWindow::on_num4_2_clicked()
 {
+    if(pin.size() == 4)
+        return;
     ui->lineEdit_PIN->insert("*");
-    PIN.append("4");
+    pin.append("4");
 }
 
 void MainWindow::on_num5_2_clicked()
 {
+    if(pin.size() == 4)
+        return;
     ui->lineEdit_PIN->insert("*");
-    PIN.append("5");
+    pin.append("5");
 }
 
 void MainWindow::on_num6_2_clicked()
 {
+    if(pin.size() == 4)
+        return;
     ui->lineEdit_PIN->insert("*");
-    PIN.append("6");
+    pin.append("6");
 }
 
 void MainWindow::on_num7_2_clicked()
 {
+    if(pin.size() == 4)
+        return;
     ui->lineEdit_PIN->insert("*");
-    PIN.append("7");
+    pin.append("7");
 }
 
 void MainWindow::on_num8_2_clicked()
 {
+    if(pin.size() == 4)
+        return;
     ui->lineEdit_PIN->insert("*");
-    PIN.append("8");
+    pin.append("8");
 }
 
 void MainWindow::on_num9_2_clicked()
 {
+    if(pin.size() == 4)
+        return;
     ui->lineEdit_PIN->insert("*");
-    PIN.append("9");
+    pin.append("9");
 }
 
 void MainWindow::on_num0_2_clicked()
 {
+    if(pin.size() == 4)
+        return;
     ui->lineEdit_PIN->insert("*");
-    PIN.append("0");
+    pin.append("0");
 }
 
+// не вызывается при нажатии
 void MainWindow::on_clearOneclicked()
 {
     ui->lineEdit_PIN->backspace();
 }
 
+// а эта вызывается
+void MainWindow::on_clearOne_2_clicked()
+{
+    ui->lineEdit_PIN->backspace();
+    pin.chop(1);
+}
+
+
+// ощичает строку
+void MainWindow::on_clearButton_page2_clicked()
+{
+    ui->lineEdit_PIN->clear();
+}
+
+
 void MainWindow::on_backButton_page2_clicked()
 {
+    // освободить карту надо
     ui->mainStackedWidget->setCurrentIndex(4);
 }
 
 
 //сделать проверку пина
 //сделать скрытие пина под *
-void MainWindow::on_lineEdit_PIN_editingFinished()//проверка пина
+void MainWindow::on_okButton_page2_clicked()
 {
     // if (checkPIN(ui->lineEdit_PIN)){
 
-    atm_->validatePin(PIN.toUInt());
+    atm_->validatePin(pin.toUInt());
     //        emit(atm_->pinValidated(3));
     //        return;
     // }
-
 }
+
 
 void MainWindow::onSuccessPIN()
 {
     //якщо пін правильний то переходимо в головне меню картки
+    ui->lineEdit_PIN->clear();
+
     qDebug()<<"PIN input success";
     ui->mainStackedWidget->setCurrentIndex(1);
 
@@ -374,7 +404,7 @@ void MainWindow::onSuccessPIN()
 void MainWindow::onWrongPIN(const size_t attempts)
 {
     //if ((attempts<3)&& (attempts>0))
-    ui->lineEdit_attemptNum->setText(QString ("").arg (QString::number (attempts)));
+    ui->lineEdit_attemptNum->setText(QString::number (attempts));
 
     if (attempts==0){  //Якщо пін не правильний 3 рази то червоний екран, повідомлення про помилку --> перехід на сторінку вставити картку
 
@@ -387,10 +417,6 @@ void MainWindow::onWrongPIN(const size_t attempts)
         ui->mainStackedWidget->setCurrentIndex(0);
     }
 }
-
-
-
-
 
 
 
@@ -675,71 +701,65 @@ void MainWindow::on_okButton_page3_clicked()
 
 
 //page 8 -- change PIN page
-QLineEdit* MainWindow::chooseSelectedLineEdit(QLineEdit* line1,QLineEdit* line2)
-{
-    if (line1->hasFocus()) return line1;
-    else return line2;
-}
 
 void MainWindow::on_num1_8_clicked()
 {
-
-    chooseSelectedLineEdit(ui->lineEdit_changePIN,ui->lineEdit_repeatChangePIN)->insert("1");
+    ui->lineEdit_changePIN->insert("1");
 }
 
 void MainWindow::on_num2_8_clicked()
 {
-     chooseSelectedLineEdit(ui->lineEdit_changePIN,ui->lineEdit_repeatChangePIN)->insert("2");
+     ui->lineEdit_changePIN->insert("2");
 }
 
 void MainWindow::on_num3_8_clicked()
 {
-     chooseSelectedLineEdit(ui->lineEdit_changePIN,ui->lineEdit_repeatChangePIN)->insert("3");
+     ui->lineEdit_changePIN->insert("3");
 }
 
 void MainWindow::on_num4_8_clicked()
 {
-     chooseSelectedLineEdit(ui->lineEdit_changePIN,ui->lineEdit_repeatChangePIN)->insert("4");
+     ui->lineEdit_changePIN->insert("4");
 }
 
 void MainWindow::on_num5_8_clicked()
 {
-     chooseSelectedLineEdit(ui->lineEdit_changePIN,ui->lineEdit_repeatChangePIN)->insert("5");
+     ui->lineEdit_changePIN->insert("5");
 }
 
 void MainWindow::on_num6_8_clicked()
 {
-     chooseSelectedLineEdit(ui->lineEdit_changePIN,ui->lineEdit_repeatChangePIN)->insert("6");
+     ui->lineEdit_changePIN->insert("6");
 }
 
 void MainWindow::on_num7_8_clicked()
 {
-     chooseSelectedLineEdit(ui->lineEdit_changePIN,ui->lineEdit_repeatChangePIN)->insert("7");
+     ui->lineEdit_changePIN->insert("7");
 }
 
 void MainWindow::on_num8_8_clicked()
 {
-     chooseSelectedLineEdit(ui->lineEdit_changePIN,ui->lineEdit_repeatChangePIN)->insert("8");
+     ui->lineEdit_changePIN->insert("8");
 }
 
 void MainWindow::on_num9_8_clicked()
 {
-     chooseSelectedLineEdit(ui->lineEdit_changePIN,ui->lineEdit_repeatChangePIN)->insert("9");
+     ui->lineEdit_changePIN->insert("9");
 }
 
 void MainWindow::on_num0_8_clicked()
 {
-     chooseSelectedLineEdit(ui->lineEdit_changePIN,ui->lineEdit_repeatChangePIN)->insert("0");
+     ui->lineEdit_changePIN->insert("0");
 }
 
 void MainWindow::on_clearOne_8_clicked()
 {
-     chooseSelectedLineEdit(ui->lineEdit_changePIN,ui->lineEdit_repeatChangePIN)->backspace();
+     ui->lineEdit_changePIN->backspace();
 }
 
 void MainWindow::on_clearButton_page8_clicked()
 {
-     chooseSelectedLineEdit(ui->lineEdit_changePIN,ui->lineEdit_repeatChangePIN)->clear();
+     ui->lineEdit_changePIN->clear();
 }
 
 void MainWindow::on_backButton_page8_clicked()
@@ -974,6 +994,3 @@ void MainWindow::on_okButton_page11_clicked()//вивести повідомле
         msgBox.setStandardButtons(QMessageBox::Ok);
         ui->lineEdit_enterSum->clear();}
 }
-
-
-
