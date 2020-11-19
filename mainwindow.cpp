@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     ui->lineEdit_cardNum->setInputMask("9999-9999-9999-9999");
+    ui->lineEdit_cardNum->setReadOnly(true);
 
     ui->lineEdit_anotherCardNum->setInputMask("9999-9999-9999-9999");
 
@@ -32,10 +33,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->lineEdit_PIN->setInputMask("XXXX");//поставити обмеження на ПІН в чотири символи
 
     ui->lineEdit_attemptNum->setInputMask("9");
-    //ui->lineEdit_attemptNum->setReadOnly()
+    //ui->lineEdit_attemptNum->setReadOnly();
 
-    ui->lineEdit_changePIN->setInputMask("XXXX");
-    ui->lineEdit_repeatChangePIN->setInputMask("XXXX");
+    ui->lineEdit_changePIN->setInputMask("9999");
+    ui->lineEdit_repeatChangePIN->setInputMask("9999");
+    ui->lineEdit_changePIN->setReadOnly(true);
+    ui->lineEdit_repeatChangePIN->setReadOnly(true);
 
     ui->mainStackedWidget->setCurrentIndex(0);
 }
@@ -449,6 +452,7 @@ void MainWindow::on_cardBalanceButton_clicked()
 
 void MainWindow::onBalCheckedAnswer()
 {
+
     QMessageBox msgBox;
     msgBox.setWindowTitle("Баланс вашої картки");
     msgBox.setText("Баланс на вашій картці = " + QString::number(atm_->card()->bal())+" boobliks.");
@@ -829,9 +833,8 @@ void MainWindow::on_clearButton_page8_clicked()
 void MainWindow::on_backButton_page8_clicked()
 {
 
-    ui->lineEdit_changePIN->selectAll();
+
     ui->lineEdit_changePIN->clear();
-    ui->lineEdit_repeatChangePIN->selectAll();
     ui->lineEdit_repeatChangePIN->clear();
     ui->mainStackedWidget->setCurrentIndex(7);
 
