@@ -58,7 +58,7 @@
 </string>
     </property>
     <property name="currentIndex">
-     <number>10</number>
+     <number>9</number>
     </property>
     <widget class="QWidget" name="page0_cardInsertion">
      <widget class="QLabel" name="page0_Logo">
@@ -82,7 +82,7 @@
        <rect>
         <x>90</x>
         <y>210</y>
-        <width>361</width>
+        <width>371</width>
         <height>31</height>
        </rect>
       </property>
@@ -104,7 +104,7 @@
        <rect>
         <x>150</x>
         <y>250</y>
-        <width>221</width>
+        <width>281</width>
         <height>51</height>
        </rect>
       </property>
@@ -216,9 +216,9 @@ border-width: 5px;
      <widget class="QLabel" name="page1_label">
       <property name="geometry">
        <rect>
-        <x>310</x>
-        <y>20</y>
-        <width>171</width>
+        <x>290</x>
+        <y>40</y>
+        <width>221</width>
         <height>41</height>
        </rect>
       </property>
@@ -697,9 +697,9 @@ border-color: rgb(0, 0, 0);
      <widget class="QLabel" name="label_page2">
       <property name="geometry">
        <rect>
-        <x>310</x>
-        <y>40</y>
-        <width>171</width>
+        <x>290</x>
+        <y>50</y>
+        <width>211</width>
         <height>41</height>
        </rect>
       </property>
@@ -1498,9 +1498,9 @@ border-color: rgb(0, 0, 0);</string>
      <widget class="QLabel" name="page4_label">
       <property name="geometry">
        <rect>
-        <x>280</x>
-        <y>40</y>
-        <width>221</width>
+        <x>260</x>
+        <y>50</y>
+        <width>281</width>
         <height>31</height>
        </rect>
       </property>
@@ -1986,7 +1986,7 @@ border-color: rgb(0, 0, 0);
        <rect>
         <x>320</x>
         <y>30</y>
-        <width>141</width>
+        <width>181</width>
         <height>41</height>
        </rect>
       </property>
@@ -2588,9 +2588,9 @@ border-color: rgb(0, 0, 0);
      <widget class="QLabel" name="page6_label">
       <property name="geometry">
        <rect>
-        <x>330</x>
-        <y>20</y>
-        <width>161</width>
+        <x>320</x>
+        <y>40</y>
+        <width>171</width>
         <height>41</height>
        </rect>
       </property>
@@ -2781,37 +2781,6 @@ border-color: rgb(0, 0, 0);
        <string>Зміна PIN-коду</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="Button_otherATMs">
-      <property name="geometry">
-       <rect>
-        <x>470</x>
-        <y>220</y>
-        <width>331</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial</family>
-        <pointsize>17</pointsize>
-       </font>
-      </property>
-      <property name="cursor">
-       <cursorShape>PointingHandCursor</cursorShape>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(0, 0, 0);
-background-color: rgb(255, 190, 123);
-border-style: solid;
-border-width: 2px;
-border-color: rgb(0, 0, 0);
-
-</string>
-      </property>
-      <property name="text">
-       <string>Список доступних банкоматів</string>
-      </property>
-     </widget>
      <widget class="QPushButton" name="backButton_page7">
       <property name="enabled">
        <bool>true</bool>
@@ -2849,9 +2818,9 @@ border-color: rgb(0, 0, 0);
      <widget class="QLabel" name="page7_label_2">
       <property name="geometry">
        <rect>
-        <x>320</x>
+        <x>290</x>
         <y>50</y>
-        <width>181</width>
+        <width>221</width>
         <height>31</height>
        </rect>
       </property>
@@ -2969,7 +2938,7 @@ border-color: rgb(0, 0, 0);
       <property name="geometry">
        <rect>
         <x>270</x>
-        <y>250</y>
+        <y>270</y>
         <width>261</width>
         <height>201</height>
        </rect>
@@ -3498,8 +3467,8 @@ border-color: rgb(0, 0, 0);
      <widget class="QWidget" name="gridLayoutWidget_5">
       <property name="geometry">
        <rect>
-        <x>280</x>
-        <y>140</y>
+        <x>270</x>
+        <y>170</y>
         <width>271</width>
         <height>271</height>
        </rect>
@@ -3920,9 +3889,9 @@ border-color: rgb(0, 0, 0);
      <widget class="QLabel" name="label_page5_5">
       <property name="geometry">
        <rect>
-        <x>260</x>
+        <x>220</x>
         <y>40</y>
-        <width>281</width>
+        <width>371</width>
         <height>41</height>
        </rect>
       </property>
@@ -4659,9 +4628,9 @@ border-color: rgb(0, 0, 0);
      <widget class="QLabel" name="page11_label">
       <property name="geometry">
        <rect>
-        <x>250</x>
+        <x>210</x>
         <y>40</y>
-        <width>291</width>
+        <width>361</width>
         <height>41</height>
        </rect>
       </property>
