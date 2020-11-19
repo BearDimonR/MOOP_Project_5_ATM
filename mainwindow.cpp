@@ -995,7 +995,7 @@ void MainWindow::on_Button_1000grn_10_clicked()
 
 void MainWindow::on_backButton_page10_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(8);
+    ui->mainStackedWidget->setCurrentIndex(1);
 }
 
 void MainWindow::on_Button_AnySum_10_clicked()
