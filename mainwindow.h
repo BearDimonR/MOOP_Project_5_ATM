@@ -32,10 +32,6 @@ private:
 
 public:
     static void startMainWindow(const size_t);
-    //bool checkPIN(const QLineEdit *);
-   // size_t hidePIN(const QLineEdit *);
-
-    //void moneyWithdrawProcess(const size_t &);
     ~MainWindow();
 
 private slots:
@@ -57,21 +53,11 @@ private slots:
     void onSuccessPINchange();
 
     void onSuccessFreeCard();
-//-------------------------------
-    void testInsert();
-    void testFree();
-    void testPinSuccess();
-    void testPinValidated(const size_t);
-    void testChangePin();
-    void testCheckBal();
-    void testOnTakeCash(const long money);
-    void testOnSendCash();
-//---------------------------------------
+
+   //-----------------Utilities----------------------
     QLineEdit* chooseSelectedLineEdit(QLineEdit* line1, QLineEdit* line2);
     void checkSum(size_t);
     void errorMsg(QLineEdit * );
-    //void checkSumForSend(size_t);
-
 
     //--------------------Buttons------------------------
 
@@ -128,9 +114,14 @@ private slots:
 
     void on_num0_2_clicked();
 
-    void on_clearOneclicked();
+    //void on_clearOneclicked();
 
     void on_backButton_page2_clicked();
+
+
+    void on_okButton_page2_clicked();
+    void on_clearOne_2_clicked();
+    void on_clearButton_page2_clicked();
 
     //----------------Main menu page-------------------
 
@@ -306,8 +297,5 @@ private slots:
     void on_backButton_page11_clicked();
     void on_okButton_page11_clicked();
 
-    void on_okButton_page2_clicked();
-    void on_clearOne_2_clicked();
-    void on_clearButton_page2_clicked();
 };
 
