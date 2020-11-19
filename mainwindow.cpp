@@ -379,7 +379,9 @@ void MainWindow::on_clearButton_page2_clicked()
 void MainWindow::on_backButton_page2_clicked()
 {
     // освободить карту надо
-    ui->mainStackedWidget->setCurrentIndex(4);
+    ui->lineEdit_attemptNum->setText("3");
+    pin.clear();
+    ui->lineEdit_PIN->clear();
     atm_->freeCard();
 }
 
@@ -404,6 +406,7 @@ void MainWindow::onSuccessPIN()
 
     qDebug()<<"PIN input success";
     ui->mainStackedWidget->setCurrentIndex(1);
+    ui->lineEdit_attemptNum->setText("3");
 
 }
 
@@ -412,6 +415,7 @@ void MainWindow::onWrongPIN(const size_t attempts)
     //if ((attempts<3)&& (attempts>0))
     //pin.clear();
     ui->lineEdit_PIN->clear();
+    pin.clear();
     ui->lineEdit_attemptNum->setText(QString::number (attempts));
 
     if (attempts==0){  //Якщо пін не правильний 3 рази то червоний екран, повідомлення про помилку --> перехід на сторінку вставити картку
@@ -426,9 +430,9 @@ void MainWindow::onWrongPIN(const size_t attempts)
         msgBox.setIconPixmap(QPixmap(":/imgs/img/unnamed.png"));
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.exec();
-        atm_->freeCard();
-        ui->mainStackedWidget->setCurrentIndex(0);
         ui->page2_pin->setStyleSheet("background-color: rgb(255, 234, 189);");
+
+        atm_->freeCard();
 
     }
 }
@@ -474,8 +478,6 @@ void MainWindow::onSuccessFreeCard()
     qDebug() << "Card was free";
 
     ui->mainStackedWidget->setCurrentIndex(0);
-
-
 }
 
 
