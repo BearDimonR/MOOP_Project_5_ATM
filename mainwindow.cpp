@@ -38,8 +38,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->lineEdit_changePIN->setInputMask("9999");
     ui->lineEdit_repeatChangePIN->setInputMask("9999");
     
-    ui->lineEdit_changePIN->setReadOnly(true);
-    ui->lineEdit_repeatChangePIN->setReadOnly(true);
+    //ui->lineEdit_changePIN->setReadOnly(true);
+    //ui->lineEdit_repeatChangePIN->setReadOnly(true);
 
 
     ui->mainStackedWidget->setCurrentIndex(0);
@@ -459,13 +459,47 @@ void MainWindow::on_cardBalanceButton_clicked()
 void MainWindow::onBalCheckedAnswer()
 {
 
+
+    switch (ui->mainStackedWidget->currentIndex()) {
+    case 1: {
+
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("Баланс вашої картки");
+        msgBox.setText("Баланс на вашій картці = " + QString::number(atm_->card()->bal())+" boobliks.");
+        msgBox.setIconPixmap(QPixmap(":/imgs/img/580b57fcd9996e24bc43c395.png"));
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.exec();
+    }
+    case 5:
+    case 6:{
+        //перевірка чи введена сума < суми що лежить на карті якщо так то
+        // атм кард може бути null, якщо я до цього не перевіряв баланс
+        if (static_cast<long>(sum_)<=atm_->card()->bal())
+            atm_->takeCash(sum_);
+        else  errorMsg(ui->lineEdit_enterSum);
+    }
+    case 10:
+    case 11:{
+        if (static_cast<long>(sum_)<=atm_->card()->bal())
+            atm_->sendToCard(ui->lineEdit_anotherCardNum->text(),sum_);
+
+        else errorMsg(ui->lineEdit_enterSumForTransfer_11);
+        }
+
+    }
+
+
+    }
+
+void MainWindow::errorMsg(QLineEdit *line)
+{
     QMessageBox msgBox;
-    msgBox.setWindowTitle("Баланс вашої картки");
-    msgBox.setText("Баланс на вашій картці = " + QString::number(atm_->card()->bal())+" boobliks.");
-    msgBox.setIconPixmap(QPixmap(":/imgs/img/580b57fcd9996e24bc43c395.png"));
+    msgBox.setWindowTitle("Помилка");
+    msgBox.setText("Введена Вами сума більша за поточний баланс на вашій картці");
+    msgBox.setIconPixmap(QPixmap(":/imgs/img/unnamed.png"));
     msgBox.setStandardButtons(QMessageBox::Ok);
     msgBox.exec();
-
+    line->clear();
 }
 
 
@@ -524,53 +558,57 @@ void MainWindow::on_backButton_page7_clicked()
 
 
 //page 5 Sum select
-void MainWindow::checkSumForTake(size_t sum)
+void MainWindow::checkSum(size_t sum)
 {
 
-    //перевірка чи введена сума < суми що лежить на карті якщо так то
-    // атм кард може бути null, якщо я до цього не перевіряв баланс
-    //if (static_cast<long>(sum)<=atm_->card()->bal())
-        atm_->takeCash(sum);
-    //якщо ні, то виведення повідомлення про помилку і очищення поля
-//    else{
-//        QMessageBox msgBox;
-//        msgBox.setWindowTitle("Помилка");
-//        msgBox.setText("Введена Вами сума більша за поточний баланс на вашій картці");
-//        msgBox.setIconPixmap(QPixmap(":/imgs/img/unnamed.png"));
-//        msgBox.setStandardButtons(QMessageBox::Ok);
-//        msgBox.exec();
-//        //ui->lineEdit_enterSum->clear();
-//  }
+    sum_+=sum;
+    atm_->checkBal();
+    sum=0;
+
+    //    //перевірка чи введена сума < суми що лежить на карті якщо так то
+    //    // атм кард може бути null, якщо я до цього не перевіряв баланс
+    //    if (static_cast<long>(sum)<=atm_->card()->bal())
+    //        atm_->takeCash(sum);
+    //    //якщо ні, то виведення повідомлення про помилку і очищення поля
+    //    else{
+    //        QMessageBox msgBox;
+    //        msgBox.setWindowTitle("Помилка");
+    //        msgBox.setText("Введена Вами сума більша за поточний баланс на вашій картці");
+    //        msgBox.setIconPixmap(QPixmap(":/imgs/img/unnamed.png"));
+    //        msgBox.setStandardButtons(QMessageBox::Ok);
+    //        msgBox.exec();
+    //        //ui->lineEdit_enterSum->clear();
 }
 
 
 void MainWindow::on_Button_20grn_clicked()//вивести повідомлення про те що гроші були успішно зняті і показати поточний баланс картки
 {
-    checkSumForTake(20);
+
+    checkSum(20);
 }
 void MainWindow::on_Button_50grn_clicked()
 {
-    checkSumForTake(50);
+    checkSum(50);
 }
 
 void MainWindow::on_Button_100grn_clicked()
 {
-    checkSumForTake(100);
+    checkSum(100);
 }
 
 void MainWindow::on_Button_200grn_clicked()
 {
-    checkSumForTake(200);
+    checkSum(200);
 }
 
 void MainWindow::on_Button_500grn_clicked()
 {
-    checkSumForTake(500);
+    checkSum(500);
 }
 
 void MainWindow::on_Button_1000grn_clicked()
 {
-    checkSumForTake(1000);
+    checkSum(1000);
 }
 
 void MainWindow::on_backButton_page5_clicked()
@@ -676,28 +714,28 @@ void MainWindow::on_backButton_page6_clicked()
 void MainWindow::on_okButton_page6_clicked()//вивести повідомлення про те що гроші були успішно зняті і показати поточний баланс картки
 
 {
+    //atm_->checkBal();
+    checkSum(ui->lineEdit_enterSum->text().toULong());
 
-   //checkSumForTake(ui->lineEdit_enterSum->text().toULong());
 
+    //    QString entered_sum = ui->lineEdit_enterSum->text();
 
-    QString entered_sum = ui->lineEdit_enterSum->text();
-
-    //перевірка чи введена сума < суми що лежить на карті якщо так то
-    if (entered_sum.toUInt()<=atm_->card()->bal()){
-        atm_->takeCash(entered_sum.toUInt());
-        ui->lineEdit_enterSum->clear();}
-    //якщо ні, то виведення повідомлення про помилку і очищення поля
-    else{
-        QMessageBox msgBox;
-        msgBox.setWindowTitle("Помилка");
-        msgBox.setText("Введена Вами сума більша за поточний баланс на вашій картці");
-        msgBox.setIconPixmap(QPixmap(":/imgs/img/unnamed.png"));
-        msgBox.setStandardButtons(QMessageBox::Ok);
-        msgBox.exec();
-        ui->lineEdit_enterSum->clear();
+    //    //перевірка чи введена сума < суми що лежить на карті якщо так то
+    //    if (entered_sum.toUInt()<=atm_->card()->bal()){
+    //        atm_->takeCash(entered_sum.toUInt());
+    //        ui->lineEdit_enterSum->clear();}
+    //    //якщо ні, то виведення повідомлення про помилку і очищення поля
+    //    else{
+    //        QMessageBox msgBox;
+    //        msgBox.setWindowTitle("Помилка");
+    //        msgBox.setText("Введена Вами сума більша за поточний баланс на вашій картці");
+    //        msgBox.setIconPixmap(QPixmap(":/imgs/img/unnamed.png"));
+    //        msgBox.setStandardButtons(QMessageBox::Ok);
+    //        msgBox.exec();
+    //        ui->lineEdit_enterSum->clear();
 
 }
-}
+
 
 
 
@@ -945,23 +983,26 @@ void MainWindow::on_okButton_page9_clicked()
 
 //вибір суми для переказу -- переказ на іншу картку сторінка 10
 
-void MainWindow::checkSumForSend(size_t sum)
-{
+//void MainWindow::checkSumForSend(size_t sum)
+//{
 
-    //перевірка чи введена сума < суми що лежить на карті якщо так то
-    if (static_cast<long>(sum)<=atm_->card()->bal())
-        atm_->sendToCard(ui->lineEdit_anotherCardNum->text(),sum);
-    //якщо ні, то виведення повідомлення про помилку і очищення поля
-    else{
-        QMessageBox msgBox;
-        msgBox.setWindowTitle("Помилка");
-        msgBox.setText("Введена Вами сума більша за поточний баланс на вашій картці");
-        msgBox.setIconPixmap(QPixmap(":/imgs/img/kisspng-check-mark-bottle-material-green-tick-5ad25467123860.2792666715237336070746.png"));
-        msgBox.setStandardButtons(QMessageBox::Ok);
-        msgBox.exec();
 
-    }
-}
+//    atm_->checkBal();
+
+//    //перевірка чи введена сума < суми що лежить на карті якщо так то
+//    if (static_cast<long>(sum)<=atm_->card()->bal())
+//        atm_->sendToCard(ui->lineEdit_anotherCardNum->text(),sum);
+//    //якщо ні, то виведення повідомлення про помилку і очищення поля
+//    else{
+//        QMessageBox msgBox;
+//        msgBox.setWindowTitle("Помилка");
+//        msgBox.setText("Введена Вами сума більша за поточний баланс на вашій картці");
+//        msgBox.setIconPixmap(QPixmap(":/imgs/img/kisspng-check-mark-bottle-material-green-tick-5ad25467123860.2792666715237336070746.png"));
+//        msgBox.setStandardButtons(QMessageBox::Ok);
+//        msgBox.exec();
+
+//    }
+//}
 
 
 void MainWindow::onSuccessCashSend()
@@ -978,37 +1019,37 @@ void MainWindow::onSuccessCashSend()
 
 void MainWindow::on_Button_20grn_12_clicked()
 {
-    checkSumForSend(20);
+    checkSum(20);
     //atm_->sendToCard(ui->lineEdit_anotherCardNum->text(),20);
 }
 
 void MainWindow::on_Button_50grn_10_clicked()
 {
-    checkSumForSend(50);
+    checkSum(50);
     //atm_->sendToCard(ui->lineEdit_anotherCardNum->text(),50);
 }
 
 void MainWindow::on_Button_100grn_10_clicked()
 {
-    checkSumForSend(100);
+    checkSum(100);
     //atm_->sendToCard(ui->lineEdit_anotherCardNum->text(),100);
 }
 
 void MainWindow::on_Button_200grn_10_clicked()
 {
-    checkSumForSend(200);
+    checkSum(200);
     //atm_->sendToCard(ui->lineEdit_anotherCardNum->text(),200);
 }
 
 void MainWindow::on_Button_500grn_10_clicked()
 {
-    checkSumForSend(500);
+    checkSum(500);
     //atm_->sendToCard(ui->lineEdit_anotherCardNum->text(),500);
 }
 
 void MainWindow::on_Button_1000grn_10_clicked()
 {
-    checkSumForSend(1000);
+    checkSum(1000);
     //atm_->sendToCard(ui->lineEdit_anotherCardNum->text(),1000);
 }
 
@@ -1096,22 +1137,23 @@ void MainWindow::on_backButton_page11_clicked()
 }
 
 void MainWindow::on_okButton_page11_clicked()//вивести повідомлення про те що гроші були успішно зняті і показати поточний баланс картки
-
 {
-    QString entered_sum = ui->lineEdit_enterSumForTransfer_11->text();
+    //    atm_->checkBal();
+    //    QString entered_sum = ui->lineEdit_enterSumForTransfer_11->text();
 
-    //перевірка чи введена сума < суми що лежить на карті якщо так то
-    if (entered_sum.toUInt()<=atm_->card()->bal()){
-        atm_->sendToCard(ui->lineEdit_anotherCardNum->text(),entered_sum.toUInt());
-        ui->lineEdit_enterSumForTransfer_11->clear();}
-    //якщо ні, то виведення повідомлення про помилку і очищення поля
-    else{
-        QMessageBox msgBox;
-        msgBox.setWindowTitle("Помилка");
-        msgBox.setText("Введена Вами сума більша за поточний баланс на вашій картці");
-        msgBox.setIconPixmap(QPixmap(":/imgs/img/kisspng-check-mark-bottle-material-green-tick-5ad25467123860.2792666715237336070746.png"));
-        msgBox.setStandardButtons(QMessageBox::Ok);
-        msgBox.exec();
-        ui->lineEdit_enterSum->clear();
-    }
+    checkSum(ui->lineEdit_enterSumForTransfer_11->text().toULong());
+    //    //перевірка чи введена сума < суми що лежить на карті якщо так то
+    //    if (entered_sum.toUInt()<=atm_->card()->bal()){
+    //        atm_->sendToCard(ui->lineEdit_anotherCardNum->text(),entered_sum.toUInt());
+    //        ui->lineEdit_enterSumForTransfer_11->clear();}
+    //    //якщо ні, то виведення повідомлення про помилку і очищення поля
+    //    else{
+    //        QMessageBox msgBox;
+    //        msgBox.setWindowTitle("Помилка");
+    //        msgBox.setText("Введена Вами сума більша за поточний баланс на вашій картці");
+    //        msgBox.setIconPixmap(QPixmap(":/imgs/img/kisspng-check-mark-bottle-material-green-tick-5ad25467123860.2792666715237336070746.png"));
+    //        msgBox.setStandardButtons(QMessageBox::Ok);
+    //        msgBox.exec();
+    //        ui->lineEdit_enterSum->clear();
 }
+

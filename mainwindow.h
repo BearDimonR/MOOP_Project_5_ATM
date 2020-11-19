@@ -22,6 +22,7 @@ class MainWindow : public QMainWindow
 
 private:
     QString pin;
+    size_t sum_;
     ATM* atm_;
     Ui::MainWindow *ui;
 
@@ -67,8 +68,9 @@ private slots:
     void testOnSendCash();
 //---------------------------------------
     QLineEdit* chooseSelectedLineEdit(QLineEdit* line1, QLineEdit* line2);
-    void checkSumForTake(size_t);
-    void checkSumForSend(size_t);
+    void checkSum(size_t);
+    void errorMsg(QLineEdit * );
+    //void checkSumForSend(size_t);
 
 
     //--------------------Buttons------------------------
