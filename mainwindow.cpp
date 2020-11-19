@@ -882,7 +882,6 @@ void MainWindow::on_backButton_page9_clicked()
 
 void MainWindow::on_okButton_page9_clicked()
 {
-    ui_->lineEdit_anotherCardNum->clear();
     ui_->mainStackedWidget->setCurrentIndex(10);
 }
 
@@ -932,6 +931,7 @@ void MainWindow::on_Button_1000grn_10_clicked()
 
 void MainWindow::on_backButton_page10_clicked()
 {
+    ui_->lineEdit_anotherCardNum->clear();
     ui_->mainStackedWidget->setCurrentIndex(1);
 }
 
