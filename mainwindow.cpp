@@ -949,18 +949,18 @@ void MainWindow::checkSumForSend(size_t sum)
 {
 
     //перевірка чи введена сума < суми що лежить на карті якщо так то
-    if (static_cast<long>(sum)<=atm_->card()->bal())
-        atm_->sendToCard(ui->lineEdit_anotherCardNum->text(),sum);
+ //   if (static_cast<long>(sum)<=atm_->card()->bal())
+        atm_->sendToCard(ui->lineEdit_anotherCardNum->text().remove(QChar('-')),sum);
     //якщо ні, то виведення повідомлення про помилку і очищення поля
-    else{
-        QMessageBox msgBox;
-        msgBox.setWindowTitle("Помилка");
-        msgBox.setText("Введена Вами сума більша за поточний баланс на вашій картці");
-        msgBox.setIconPixmap(QPixmap(":/imgs/img/kisspng-check-mark-bottle-material-green-tick-5ad25467123860.2792666715237336070746.png"));
-        msgBox.setStandardButtons(QMessageBox::Ok);
-        msgBox.exec();
-
-    }
+//    else{
+//        QMessageBox msgBox;
+//        msgBox.setWindowTitle("Помилка");
+//        msgBox.setText("Введена Вами сума більша за поточний баланс на вашій картці");
+//        msgBox.setIconPixmap(QPixmap(":/imgs/img/kisspng-check-mark-bottle-material-green-tick-5ad25467123860.2792666715237336070746.png"));
+//        msgBox.setStandardButtons(QMessageBox::Ok);
+//        msgBox.exec();
+//
+//    }
 }
 
 
