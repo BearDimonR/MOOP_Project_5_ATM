@@ -2,12 +2,12 @@
 
 #include <QMainWindow>
 #include "ATM/Model/atmcard2.h"
-#include "ATM/atm.h"
 #include "ATM/Socket/atmselectorsocket.h"
 #include "ATM/Model/atmparams.h"
 #include "ATMSelector/atmselector.h"
 #include "ATMSelector/atmselectorwidget.h"
 #include <QLineEdit>
+#include "ATM/atm.h"
 
 class ATM;
 
@@ -50,7 +50,7 @@ private slots:
 
     void onBalCheckedAnswer();
 
-    void onSuccessCashTaken(long money);
+    void onSuccessCashTaken(const long money);
     void onSuccessCashSend();
 
     void onSuccessPINchange();
@@ -66,6 +66,11 @@ private slots:
     void testOnTakeCash(const long money);
     void testOnSendCash();
 //---------------------------------------
+    QLineEdit* chooseSelectedLineEdit(QLineEdit* line1, QLineEdit* line2);
+    void checkSumForTake(size_t);
+    void checkSumForSend(size_t);
+
+
     //--------------------Buttons------------------------
 
     void on_insertButton_page0_clicked();

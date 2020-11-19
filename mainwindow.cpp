@@ -2,12 +2,12 @@
 #include "ui_mainwindow.h"
 #include <QMessageBox>
 #include "ATM/Model/atmcard2.h"
-#include "ATM/atm.h"
 #include "ATM/Socket/atmselectorsocket.h"
 #include "ATM/Model/atmparams.h"
 #include "ATMSelector/atmselector.h"
 #include "ATMSelector/atmselectorwidget.h"
 #include "ATM/clienterror.h"
+#include "ATM/atm.h"
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -70,40 +70,41 @@ void MainWindow::successStart()
 
 
     //вставлення картки
-//    connect(atm_,SIGNAL(cardInserted()),this,SLOT(onSuccessCardInsertion()));
+    connect(atm_,SIGNAL(cardInserted()),this,SLOT(onSuccessCardInsertion()));
 
-//    //робота з пінкодом
-//    connect(atm_,SIGNAL(pinSuccess()), this, SLOT(onSuccessPIN()));
-//    connect(atm_,SIGNAL(pinValidated(const size_t)), this, SLOT(onWrongPIN(const size_t)));
-
-
-//    //перевірити баланс по карті
-//    connect(atm_,SIGNAL(balChecked()),this,SLOT(onBalCheckedAnswer()));
+    //робота з пінкодом
+    connect(atm_,SIGNAL(pinSuccess()), this, SLOT(onSuccessPIN()));
+    connect(atm_,SIGNAL(pinValidated(const size_t)), this, SLOT(onWrongPIN(const size_t)));
 
 
-//    //зняти гроші
-//    connect(atm_,SIGNAL(cashTaken(long money)),this,SLOT(onSuccessCashTaken(long money)));
-
-//    //перерахувати гроші
-//    connect(atm_,SIGNAL(cashSend()),this,SLOT(onSuccessCashSend()));
-
-//    //змінити пінкод
-//    connect(atm_,SIGNAL(pinChanged()),this,SLOT((onSuccessPINchange())));
+    //перевірити баланс по карті
+    connect(atm_,SIGNAL(balChecked()),this,SLOT(onBalCheckedAnswer()));
 
 
-//    //закинчити роботу з карткою -- дістати картку
-//    connect(atm_,SIGNAL(cardFree()),this, SLOT(onSuccessFreeCard()));
+    //зняти гроші
+    //connect(atm_,SIGNAL(cashTaken(const long money)),this,SLOT(onSuccessCashTaken(const long money)));
+    connect(atm_,&ATM::cashTaken,this,&MainWindow::onSuccessCashTaken);
+
+    //перерахувати гроші
+    connect(atm_,SIGNAL(cashSend()),this,SLOT(onSuccessCashSend()));
+
+    //змінити пінкод
+    connect(atm_,SIGNAL(pinChanged()),this,SLOT(onSuccessPINchange()));
+
+
+    //закинчити роботу з карткою -- дістати картку
+    connect(atm_,SIGNAL(cardFree()),this, SLOT(onSuccessFreeCard()));
 
     //тестування запитів
-        connect(atm_, SIGNAL(cardInserted()), this, SLOT(testInsert()));
-        connect(atm_, SIGNAL(pinSuccess()), this, SLOT(testPinSuccess()));
-        connect(atm_, SIGNAL(pinValidated(const size_t)), this, SLOT(testPinValidated(const size_t)));
-        connect(atm_, SIGNAL(balChecked()), this, SLOT(testCheckBal()));
-        connect(atm_, SIGNAL(pinChanged()), this, SLOT(testChangePin()));
-        connect(atm_, SIGNAL(cardFree()), this, SLOT(testFree()));
-        connect(atm_, SIGNAL(cashSend()), this, SLOT(testOnSend()));
-        connect(atm_, SIGNAL(cardFree()), this, SLOT(testFree()));
-        atm_->insertCard("1111111111111111");
+    //        connect(atm_, SIGNAL(cardInserted()), this, SLOT(testInsert()));
+    //        connect(atm_, SIGNAL(pinSuccess()), this, SLOT(testPinSuccess()));
+    //        connect(atm_, SIGNAL(pinValidated(const size_t)), this, SLOT(testPinValidated(const size_t)));
+    //        connect(atm_, SIGNAL(balChecked()), this, SLOT(testCheckBal()));
+    //        connect(atm_, SIGNAL(pinChanged()), this, SLOT(testChangePin()));
+    //        connect(atm_, SIGNAL(cardFree()), this, SLOT(testFree()));
+    //        connect(atm_, SIGNAL(cashSend()), this, SLOT(testOnSend()));
+    //        connect(atm_, SIGNAL(cardFree()), this, SLOT(testFree()));
+    //        atm_->insertCard("1111111111111111");
 }
 
 void MainWindow::showError(const QString & er)
@@ -151,8 +152,8 @@ void MainWindow::testFree()
 
 void MainWindow::testOnTakeCash(const long money)
 {
-     qDebug() << "takeCash: " << money;
-     atm_->freeCard();
+    qDebug() << "takeCash: " << money;
+    atm_->freeCard();
 }
 
 void MainWindow::testOnSendCash()
@@ -249,20 +250,23 @@ void MainWindow::on_okButton_page4_clicked()
 
 void MainWindow::on_backButton_page4_clicked()
 {
+
     ui->mainStackedWidget->setCurrentIndex(0);
+    ui->lineEdit_cardNum->clear();
 }
 
 
 void MainWindow::onSuccessCardInsertion()
 {
+    qDebug() << "Card inserted successfully";
     //відповідь від сервера ОК то --> виконаты дії нижче
     ui->lineEdit_cardNum->clear();
 
     QMessageBox msgBox;
     msgBox.setWindowTitle("Info");
-    msgBox.setText("Ваша картка була успішно вставлена");
+    msgBox.setText("Ваша картка була успішно вставлена!");
     msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.show();
+    msgBox.exec();
     // тут треба якись таймаут, або чекати на відповідь клієнта, бо вікно ховається
     ui->mainStackedWidget->setCurrentIndex(2);
 }
@@ -368,6 +372,7 @@ void MainWindow::on_clearOne_2_clicked()
 void MainWindow::on_clearButton_page2_clicked()
 {
     ui->lineEdit_PIN->clear();
+    pin.clear();
 }
 
 
@@ -375,6 +380,7 @@ void MainWindow::on_backButton_page2_clicked()
 {
     // освободить карту надо
     ui->mainStackedWidget->setCurrentIndex(4);
+    atm_->freeCard();
 }
 
 
@@ -404,17 +410,26 @@ void MainWindow::onSuccessPIN()
 void MainWindow::onWrongPIN(const size_t attempts)
 {
     //if ((attempts<3)&& (attempts>0))
+    //pin.clear();
+    ui->lineEdit_PIN->clear();
     ui->lineEdit_attemptNum->setText(QString::number (attempts));
 
     if (attempts==0){  //Якщо пін не правильний 3 рази то червоний екран, повідомлення про помилку --> перехід на сторінку вставити картку
 
         ui->page2_pin->setStyleSheet("background-color: rgb(252, 1, 7);");
+        ui->lineEdit_PIN->clear();
+
         QMessageBox msgBox;
         msgBox.setWindowTitle("Обмеження роботи з карткою");
-        msgBox.setText("Нажаль Ви 3 рази ввели неправильний PIN \n"
-                       "Робота з даною карткою закінчена" );
+        msgBox.setText("Нажаль Ви 3 рази ввели неправильний PIN :( \n"
+                       "Робота з даною карткою закінчена." );
+        msgBox.setIconPixmap(QPixmap(":/imgs/img/unnamed.png"));
         msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.exec();
+        atm_->freeCard();
         ui->mainStackedWidget->setCurrentIndex(0);
+        ui->page2_pin->setStyleSheet("background-color: rgb(255, 234, 189);");
+
     }
 }
 
@@ -435,8 +450,10 @@ void MainWindow::onBalCheckedAnswer()
 {
     QMessageBox msgBox;
     msgBox.setWindowTitle("Баланс вашої картки");
-    msgBox.setText("Баланс на вашій картці = " + atm_->card()->bal());
+    msgBox.setText("Баланс на вашій картці = " + QString::number(atm_->card()->bal())+" boobliks");
+    msgBox.setIconPixmap(QPixmap(":/imgs/img/580b57fcd9996e24bc43c395.png"));
     msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.exec();
 
 }
 
@@ -454,13 +471,22 @@ void MainWindow::on_cashWithdrawalButton_clicked()
 
 void MainWindow::onSuccessFreeCard()
 {
+    qDebug() << "Card was free";
+
     ui->mainStackedWidget->setCurrentIndex(0);
+
+
 }
 
 
 void MainWindow::on_Button_freeCard_clicked()
 {
-    atm_->freeCard();
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Дістати картку", "Ви впевнені що хочете завершити роботу з карткою?",
+                                  QMessageBox::Yes|QMessageBox::No);
+    if (reply == QMessageBox::Yes) {
+        atm_->freeCard();
+        pin.clear();}
 }
 
 
@@ -489,34 +515,52 @@ void MainWindow::on_backButton_page7_clicked()
 
 
 //page 5 Sum select
+void MainWindow::checkSumForTake(size_t sum)
+{
+
+
+    //перевірка чи введена сума < суми що лежить на карті якщо так то
+    if (static_cast<long>(sum)<=atm_->card()->bal())
+        atm_->takeCash(sum);
+    //якщо ні, то виведення повідомлення про помилку і очищення поля
+    else{
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("Помилка");
+        msgBox.setText("Введена Вами сума більша за поточний баланс на вашій картці");
+        msgBox.setIconPixmap(QPixmap(":/imgs/img/unnamed.png"));
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.exec();
+        ui->lineEdit_enterSum->clear();
+    }}
+
+
 void MainWindow::on_Button_20grn_clicked()//вивести повідомлення про те що гроші були успішно зняті і показати поточний баланс картки
 {
-    atm_->takeCash(20);
+    checkSumForTake(20);
 }
-
 void MainWindow::on_Button_50grn_clicked()
 {
-    atm_->takeCash(50);
+    checkSumForTake(50);
 }
 
 void MainWindow::on_Button_100grn_clicked()
 {
-    atm_->takeCash(100);
+    checkSumForTake(100);
 }
 
 void MainWindow::on_Button_200grn_clicked()
 {
-    atm_->takeCash(200);
+    checkSumForTake(200);
 }
 
 void MainWindow::on_Button_500grn_clicked()
 {
-    atm_->takeCash(500);
+    checkSumForTake(500);
 }
 
 void MainWindow::on_Button_1000grn_clicked()
 {
-    atm_->takeCash(1000);
+    checkSumForTake(1000);
 }
 
 void MainWindow::on_backButton_page5_clicked()
@@ -530,13 +574,16 @@ void MainWindow::on_Button_AnySum_clicked()
 }
 
 
-void MainWindow::onSuccessCashTaken(long money)
+void MainWindow::onSuccessCashTaken(const long money)
 {
     QMessageBox msgBox;
     msgBox.setWindowTitle("Гроші знято!");
     msgBox.setText("Введена Вами сума була успішно знята з картки! \n"
-                   "Баланс на вашій картці = " + atm_->card()->bal());
+                   "Баланс на вашій картці = " + QString::number(atm_->card()->bal())+" boobliks.");
+    msgBox.setIconPixmap(QPixmap(":/imgs/img/kisspng-check-mark-bottle-material-green-tick-5ad25467123860.2792666715237336070746.png"));
     msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.exec();
+    qDebug() << "Cash was taken successfully";
 
 }
 
@@ -617,19 +664,26 @@ void MainWindow::on_backButton_page6_clicked()
 void MainWindow::on_okButton_page6_clicked()//вивести повідомлення про те що гроші були успішно зняті і показати поточний баланс картки
 
 {
+
+   //checkSumForTake(ui->lineEdit_enterSum->text().toULong());
+
+
     QString entered_sum = ui->lineEdit_enterSum->text();
 
     //перевірка чи введена сума < суми що лежить на карті якщо так то
     if (entered_sum.toUInt()<=atm_->card()->bal())
-        atm_->takeCash((entered_sum.toUInt()));
+        atm_->takeCash(entered_sum.toUInt());
     //якщо ні, то виведення повідомлення про помилку і очищення поля
     else{
         QMessageBox msgBox;
         msgBox.setWindowTitle("Помилка");
         msgBox.setText("Введена Вами сума більша за поточний баланс на вашій картці");
+        msgBox.setIconPixmap(QPixmap(":/imgs/img/unnamed.png"));
         msgBox.setStandardButtons(QMessageBox::Ok);
-        ui->lineEdit_enterSum->clear();}
-}
+        msgBox.exec();
+        ui->lineEdit_enterSum->clear();
+
+}}
 
 
 
@@ -701,65 +755,71 @@ void MainWindow::on_okButton_page3_clicked()
 
 
 //page 8 -- change PIN page
+QLineEdit* MainWindow::chooseSelectedLineEdit(QLineEdit* line1,QLineEdit* line2)
+{
+    if (line1->hasFocus()) return line1;
+    else return line2;
+}
 
 void MainWindow::on_num1_8_clicked()
 {
-    ui->lineEdit_changePIN->insert("1");
+
+    chooseSelectedLineEdit(ui->lineEdit_changePIN,ui->lineEdit_repeatChangePIN)->insert("1");
 }
 
 void MainWindow::on_num2_8_clicked()
 {
-     ui->lineEdit_changePIN->insert("2");
+    chooseSelectedLineEdit(ui->lineEdit_changePIN,ui->lineEdit_repeatChangePIN)->insert("2");
 }
 
 void MainWindow::on_num3_8_clicked()
 {
-     ui->lineEdit_changePIN->insert("3");
+    chooseSelectedLineEdit(ui->lineEdit_changePIN,ui->lineEdit_repeatChangePIN)->insert("3");
 }
 
 void MainWindow::on_num4_8_clicked()
 {
-     ui->lineEdit_changePIN->insert("4");
+    chooseSelectedLineEdit(ui->lineEdit_changePIN,ui->lineEdit_repeatChangePIN)->insert("4");
 }
 
 void MainWindow::on_num5_8_clicked()
 {
-     ui->lineEdit_changePIN->insert("5");
+    chooseSelectedLineEdit(ui->lineEdit_changePIN,ui->lineEdit_repeatChangePIN)->insert("5");
 }
 
 void MainWindow::on_num6_8_clicked()
 {
-     ui->lineEdit_changePIN->insert("6");
+    chooseSelectedLineEdit(ui->lineEdit_changePIN,ui->lineEdit_repeatChangePIN)->insert("6");
 }
 
 void MainWindow::on_num7_8_clicked()
 {
-     ui->lineEdit_changePIN->insert("7");
+    chooseSelectedLineEdit(ui->lineEdit_changePIN,ui->lineEdit_repeatChangePIN)->insert("7");
 }
 
 void MainWindow::on_num8_8_clicked()
 {
-     ui->lineEdit_changePIN->insert("8");
+    chooseSelectedLineEdit(ui->lineEdit_changePIN,ui->lineEdit_repeatChangePIN)->insert("8");
 }
 
 void MainWindow::on_num9_8_clicked()
 {
-     ui->lineEdit_changePIN->insert("9");
+    chooseSelectedLineEdit(ui->lineEdit_changePIN,ui->lineEdit_repeatChangePIN)->insert("9");
 }
 
 void MainWindow::on_num0_8_clicked()
 {
-     ui->lineEdit_changePIN->insert("0");
+    chooseSelectedLineEdit(ui->lineEdit_changePIN,ui->lineEdit_repeatChangePIN)->insert("0");
 }
 
 void MainWindow::on_clearOne_8_clicked()
 {
-     ui->lineEdit_changePIN->backspace();
+    chooseSelectedLineEdit(ui->lineEdit_changePIN,ui->lineEdit_repeatChangePIN)->backspace();
 }
 
 void MainWindow::on_clearButton_page8_clicked()
 {
-     ui->lineEdit_changePIN->clear();
+    chooseSelectedLineEdit(ui->lineEdit_changePIN,ui->lineEdit_repeatChangePIN)->clear();
 }
 
 void MainWindow::on_backButton_page8_clicked()
@@ -773,12 +833,19 @@ void MainWindow::on_OKButton_page8_clicked()
     atm_->changePin(ui->lineEdit_changePIN->text().toUInt());
 }
 
+
 void MainWindow::onSuccessPINchange()
 {
+    qDebug()<<"Pin was changed successfully";
+    pin.append(ui->lineEdit_changePIN->text());
     QMessageBox msgBox;
     msgBox.setWindowTitle("Зміна PIN");
     msgBox.setText("Зміна PIN-коду пройшла успішно");
+    msgBox.setIconPixmap(QPixmap(":/imgs/img/kisspng-check-mark-bottle-material-green-tick-5ad25467123860.2792666715237336070746.png"));
     msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.exec();
+    ui->lineEdit_changePIN->clear();
+    ui->lineEdit_repeatChangePIN->clear();
     ui->mainStackedWidget->setCurrentIndex(2);
 }
 
@@ -857,43 +924,71 @@ void MainWindow::on_okButton_page9_clicked()
 
 //вибір суми для переказу -- переказ на іншу картку сторінка 10
 
+void MainWindow::checkSumForSend(size_t sum)
+{
+
+    //перевірка чи введена сума < суми що лежить на карті якщо так то
+    if (static_cast<long>(sum)<=atm_->card()->bal())
+        atm_->sendToCard(ui->lineEdit_anotherCardNum->text(),sum);
+    //якщо ні, то виведення повідомлення про помилку і очищення поля
+    else{
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("Помилка");
+        msgBox.setText("Введена Вами сума більша за поточний баланс на вашій картці");
+        msgBox.setIconPixmap(QPixmap(":/imgs/img/kisspng-check-mark-bottle-material-green-tick-5ad25467123860.2792666715237336070746.png"));
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.exec();
+
+    }
+}
+
+
 void MainWindow::onSuccessCashSend()
 {
+    qDebug()<<"Cash was transfer successfully";
     QMessageBox msgBox;
     msgBox.setWindowTitle("Гроші успішно перераховано! ");
     msgBox.setText("Сума успішно перерахована! \n"
-                   "Баланс на вашій картці = " + atm_->card()->bal());
+                   "Баланс на вашій картці = " + QString::number(atm_->card()->bal()));
+    msgBox.setIconPixmap(QPixmap(":/imgs/img/kisspng-check-mark-bottle-material-green-tick-5ad25467123860.2792666715237336070746.png"));
     msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.exec();
 }
 
 void MainWindow::on_Button_20grn_12_clicked()
 {
-    atm_->sendToCard(ui->lineEdit_anotherCardNum->text(),20);
+    checkSumForSend(20);
+    //atm_->sendToCard(ui->lineEdit_anotherCardNum->text(),20);
 }
 
 void MainWindow::on_Button_50grn_10_clicked()
 {
-    atm_->sendToCard(ui->lineEdit_anotherCardNum->text(),50);
+    checkSumForSend(50);
+    //atm_->sendToCard(ui->lineEdit_anotherCardNum->text(),50);
 }
 
 void MainWindow::on_Button_100grn_10_clicked()
 {
-    atm_->sendToCard(ui->lineEdit_anotherCardNum->text(),100);
+    checkSumForSend(100);
+    //atm_->sendToCard(ui->lineEdit_anotherCardNum->text(),100);
 }
 
 void MainWindow::on_Button_200grn_10_clicked()
 {
-    atm_->sendToCard(ui->lineEdit_anotherCardNum->text(),200);
+    checkSumForSend(200);
+    //atm_->sendToCard(ui->lineEdit_anotherCardNum->text(),200);
 }
 
 void MainWindow::on_Button_500grn_10_clicked()
 {
-    atm_->sendToCard(ui->lineEdit_anotherCardNum->text(),500);
+    checkSumForSend(500);
+    //atm_->sendToCard(ui->lineEdit_anotherCardNum->text(),500);
 }
 
 void MainWindow::on_Button_1000grn_10_clicked()
 {
-    atm_->sendToCard(ui->lineEdit_anotherCardNum->text(),1000);
+    checkSumForSend(1000);
+    //atm_->sendToCard(ui->lineEdit_anotherCardNum->text(),1000);
 }
 
 void MainWindow::on_backButton_page10_clicked()
@@ -991,6 +1086,9 @@ void MainWindow::on_okButton_page11_clicked()//вивести повідомле
         QMessageBox msgBox;
         msgBox.setWindowTitle("Помилка");
         msgBox.setText("Введена Вами сума більша за поточний баланс на вашій картці");
+        msgBox.setIconPixmap(QPixmap(":/imgs/img/kisspng-check-mark-bottle-material-green-tick-5ad25467123860.2792666715237336070746.png"));
         msgBox.setStandardButtons(QMessageBox::Ok);
-        ui->lineEdit_enterSum->clear();}
+        msgBox.exec();
+        ui->lineEdit_enterSum->clear();
+    }
 }
