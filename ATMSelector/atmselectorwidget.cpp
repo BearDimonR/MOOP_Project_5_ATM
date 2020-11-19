@@ -19,7 +19,7 @@ ATMSelectorWidget::ATMSelectorWidget(QWidget *parent) :
     connect(out_, SIGNAL(errorOccured(const QString&)), this, SLOT(showError(const QString&)));
 }
 
-ATMSelectorWidget &ATMSelectorWidget::getInstance()
+ATMSelectorWidget& ATMSelectorWidget::getInstance()
 {
     static ATMSelectorWidget a;
     return a;
@@ -27,7 +27,9 @@ ATMSelectorWidget &ATMSelectorWidget::getInstance()
 
 void ATMSelectorWidget::startSelector()
 {
-    ATMSelectorWidget::getInstance().show();
+    ATMSelectorWidget* w(&ATMSelectorWidget::getInstance());
+    w->show();
+    w->on_refreshButton_clicked();
 }
 
 void ATMSelectorWidget::hideSelector()
@@ -66,7 +68,7 @@ void ATMSelectorWidget::on_refreshButton_clicked()
    out_->refreshATMParams();
 }
 
-void ATMSelectorWidget::on_atmsList_itemActivated(QListWidgetItem *item)
+void ATMSelectorWidget::on_atmsList_itemActivated(QListWidgetItem *)
 {
     MainWindow::startMainWindow(out_->params()->at(ui_->atmsList->currentRow()).atmId());
 }

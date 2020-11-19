@@ -21,10 +21,10 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 private:
-    QString pin;
+    QString pin_;
     size_t sum_;
     ATM* atm_;
-    Ui::MainWindow *ui;
+    Ui::MainWindow *ui_;
 
     explicit MainWindow(QWidget *parent = nullptr);
 
@@ -62,6 +62,7 @@ private slots:
     //--------------------Buttons------------------------
 
     void on_insertButton_page0_clicked();
+    void on_selectorButton_clicked();
 
     //-------------Input card number page-----------------------
     void on_num1_4_clicked();
