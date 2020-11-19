@@ -15,6 +15,13 @@ void ATMSocket::doOnConnected()
     emit replyOnConnected();
 }
 
+void ATMSocket::doOnDisconnected()
+{
+    AppSocket::doOnDisconnected();
+    qFatal("%s", QString(ClientError("ATMSocket on receive json error",
+                                     ClientError::CONNECTION_ERROR)).toLatin1().constData());
+}
+
 void ATMSocket::doOnTextMessageReceived(const QJsonObject & in)
 {
     //TO REMOVE

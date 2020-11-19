@@ -17,7 +17,6 @@ void AppSocket::doOnConnected()
 
 void AppSocket::doOnDisconnected()
 {
-    // try to connect againg
     disconnect();
     qDebug() << "socket " << socket_ << "\n disconnected!";
 }
