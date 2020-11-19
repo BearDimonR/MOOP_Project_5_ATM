@@ -481,7 +481,7 @@ void MainWindow::onBalCheckedAnswer()
     case 10:
     case 11:{
         if (static_cast<long>(sum_)<=atm_->card()->bal())
-            atm_->sendToCard(ui->lineEdit_anotherCardNum->text(),sum_);
+             atm_->sendToCard(ui->lineEdit_anotherCardNum->text().remove(QChar('-')),sum_);
 
         else errorMsg(ui->lineEdit_enterSumForTransfer_11);
         }
@@ -987,12 +987,18 @@ void MainWindow::on_okButton_page9_clicked()
 //{
 
 
+
 //    atm_->checkBal();
 
 //    //перевірка чи введена сума < суми що лежить на карті якщо так то
 //    if (static_cast<long>(sum)<=atm_->card()->bal())
 //        atm_->sendToCard(ui->lineEdit_anotherCardNum->text(),sum);
 //    //якщо ні, то виведення повідомлення про помилку і очищення поля
+
+    //перевірка чи введена сума < суми що лежить на карті якщо так то
+ //   if (static_cast<long>(sum)<=atm_->card()->bal())
+       // atm_->sendToCard(ui->lineEdit_anotherCardNum->text().remove(QChar('-')),sum);
+    //якщо ні, то виведення повідомлення про помилку і очищення поля
 //    else{
 //        QMessageBox msgBox;
 //        msgBox.setWindowTitle("Помилка");
@@ -1001,8 +1007,14 @@ void MainWindow::on_okButton_page9_clicked()
 //        msgBox.setStandardButtons(QMessageBox::Ok);
 //        msgBox.exec();
 
+
 //    }
 //}
+
+//
+//    }
+}
+
 
 
 void MainWindow::onSuccessCashSend()
