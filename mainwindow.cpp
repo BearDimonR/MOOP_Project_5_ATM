@@ -450,7 +450,7 @@ void MainWindow::onBalCheckedAnswer()
 {
     QMessageBox msgBox;
     msgBox.setWindowTitle("Баланс вашої картки");
-    msgBox.setText("Баланс на вашій картці = " + QString::number(atm_->card()->bal())+" boobliks");
+    msgBox.setText("Баланс на вашій картці = " + QString::number(atm_->card()->bal())+" boobliks.");
     msgBox.setIconPixmap(QPixmap(":/imgs/img/580b57fcd9996e24bc43c395.png"));
     msgBox.setStandardButtons(QMessageBox::Ok);
     msgBox.exec();
