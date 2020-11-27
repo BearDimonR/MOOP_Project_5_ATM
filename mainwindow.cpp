@@ -262,9 +262,9 @@ void MainWindow::onSuccessCardInsertion()
     msgBox.setWindowTitle("Info");
     msgBox.setText("Ваша картка була успішно вставлена");
     msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.show();
-    // тут треба якись таймаут, або чекати на відповідь клієнта, бо вікно ховається
-    ui->mainStackedWidget->setCurrentIndex(2);
+    msgBox.exec();
+    ui_->lineEdit_attemptNum->setText("3");
+    ui_->mainStackedWidget->setCurrentIndex(2);
 }
 
 
@@ -373,8 +373,10 @@ void MainWindow::on_clearButton_page2_clicked()
 
 void MainWindow::on_backButton_page2_clicked()
 {
-    // освободить карту надо
-    ui->mainStackedWidget->setCurrentIndex(4);
+    ui_->lineEdit_attemptNum->setText("3");
+    pin_.clear();
+    ui_->lineEdit_PIN->clear();
+    atm_->freeCard();
 }
 
 
