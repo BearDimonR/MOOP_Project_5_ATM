@@ -1,0 +1,16 @@
+{
+        "AppSocket_HOSTNAME" : "wss://boublbank.herokuapp.com",
+        "ATMSelectorSocket_event_name" : "atms_list",
+        "ATMSocket_events" :
+            [
+                 "start_atm",
+                 "insert_card",
+                 "check_pin",
+                 "success_pin",
+                 "free_card",
+                 "send_to_card",
+                 "take_from_card",
+                 "check_balance",
+                 "change_pin"
+             ]
+}
