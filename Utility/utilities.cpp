@@ -5,10 +5,11 @@
 #include <QTextStream>
 #include <QJsonArray>
 #include <QDebug>
+#include <QDir>
 
 Utility::Utility()
 {
-    QFile file("/Users/sofixeno/Desktop/Booblik/MOOP_Project_5_ATM/config.json");
+    QFile file(QDir::currentPath() + "/config.json");
     if (!file.open(QIODevice::ReadOnly))
         qFatal("%s", QString(ClientError("Utilities on open file error",
                                        ClientError::FILE_ERROR, file.errorString())).toLatin1().constData());

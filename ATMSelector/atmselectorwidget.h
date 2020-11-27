@@ -36,7 +36,6 @@ public:
     static void startSelector();
     static void hideSelector();
 
-    QHash<QString,size_t> hash;
     Ui::ATMSelectorWidget *ui() const;
 
     virtual ~ATMSelectorWidget();

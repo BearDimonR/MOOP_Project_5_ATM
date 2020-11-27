@@ -6,6 +6,7 @@
 #include <QHash>
 #include <QString>
 #include <QMessageBox>
+#include <QVariant>
 
 ATMSelectorWidget::ATMSelectorWidget(QWidget *parent) :
     QWidget(parent),
@@ -18,7 +19,7 @@ ATMSelectorWidget::ATMSelectorWidget(QWidget *parent) :
     connect(out_, SIGNAL(errorOccured(const QString&)), this, SLOT(showError(const QString&)));
 }
 
-ATMSelectorWidget &ATMSelectorWidget::getInstance()
+ATMSelectorWidget& ATMSelectorWidget::getInstance()
 {
     static ATMSelectorWidget a;
     return a;
@@ -26,7 +27,9 @@ ATMSelectorWidget &ATMSelectorWidget::getInstance()
 
 void ATMSelectorWidget::startSelector()
 {
-    ATMSelectorWidget::getInstance().show();
+    ATMSelectorWidget* w(&ATMSelectorWidget::getInstance());
+    w->show();
+    w->on_refreshButton_clicked();
 }
 
 void ATMSelectorWidget::hideSelector()
@@ -51,14 +54,7 @@ void ATMSelectorWidget::onParamsUpdated()
     ui_->atmsList->clear();
     const QList<ATMParams> * newAtms(out_->params());
     for(int i = 0; i < newAtms->length(); ++i){
-        const ATMParams* p = &(newAtms->at(i));
-        QString item("АТМ: ");
-        item.append(QString::number(p->atmId()));
-        item.append(", Банк: ");
-        item.append(p->bankName());
-        hash.insert(item,i);
-        ui_->atmsList->addItem(item);
-        // ui_->atmsList->setCurrentRow(p->atmId());
+        ui_->atmsList->addItem(QString(newAtms->at(i)));
     }
 }
 
@@ -72,10 +68,7 @@ void ATMSelectorWidget::on_refreshButton_clicked()
    out_->refreshATMParams();
 }
 
-//що відбувається коли ми клікаємо на елемент зі списку
-void ATMSelectorWidget::on_atmsList_itemActivated(QListWidgetItem *item)
+void ATMSelectorWidget::on_atmsList_itemActivated(QListWidgetItem *)
 {
-    // типа не всегда работает почему-то
-    //size_t id = hash.take(item->text());
-    MainWindow::startMainWindow(1);
+    MainWindow::startMainWindow(out_->params()->at(ui_->atmsList->currentRow()).atmId());
 }

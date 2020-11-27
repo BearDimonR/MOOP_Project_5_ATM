@@ -28,7 +28,6 @@ void ATM::backOnStart(const ATMParams & par)
 
 void ATM::backInsertCard()
 {
-    assert(card_ == Q_NULLPTR);
     emit cardInserted();
 }
 
@@ -47,7 +46,6 @@ void ATM::backPinSuccess()
 
 void ATM::backValidatePin(const size_t counter)
 {
-    assert(card_ == Q_NULLPTR);
     emit pinValidated(counter);
 }
 
@@ -58,26 +56,26 @@ void ATM::backChangePin()
 
 void ATM::backSendToCard(const ATMCard & card)
 {
-    assert(card_ != Q_NULLPTR);
-    delete card_;
+    if(card_ != Q_NULLPTR)
+        delete card_;
     card_ = new ATMCard(card);
     emit cashSend();
 }
 
 void ATM::backCheckBal(const ATMCard & card)
 {
-    delete card_;
+    if(card_ != Q_NULLPTR)
+        delete card_;
     card_ = new ATMCard(card);
     emit balChecked();
 }
 
 void ATM::backTakeCash(const ATMCard & card, const long money)
 {
-    assert(card_ != Q_NULLPTR);
-    delete card_;
+    if(card_ != Q_NULLPTR)
+        delete card_;
     card_ = new ATMCard(card);
     long m = par_->cash();
-    //par_->cash() = money;
     emit cashTaken(m - money);
 }
 
