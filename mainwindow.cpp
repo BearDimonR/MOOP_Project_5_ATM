@@ -25,8 +25,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui_->lineEdit_anotherCardNum->setInputMask("9999-9999-9999-9999");
 
-    ui_->lineEdit_telephoneNum->setInputMask("999-999-99-99");
-
     ui_->lineEdit_enterSum->setInputMask("9999999");//поставити обмеження на картку
 
     ui_->lineEdit_PIN->setInputMask("XXXX");//поставити обмеження на ПІН в чотири символи
@@ -94,6 +92,12 @@ void MainWindow::successStart()
     //закінчити роботу з карткою -- дістати картку
     connect(atm_,SIGNAL(cardFree()),this, SLOT(onSuccessFreeCard()));
 
+    //qr code
+    QPixmap map(atm_->qrcode());
+    map = map.scaled(ui_->label_3_2->size());
+    ui_->label_3_2->clear();
+    ui_->label_3_2->setPixmap(map);
+
 }
 
 void MainWindow::showError(const QString & er)
@@ -134,6 +138,14 @@ void MainWindow::on_insertButton_page0_clicked()
 {
     // відправити номер картки
     ui_->mainStackedWidget->setCurrentIndex(4);
+}
+
+void MainWindow::on_insertButton_page0_2_clicked()
+{
+    //qr code login
+    // чекати на вхід
+    connect(atm_,SIGNAL(qrSuccess()),this, SLOT(onSuccessQr()));
+    ui_->mainStackedWidget->setCurrentIndex(3);
 }
 
 
@@ -220,6 +232,29 @@ void MainWindow::onSuccessCardInsertion()
     QMessageBox msgBox;
     msgBox.setWindowTitle("Info");
     msgBox.setText("Ваша картка була успішно вставлена!");
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.exec();
+    ui_->mainStackedWidget->setCurrentIndex(2);
+}
+
+
+//page 3 - qr
+
+void MainWindow::on_clearButton_page3_clicked()
+{
+    // перестати чекати на вхід
+    disconnect(atm_,SIGNAL(qrSuccess()),this, SLOT(onSuccessQr()));
+    ui_->mainStackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::onSuccessQr()
+{
+    // зайти в атм
+    qDebug() << "QR login success";
+
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Info");
+    msgBox.setText("QR вхід був успішним!");
     msgBox.setStandardButtons(QMessageBox::Ok);
     msgBox.exec();
     ui_->mainStackedWidget->setCurrentIndex(2);
@@ -401,7 +436,10 @@ void MainWindow::onBalCheckedAnswer()
 
         QMessageBox msgBox;
         msgBox.setWindowTitle("Баланс вашої картки");
-        msgBox.setText("Баланс на вашій картці = " + QString::number(atm_->card()->bal())+" boobliks.");
+        msgBox.setText("Баланс на вашій картці = " + QString::number(atm_->card()->bal())
+                       +" boobliks."
+                       +"\nКоефіціент зняття: " + QString::number(atm_->withdrawInterest())
+                       +"\nКоефіціент переводу: " + QString::number(atm_->transactInterest()));
         msgBox.setIconPixmap(QPixmap(":/imgs/img/580b57fcd9996e24bc43c395.png"));
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.exec();
@@ -637,75 +675,6 @@ void MainWindow::on_okButton_page6_clicked()//вивести повідомле�
 {
 
     checkSum(ui_->lineEdit_enterSum->text().toULong());
-
-}
-
-
-
-
-//page 3 QR ?????
-void MainWindow::on_num1_3_clicked()
-{
-    ui_->lineEdit_telephoneNum->insert("1");
-}
-
-void MainWindow::on_num2_3_clicked()
-{
-    ui_->lineEdit_telephoneNum->insert("2");
-}
-
-void MainWindow::on_num3_3_clicked()
-{
-    ui_->lineEdit_telephoneNum->insert("3");
-}
-
-void MainWindow::on_num4_3_clicked()
-{
-    ui_->lineEdit_telephoneNum->insert("4");
-}
-
-void MainWindow::on_num5_3_clicked()
-{
-    ui_->lineEdit_telephoneNum->insert("5");
-}
-
-void MainWindow::on_num6_3_clicked()
-{
-    ui_->lineEdit_telephoneNum->insert("6");
-}
-
-void MainWindow::on_num7_3_clicked()
-{
-    ui_->lineEdit_telephoneNum->insert("7");
-}
-
-void MainWindow::on_num8_3_clicked()
-{
-    ui_->lineEdit_telephoneNum->insert("8");
-}
-
-void MainWindow::on_num9_3_clicked()
-{
-    ui_->lineEdit_telephoneNum->insert("9");
-}
-
-void MainWindow::on_num0_3_clicked()
-{
-    ui_->lineEdit_telephoneNum->insert("0");
-}
-
-void MainWindow::on_clearOne_3_clicked()
-{
-    ui_->lineEdit_telephoneNum->backspace();
-}
-
-void MainWindow::on_clearButton_page3_clicked()
-{
-    ui_->lineEdit_telephoneNum->clear();
-}
-
-void MainWindow::on_okButton_page3_clicked()
-{
 
 }
 

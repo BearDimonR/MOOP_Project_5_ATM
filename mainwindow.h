@@ -62,6 +62,7 @@ private slots:
     //--------------------Buttons------------------------
 
     void on_insertButton_page0_clicked();
+    void on_insertButton_page0_2_clicked();
     void on_selectorButton_clicked();
 
     //-------------Input card number page-----------------------
@@ -123,6 +124,13 @@ private slots:
     void on_okButton_page2_clicked();
     void on_clearOne_2_clicked();
     void on_clearButton_page2_clicked();
+
+    //----------------QR page-------------------
+
+    void on_clearButton_page3_clicked();
+
+    void onSuccessQr();
+
 
     //----------------Main menu page-------------------
 
@@ -193,36 +201,6 @@ private slots:
     void on_backButton_page6_clicked();
 
     void on_okButton_page6_clicked();
-
-
-
-    //---------------page QR------------------------
-
-    void on_num1_3_clicked();
-
-    void on_num2_3_clicked();
-
-    void on_num3_3_clicked();
-
-    void on_num4_3_clicked();
-
-    void on_num5_3_clicked();
-
-    void on_num6_3_clicked();
-
-    void on_num7_3_clicked();
-
-    void on_num8_3_clicked();
-
-    void on_num9_3_clicked();
-
-    void on_num0_3_clicked();
-
-    void on_clearOne_3_clicked();
-
-    void on_clearButton_page3_clicked();
-
-    void on_okButton_page3_clicked();
 
 
  //---------------page 8 -- Change PIN------------------------
@@ -297,6 +275,7 @@ private slots:
     void on_clearButton_page11_clicked();
     void on_backButton_page11_clicked();
     void on_okButton_page11_clicked();
+
 
 };
 

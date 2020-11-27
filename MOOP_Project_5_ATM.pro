@@ -57,3 +57,10 @@ RESOURCES += \
 
 DISTFILES += \
     config.json
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/qt-bqrencode-master/build/release/ -lBQREncode
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/qt-bqrencode-master/build/debug/ -lBQREncode
+else:unix: LIBS += -L$$PWD/qt-bqrencode-master/build/ -lBQREncode
+
+INCLUDEPATH += $$PWD/qt-bqrencode-master
+DEPENDPATH += $$PWD/qt-bqrencode-master

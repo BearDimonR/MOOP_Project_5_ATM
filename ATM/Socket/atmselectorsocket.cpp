@@ -13,6 +13,7 @@ void ATMSelectorSocket::askForATMParams()
 
 void ATMSelectorSocket::doOnTextMessageReceived(const QJsonObject & in)
 {
+    qDebug() << QString(QJsonDocument(in).toJson());
     QJsonValue ev(in["event"]);
     QJsonValue pl(in["payload"]);
     if(ev.isNull() || ev.isUndefined() || !ev.isString() || pl.isNull() || pl.isUndefined() || !pl.isObject())

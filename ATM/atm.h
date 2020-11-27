@@ -25,6 +25,7 @@ private slots:
     void backOnStart(const ATMParams&);
     void backInsertCard();
     void backFreeCard();
+    void backQRSuccess();
     void backValidatePin(const size_t);
     void backPinSuccess();
     void backChangePin();
@@ -40,7 +41,9 @@ public:
 
     ATMCard* card();
     QString bankName();
-
+    size_t withdrawInterest();
+    size_t transactInterest();
+    QPixmap qrcode();
 
 public slots:
     void insertCard(const QString&);
@@ -56,6 +59,7 @@ signals:
     void atmStarted();
     void cardInserted();
     void cardFree();
+    void qrSuccess();
     void pinValidated(const size_t);
     void pinSuccess();
     void pinChanged();

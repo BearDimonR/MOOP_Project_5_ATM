@@ -55,6 +55,9 @@ void ATMSocket::doOnTextMessageReceived(const QJsonObject & in)
         case EVENTS::FREE_CARD:
                 emit replyOnFreeCard();
                 break;
+        case EVENTS::QR_SUCCESS:
+            emit replyOnQRSuccess();
+                break;
         case EVENTS::CHANGE_PIN:
                 emit replyOnChangePin();
                 break;

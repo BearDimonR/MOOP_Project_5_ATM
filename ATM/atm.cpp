@@ -14,6 +14,7 @@ void ATM::backOnStart(const ATMParams & par)
     connect(socket_, SIGNAL(replyOnStart(const ATMParams&)), this, SLOT(backOnStart(const ATMParams&)));
     connect(socket_, SIGNAL(replyOnInsertedCard()), this, SLOT(backInsertCard()));
     connect(socket_, SIGNAL(replyOnFreeCard()), this, SLOT(backFreeCard()));
+    connect(socket_, SIGNAL(replyOnQRSuccess()), this, SLOT(backQRSuccess()));
     connect(socket_, SIGNAL(replyOnValidatePin(const size_t)), this, SLOT(backValidatePin(const size_t)));
     connect(socket_, SIGNAL(replyOnSuccessPin()), this, SLOT(backPinSuccess()));
     connect(socket_, SIGNAL(replyOnChangePin()), this, SLOT(backChangePin()));
@@ -37,6 +38,11 @@ void ATM::backFreeCard()
         delete card_;
     card_ = Q_NULLPTR;
     emit cardFree();
+}
+
+void ATM::backQRSuccess()
+{
+    emit qrSuccess();
 }
 
 void ATM::backPinSuccess()
@@ -121,6 +127,21 @@ ATMCard *ATM::card()
 QString ATM::bankName()
 {
     return par_->bankName();
+}
+
+size_t ATM::withdrawInterest()
+{
+    return par_->withdrawInterest();
+}
+
+size_t ATM::transactInterest()
+{
+    return par_->transactInterest();
+}
+
+QPixmap ATM::qrcode()
+{
+    return par_->getQRPixmap();
 }
 
 

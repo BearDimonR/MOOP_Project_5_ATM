@@ -1,6 +1,7 @@
 {
-        "AppSocket_HOSTNAME" : "wss://boublbank.herokuapp.com",
+        "AppSocket_HOSTNAME" : "ws://localhost:8080",
         "ATMSelectorSocket_event_name" : "atms_list",
+        "QR_HOSTNAME": "hi/atm_id=",
         "ATMSocket_events" :
             [
                  "start_atm",
@@ -11,6 +12,7 @@
                  "send_to_card",
                  "take_from_card",
                  "check_balance",
-                 "change_pin"
+                 "change_pin",
+                 "qr_success"
              ]
 }
