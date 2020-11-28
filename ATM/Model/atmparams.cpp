@@ -8,6 +8,8 @@
 #include <bqrdecoratedcolorfactory.h>
 #include <bqrdefaultimagefactory.h>
 #include "Utility/utilities.h"
+#include <bqrdecoratedcolorfactory.h>
+
 using namespace BQREncode;
 
 QString ATMParams::HOSTNAME = Utility::getInstance().getString("QR_HOSTNAME");
@@ -124,12 +126,19 @@ QPixmap ATMParams::getQRPixmap()
 
     BQRCodeGen generator;
     BQRCode *codeQR=generator.encode(HOSTNAME + QString::number(atm_id_));
-    BQRImageFactory *factory=new BQRDefaultImageFactory();
+    BQRColorFactory *factory=new BQRColorFactory;
+
+    //factory->setColor(QColor(255,0,0));
+//    factory->setBackgroundDecorationSize(QSize(400,400));
+//    factory->setPathDecoration(":/imgs/img/kisspng-check-mark-bottle-material-green-tick-5ad25467123860.2792666715237336070746.png");
+//    factory->setSize(QSize(400,400));
     QImage *qrCodeImage=factory->buildImageFromCode(codeQR);
     QPixmap res(QPixmap::fromImage(*qrCodeImage));
     delete codeQR;
     delete factory;
     delete qrCodeImage;
     return res;
+
+
 }
 

@@ -10,9 +10,11 @@
 #include <bqrcodegen.h>
 #include <bqrdefaultimagefactory.h>
 #include <bqrimagefactory.h>
+#include <QDir>
 
 int main(int argc, char *argv[])
 {
+
     QApplication a(argc, argv);
     // опция 1
     // при выборе банкомата, атмселектор запустит банкомат
