@@ -25,17 +25,17 @@ Utility::~Utility()
 }
 
 
-    QFile file("/Users/sofixeno/Desktop/Booblik/MOOP_Project_5_ATM/config.json");
+    //QFile file("/Users/sofixeno/Desktop/Booblik/MOOP_Project_5_ATM/config.json");
     //QFile file(QDir::currentPath() + "/config.json");
 
 
 void Utility::askMap()
 {
     QString path(QDir::currentPath() + "/config.json");
-    QFile file(path);
+ //   QFile file(path);
 	
     //qDebug() << QDir::currentPath();
-    //QFile file("/Users/sofixeno/Desktop/Booblik/MOOP_Project_5_ATM/config.json");
+     QFile file("/Users/sofixeno/Desktop/Booblik/MOOP_Project_5_ATM/config.json");
     //QFile file(QDir::currentPath() + "/config.json");
 
     if (!file.open(QIODevice::ReadOnly))

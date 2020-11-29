@@ -542,12 +542,13 @@ void MainWindow::checkSum(size_t sum)
 }
 
 
-void MainWindow::takeCashQuestion(size_t sum)
+void MainWindow::takeCashQuestion(size_t sum, size_t commis_percent)
 {
+    size_t newsum = sum+(sum*commis_percent/100);
     QMessageBox msgBox;
     msgBox.setWindowTitle("Помилка");
-    msgBox.setText("Впевнені що хочете зняти " + QString::number(sum) + "boobliks ?\n"
-                                                                        "Майте на увазі з Вас зніметься комісія рівна: " + atm_->withdrawInterest() + "boobliks ?");
+    msgBox.setText("Впевнені що хочете зняти " + QString::number(sum) + " boobliks ?\n"
+                                                                        "Майте на увазі з Вас зніметься комісія рівна: " + QString::number(commis_percent)  + " %");
 
     msgBox.setIconPixmap(QPixmap(":/imgs/img/thinking-speaking-emoji-draper-inc-blog-site-4.png"));
     msgBox.setStandardButtons(QMessageBox::No|QMessageBox::Yes);
@@ -555,7 +556,7 @@ void MainWindow::takeCashQuestion(size_t sum)
 
     if(msgBox.exec() == QMessageBox::Yes){
         qDebug() << "Yes was clicked";
-        checkSum(sum);
+        checkSum(newsum);
     }else {
       // do something else
         msgBox.close();
@@ -568,32 +569,32 @@ void MainWindow::takeCashQuestion(size_t sum)
 void MainWindow::on_Button_20grn_clicked()//вивести повідомлення про те що гроші були успішно зняті і показати поточний баланс картки
 {
 
-   takeCashQuestion(20);
+   takeCashQuestion(20,atm_->withdrawInterest());
 
 }
 void MainWindow::on_Button_50grn_clicked()
 {
-    takeCashQuestion(50);
+    takeCashQuestion(50,atm_->withdrawInterest());
 }
 
 void MainWindow::on_Button_100grn_clicked()
 {
-    takeCashQuestion(100);
+    takeCashQuestion(100,atm_->withdrawInterest());
 }
 
 void MainWindow::on_Button_200grn_clicked()
 {
-    takeCashQuestion(200);
+    takeCashQuestion(200,atm_->withdrawInterest());
 }
 
 void MainWindow::on_Button_500grn_clicked()
 {
-    takeCashQuestion(500);
+    takeCashQuestion(500,atm_->withdrawInterest());
 }
 
 void MainWindow::on_Button_1000grn_clicked()
 {
-    takeCashQuestion(1000);
+    takeCashQuestion(1000,atm_->withdrawInterest());
 }
 
 void MainWindow::on_backButton_page5_clicked()
@@ -699,7 +700,7 @@ void MainWindow::on_backButton_page6_clicked()
 void MainWindow::on_okButton_page6_clicked()//вивести повідомлення про те що гроші були успішно зняті і показати поточний баланс картки
 {
 
-    takeCashQuestion(ui_->lineEdit_enterSum->text().toULong());
+    takeCashQuestion(ui_->lineEdit_enterSum->text().toULong(),atm_->withdrawInterest());
 
 }
 
@@ -894,32 +895,32 @@ void MainWindow::onSuccessCashSend()
 
 void MainWindow::on_Button_20grn_12_clicked()
 {
-    takeCashQuestion(20);
+    takeCashQuestion(20,atm_->transactInterest());
 }
 
 void MainWindow::on_Button_50grn_10_clicked()
 {
-    takeCashQuestion(50);
+    takeCashQuestion(50,atm_->transactInterest());
 }
 
 void MainWindow::on_Button_100grn_10_clicked()
 {
-    takeCashQuestion(100);
+    takeCashQuestion(100,atm_->transactInterest());
 }
 
 void MainWindow::on_Button_200grn_10_clicked()
 {
-    takeCashQuestion(200);
+    takeCashQuestion(200,atm_->transactInterest());
 }
 
 void MainWindow::on_Button_500grn_10_clicked()
 {
-    takeCashQuestion(500);
+    takeCashQuestion(500,atm_->transactInterest());
 }
 
 void MainWindow::on_Button_1000grn_10_clicked()
 {
-    takeCashQuestion(1000);
+    takeCashQuestion(1000,atm_->transactInterest());
 }
 
 void MainWindow::on_backButton_page10_clicked()
@@ -1011,5 +1012,5 @@ void MainWindow::on_backButton_page11_clicked()
 //вивести повідомлення про те що гроші були успішно зняті і показати поточний баланс картки
 void MainWindow::on_okButton_page11_clicked()
 {
-    takeCashQuestion(ui_->lineEdit_enterSumForTransfer_11->text().toULong());
+    takeCashQuestion(ui_->lineEdit_enterSumForTransfer_11->text().toULong(),atm_->transactInterest());
 }

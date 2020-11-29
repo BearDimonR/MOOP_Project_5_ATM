@@ -58,7 +58,7 @@ private slots:
     QLineEdit* chooseSelectedLineEdit(QLineEdit* line1, QLineEdit* line2);
     void checkSum(size_t);
     void errorMsg(QLineEdit * );
-    void takeCashQuestion (size_t sum);
+    void takeCashQuestion (size_t sum, size_t commis_percent);
 
     //--------------------Buttons------------------------
 
