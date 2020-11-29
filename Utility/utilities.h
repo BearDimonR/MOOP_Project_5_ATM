@@ -11,7 +11,7 @@ using namespace std;
 class Utility
 {
 private:
-    Utility();
+    explicit Utility();
 
     Utility(const Utility&) = delete;
     Utility(Utility&&) = delete;
@@ -24,6 +24,11 @@ private:
 
 public:
     static Utility& getInstance();
+
+    ~Utility();
+
+    void askMap();
+    void freeInstance();
 
     QString getString(const QString& name);
     QList<QString> getStringArr(const QString& name);

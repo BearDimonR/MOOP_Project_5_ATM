@@ -14,15 +14,14 @@
 
 int main(int argc, char *argv[])
 {
-
-    QApplication a(argc, argv);
-    // опция 1
-    // при выборе банкомата, атмселектор запустит банкомат
-
-
+    // free map which was used to init static variables
+    Utility::getInstance().freeInstance();
+	QApplication a(argc, argv);
+    // опція 1
+    // при виборі банкомата атмселектор запускає сам
     ATMSelectorWidget::startSelector();
-    // опция 2
-    // запустить банкомат самому
+    // опція 2
+    // запустити банкомат самому (якщо він доступний)
     // MainWindow::startMainWindow(1);
     return a.exec();
 }
