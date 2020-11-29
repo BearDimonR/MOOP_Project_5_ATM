@@ -439,8 +439,8 @@ void MainWindow::onBalCheckedAnswer()
         msgBox.setWindowTitle("Баланс вашої картки");
         msgBox.setText("Баланс на вашій картці = " + QString::number(atm_->card()->bal())
                        +" boobliks."
-                       +"\nКоефіціент зняття: " + QString::number(atm_->withdrawInterest())
-                       +"\nКоефіціент переводу: " + QString::number(atm_->transactInterest()));
+                       +"\nКомісія для зняття: " + QString::number(atm_->withdrawInterest()) + " %"
+                       +"\nКомісія для переводу: " + QString::number(atm_->transactInterest())+ " %");
         msgBox.setIconPixmap(QPixmap(":/imgs/img/580b57fcd9996e24bc43c395.png"));
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.exec();
