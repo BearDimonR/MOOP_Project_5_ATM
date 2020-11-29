@@ -121,7 +121,6 @@ QPixmap ATMParams::getQRPixmap()
 {
     if (qrcode_ != Q_NULLPTR)
            return *qrcode_;
-
     BQRCodeGen generator;
     BQRCode *codeQR=generator.encode(HOSTNAME + QString::number(atm_id_));
     BQRImageFactory *factory=new BQRDefaultImageFactory();
