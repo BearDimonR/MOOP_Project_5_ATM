@@ -62,5 +62,11 @@ win32:CONFIG(release, debug|release): LIBS += -L$$PWD/qt-bqrencode-master/build/
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/qt-bqrencode-master/build/debug/ -lBQREncode
 else:unix: LIBS += -L$$PWD/qt-bqrencode-master/build/ -lBQREncode
 
+
 INCLUDEPATH += $$PWD/qt-bqrencode-master
 DEPENDPATH += $$PWD/qt-bqrencode-master
+
+macx: LIBS += -L$$PWD/MacLib/ -lBQREncode.1.0.0
+
+INCLUDEPATH += $$PWD/MacLib
+DEPENDPATH += $$PWD/MacLib

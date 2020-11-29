@@ -47,7 +47,7 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>800</width>
+      <width>819</width>
       <height>575</height>
      </rect>
     </property>
@@ -156,9 +156,9 @@
      <widget class="QPushButton" name="insertButton_page0">
       <property name="geometry">
        <rect>
-        <x>340</x>
+        <x>70</x>
         <y>370</y>
-        <width>131</width>
+        <width>161</width>
         <height>41</height>
        </rect>
       </property>
@@ -195,8 +195,8 @@ border-width: 5px;
      <widget class="QPushButton" name="selectorButton">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>410</y>
+        <x>190</x>
+        <y>450</y>
         <width>131</width>
         <height>41</height>
        </rect>
@@ -234,8 +234,8 @@ border-width: 5px;
      <widget class="QPushButton" name="insertButton_page0_2">
       <property name="geometry">
        <rect>
-        <x>320</x>
-        <y>450</y>
+        <x>290</x>
+        <y>370</y>
         <width>161</width>
         <height>41</height>
        </rect>
@@ -1013,15 +1013,15 @@ border-color: rgb(0, 0, 0);
       <property name="geometry">
        <rect>
         <x>310</x>
-        <y>80</y>
-        <width>201</width>
-        <height>41</height>
+        <y>50</y>
+        <width>241</width>
+        <height>51</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>17</pointsize>
+        <pointsize>23</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -1082,7 +1082,7 @@ border-color: rgb(0, 0, 0);
       <property name="geometry">
        <rect>
         <x>260</x>
-        <y>150</y>
+        <y>120</y>
         <width>300</width>
         <height>300</height>
        </rect>
@@ -1632,7 +1632,7 @@ border-color: rgb(0, 0, 0);
 </string>
       </property>
       <property name="text">
-       <string>20 грн</string>
+       <string>20 boobliks</string>
       </property>
      </widget>
      <widget class="QPushButton" name="Button_50grn">
@@ -1663,7 +1663,7 @@ border-color: rgb(0, 0, 0);
 </string>
       </property>
       <property name="text">
-       <string>50 грн</string>
+       <string>50 boobliks</string>
       </property>
      </widget>
      <widget class="QPushButton" name="Button_100grn">
@@ -1694,7 +1694,7 @@ border-color: rgb(0, 0, 0);
 </string>
       </property>
       <property name="text">
-       <string>100 грн</string>
+       <string>100 boobliks</string>
       </property>
      </widget>
      <widget class="QPushButton" name="Button_200grn">
@@ -1725,7 +1725,7 @@ border-color: rgb(0, 0, 0);
 </string>
       </property>
       <property name="text">
-       <string>200 грн</string>
+       <string>200 boobliks</string>
       </property>
      </widget>
      <widget class="QPushButton" name="Button_500grn">
@@ -1756,7 +1756,7 @@ border-color: rgb(0, 0, 0);
 </string>
       </property>
       <property name="text">
-       <string>500 грн</string>
+       <string>500 boobliks</string>
       </property>
      </widget>
      <widget class="QPushButton" name="Button_1000grn">
@@ -1787,7 +1787,7 @@ border-color: rgb(0, 0, 0);
 </string>
       </property>
       <property name="text">
-       <string>1000 грн</string>
+       <string>1000 boobliks</string>
       </property>
      </widget>
      <widget class="QPushButton" name="backButton_page5">
@@ -3538,7 +3538,7 @@ border-color: rgb(0, 0, 0);
 </string>
       </property>
       <property name="text">
-       <string>20 грн</string>
+       <string>20 boobliks</string>
       </property>
      </widget>
      <widget class="QPushButton" name="Button_50grn_10">
@@ -3569,7 +3569,7 @@ border-color: rgb(0, 0, 0);
 </string>
       </property>
       <property name="text">
-       <string>50 грн</string>
+       <string>50 boobliks</string>
       </property>
      </widget>
      <widget class="QPushButton" name="Button_100grn_10">
@@ -3600,7 +3600,7 @@ border-color: rgb(0, 0, 0);
 </string>
       </property>
       <property name="text">
-       <string>100 грн</string>
+       <string>100 boobliks</string>
       </property>
      </widget>
      <widget class="QPushButton" name="backButton_page10">
@@ -3662,7 +3662,7 @@ border-color: rgb(0, 0, 0);
 </string>
       </property>
       <property name="text">
-       <string>200 грн</string>
+       <string>200 boobliks</string>
       </property>
      </widget>
      <widget class="QPushButton" name="Button_500grn_10">
@@ -3693,7 +3693,7 @@ border-color: rgb(0, 0, 0);
 </string>
       </property>
       <property name="text">
-       <string>500 грн</string>
+       <string>500 boobliks</string>
       </property>
      </widget>
      <widget class="QPushButton" name="Button_1000grn_10">
@@ -3724,7 +3724,7 @@ border-color: rgb(0, 0, 0);
 </string>
       </property>
       <property name="text">
-       <string>1000 грн</string>
+       <string>1000 boobliks</string>
       </property>
      </widget>
      <widget class="QLabel" name="page9_Logo_9">
@@ -4260,7 +4260,7 @@ border-color: rgb(0, 0, 0);
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>20</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
