@@ -40,10 +40,10 @@ public:
     virtual ~ATM();
 
     ATMCard* card();
-    QString bankName();
-    size_t withdrawInterest();
-    size_t transactInterest();
-    QPixmap qrcode();
+    QString bankName() const;
+    size_t withdrawInterest() const;
+    size_t transactInterest() const;
+    QPixmap qrcode() const;
 
 public slots:
     void insertCard(const QString&);

@@ -124,22 +124,23 @@ ATMCard *ATM::card()
     return card_;
 }
 
-QString ATM::bankName()
+
+QString ATM::bankName() const
 {
     return par_->bankName();
 }
 
-size_t ATM::withdrawInterest()
+size_t ATM::withdrawInterest() const
 {
     return par_->withdrawInterest();
 }
 
-size_t ATM::transactInterest()
+size_t ATM::transactInterest() const
 {
     return par_->transactInterest();
 }
 
-QPixmap ATM::qrcode()
+QPixmap ATM::qrcode() const
 {
     return par_->getQRPixmap();
 }

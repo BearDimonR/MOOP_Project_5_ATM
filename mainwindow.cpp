@@ -12,7 +12,7 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    pin_(""),
+    pin_(),
     sum_(0),
     atm_(Q_NULLPTR),
     ui_(new Ui::MainWindow)
@@ -435,12 +435,14 @@ void MainWindow::onBalCheckedAnswer()
     switch (ui_->mainStackedWidget->currentIndex()) {
     case 1: {
 
+        ATMCard* card(atm_->card());
+
         QMessageBox msgBox;
         msgBox.setWindowTitle("Баланс вашої картки");
-        msgBox.setText("Баланс на вашій картці = " + QString::number(atm_->card()->bal())
+        msgBox.setText("Баланс на вашій картці = " + QString::number(card->bal())
                        +" boobliks."
-                       +"\nКомісія для зняття: " + QString::number(atm_->withdrawInterest()) + " %"
-                       +"\nКомісія для переводу: " + QString::number(atm_->transactInterest())+ " %");
+                       +"\nКредитний ліміт: " + QString::number(card->creditLim())
+                       +"\nДоступний кредит: " + QString::number(card->creditAval()));
         msgBox.setIconPixmap(QPixmap(":/imgs/img/580b57fcd9996e24bc43c395.png"));
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.exec();
@@ -450,17 +452,17 @@ void MainWindow::onBalCheckedAnswer()
     case 6:{
         //перевірка чи введена сума < суми що лежить на карті якщо так то
         // атм кард може бути null, якщо я до цього не перевіряв баланс
-        if (static_cast<long>(sum_)<=atm_->card()->bal()&& (static_cast<long>(sum_)!=0))
+        //if (static_cast<long>(sum_)<=atm_->card()->bal()&& (static_cast<long>(sum_)!=0))
             atm_->takeCash(sum_);
-        else  errorMsg(ui_->lineEdit_enterSum);
+        //else  errorMsg(ui_->lineEdit_enterSum);
         break;
     }
     case 10:
     case 11:{
-        if (static_cast<long>(sum_)<=atm_->card()->bal())
+        //if (static_cast<long>(sum_)<=atm_->card()->bal())
              atm_->sendToCard(ui_->lineEdit_anotherCardNum->text().remove(QChar('-')),sum_);
 
-        else errorMsg(ui_->lineEdit_enterSumForTransfer_11);
+        //else errorMsg(ui_->lineEdit_enterSumForTransfer_11);
         break;
         }
 
@@ -544,24 +546,23 @@ void MainWindow::checkSum(size_t sum)
 
 void MainWindow::takeCashQuestion(size_t sum, size_t commis_percent)
 {
-    size_t newsum = sum+(sum*commis_percent/100);
+    double newsum(sum+(sum*commis_percent/100.));
     QMessageBox msgBox;
     msgBox.setWindowTitle("Помилка");
     msgBox.setText("Впевнені що хочете зняти " + QString::number(sum) + " boobliks ?\n"
-                                                                        "Майте на увазі з Вас зніметься комісія рівна: " + QString::number(commis_percent)  + " %");
+                   "Майте на увазі з Вас зніметься комісія рівна: " + QString::number(commis_percent)  + " %"
+                   + "\nЗагалом: " + QString::number(newsum));
 
     msgBox.setIconPixmap(QPixmap(":/imgs/img/thinking-speaking-emoji-draper-inc-blog-site-4.png"));
     msgBox.setStandardButtons(QMessageBox::No|QMessageBox::Yes);
 
 
     if(msgBox.exec() == QMessageBox::Yes){
-        qDebug() << "Yes was clicked";
-        checkSum(newsum);
+        checkSum(sum);
     }else {
       // do something else
         msgBox.close();
     }
-
 
 }
 
