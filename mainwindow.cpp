@@ -709,7 +709,7 @@ void MainWindow::on_okButton_page6_clicked()//вивести повідомле�
 //page 8 -- change PIN page
 QLineEdit* MainWindow::chooseSelectedLineEdit(QLineEdit* line1,QLineEdit* line2)
 {
-    if (line1->hasFocus()) return line1;
+    if (line1->text().length() < 4) return line1;
     else return line2;
 }
 
@@ -766,12 +766,14 @@ void MainWindow::on_num0_8_clicked()
 
 void MainWindow::on_clearOne_8_clicked()
 {
-    chooseSelectedLineEdit(ui_->lineEdit_changePIN,ui_->lineEdit_repeatChangePIN)->backspace();
+    if (ui_->lineEdit_repeatChangePIN->text().length() == 0) ui_->lineEdit_changePIN->backspace();
+    else ui_->lineEdit_repeatChangePIN->backspace();
 }
 
 void MainWindow::on_clearButton_page8_clicked()
 {
-    chooseSelectedLineEdit(ui_->lineEdit_changePIN,ui_->lineEdit_repeatChangePIN)->clear();
+    ui_->lineEdit_changePIN->clear();
+    ui_->lineEdit_repeatChangePIN->clear();
 }
 
 void MainWindow::on_backButton_page8_clicked()

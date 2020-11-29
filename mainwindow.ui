@@ -58,7 +58,7 @@
 </string>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>8</number>
     </property>
     <widget class="QWidget" name="page0_cardInsertion">
      <widget class="QLabel" name="page0_Logo">
@@ -898,6 +898,9 @@ border-color: rgb(0, 0, 0);
       </property>
      </widget>
      <widget class="QLineEdit" name="lineEdit_PIN">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>280</x>
@@ -931,6 +934,9 @@ border-color: rgb(0, 0, 0);
       <property name="maxLength">
        <number>100</number>
       </property>
+      <property name="frame">
+       <bool>true</bool>
+      </property>
       <property name="echoMode">
        <enum>QLineEdit::Normal</enum>
       </property>
@@ -938,7 +944,7 @@ border-color: rgb(0, 0, 0);
        <set>Qt::AlignCenter</set>
       </property>
       <property name="readOnly">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="clearButtonEnabled">
        <bool>false</bool>
@@ -1546,6 +1552,9 @@ border-color: rgb(0, 0, 0);
       </property>
      </widget>
      <widget class="QLineEdit" name="lineEdit_cardNum">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>110</x>
@@ -1575,6 +1584,9 @@ border-color: rgb(0, 0, 0);
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
       </property>
       <property name="placeholderText">
        <string>XXXX-XXXX-XXXX-XXXX</string>
@@ -2323,6 +2335,9 @@ border-color: rgb(0, 0, 0);
       </property>
      </widget>
      <widget class="QLineEdit" name="lineEdit_enterSum">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>280</x>
@@ -2349,6 +2364,9 @@ border-color: rgb(0, 0, 0);
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
       </property>
      </widget>
     </widget>
@@ -2503,6 +2521,9 @@ border-color: rgb(0, 0, 0);
       </property>
      </widget>
      <widget class="QLineEdit" name="lineEdit_changePIN">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>400</x>
@@ -2535,6 +2556,9 @@ border-color: rgb(0, 0, 0);
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
       </property>
      </widget>
      <widget class="QWidget" name="gridLayoutWidget_6">
@@ -3033,6 +3057,9 @@ border-color: rgb(0, 0, 0);
       </property>
      </widget>
      <widget class="QLineEdit" name="lineEdit_anotherCardNum">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>120</x>
@@ -3062,6 +3089,9 @@ border-color: rgb(0, 0, 0);
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
       </property>
       <property name="placeholderText">
        <string>XXXX-XXXX-XXXX-XXXX</string>
@@ -4092,6 +4122,9 @@ border-color: rgb(0, 0, 0);
       </layout>
      </widget>
      <widget class="QLineEdit" name="lineEdit_enterSumForTransfer_11">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>260</x>
@@ -4118,6 +4151,9 @@ border-color: rgb(0, 0, 0);
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
       </property>
      </widget>
      <widget class="QPushButton" name="clearButton_page11">
@@ -4260,7 +4296,7 @@ border-color: rgb(0, 0, 0);
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>
