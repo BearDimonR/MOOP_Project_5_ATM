@@ -4,18 +4,13 @@
 #include "ATMSelector/atmselectorwidget.h"
 #include "ATM/atm.h"
 #include "mainwindow.h"
-#include <QDebug>
-#include "mainwindow.h"
-
-#include <bqrcodegen.h>
-#include <bqrdefaultimagefactory.h>
-#include <bqrimagefactory.h>
-#include <QDir>
 
 int main(int argc, char *argv[])
 {
     // free map which was used to init static variables
     Utility::getInstance().freeInstance();
+    qInstallMessageHandler(log);
+
 	QApplication a(argc, argv);
     // опція 1
     // при виборі банкомата атмселектор запускає сам

@@ -108,7 +108,7 @@ void ATMParams::updateCash(const long cash)
 
 
 
-QPixmap ATMParams::getQRPixmap()
+QPixmap ATMParams::getQRPixmap() const
 {
     if (qrcode_ != Q_NULLPTR)
            return *qrcode_;

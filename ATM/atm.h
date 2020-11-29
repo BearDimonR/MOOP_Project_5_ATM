@@ -21,7 +21,7 @@ protected:
     ATM& operator=(const ATM&) = delete;
     ATM& operator=(ATM&&) = delete;
 
-private slots:
+protected slots:
     void backOnStart(const ATMParams&);
     void backInsertCard();
     void backFreeCard();

@@ -14,8 +14,8 @@ class ATMSocket: public AppSocket
 private:
 
     static QList<QString> EVENT_STRINGS;
-    enum EVENTS { START_ATM, INSERT_CARD, CHECK_PIN, SUCCESS_PIN, FREE_CARD, SEND_TO_CARD, TAKE_FROM_CARD, CHECK_BAL, CHANGE_PIN, QR_SUCCESS};
-
+    enum EVENTS { START_ATM, INSERT_CARD, CHECK_PIN, SUCCESS_PIN, FREE_CARD,
+                  SEND_TO_CARD, TAKE_FROM_CARD, CHECK_BAL, CHANGE_PIN, QR_SUCCESS};
     void doOnConnected() override;
     void doOnDisconnected() override;
     void doOnTextMessageReceived(const QJsonObject &) override;

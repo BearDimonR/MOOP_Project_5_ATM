@@ -18,7 +18,8 @@ void AppSocket::doOnConnected()
 void AppSocket::doOnDisconnected()
 {
     disconnect();
-    qDebug() << "socket " << socket_ << "\n disconnected!";
+    qFatal("%s", QString(ClientError("Disconnected",
+                                     ClientError::CONNECTION_ERROR, "Socket was disconnected")).toLatin1().constData());
 }
 
 void AppSocket::doOnSslErrors(const QList<QSslError> &errors)
@@ -26,7 +27,8 @@ void AppSocket::doOnSslErrors(const QList<QSslError> &errors)
     QString res;
     for(int i = 0; i < errors.size(); ++i)
         res += errors[i].errorString();
-    qFatal("SSL errors:\n %s", res.toLatin1().constData());
+    qFatal("%s", QString(ClientError("SSL error",
+                                     ClientError::CONNECTION_ERROR, res)).toLatin1().constData());
 }
 
 QJsonObject AppSocket::toJson(const QString & str)
@@ -59,11 +61,10 @@ AppSocket::AppSocket(QObject *parent):
     socket_(new QWebSocket())
 {
     connect(socket_, &QWebSocket::connected, this, &AppSocket::onConnected);
-
     typedef void (QWebSocket:: *sslErrorsSignal)(const QList<QSslError> &);
     connect(socket_, static_cast<sslErrorsSignal>(&QWebSocket::sslErrors),
         this, &AppSocket::onSslErrors);
-
+    connect(socket_, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(onError(QAbstractSocket::SocketError)));
     socket_->open(QUrl(HOST_URL));
 }
 
@@ -84,4 +85,10 @@ void AppSocket::sendMessage(const QString & event, const QString& content)
     QJsonDocument doc(message);
     QByteArray bytes = doc.toJson();
     socket_->sendTextMessage(QString(bytes));
+}
+
+void AppSocket::onError(QAbstractSocket::SocketError)
+{
+    qFatal("%s", QString(ClientError("Socket error",
+                                     ClientError::CONNECTION_ERROR, socket_->errorString())).toLatin1().constData());
 }

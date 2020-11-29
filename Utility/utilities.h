@@ -4,7 +4,7 @@
 #include <QString>
 #include <QJsonDocument>
 #include <QMap>
-#include <iostream>
+#include <QFile>
 
 using namespace std;
 
@@ -20,19 +20,24 @@ private:
 
     QMap<QString, QVariant>* map_;
 
+    QFile* logFile_;
+
     QVariant getVariable(const QString& name);
 
 public:
+
+    friend void log(QtMsgType type, const QMessageLogContext& log, const QString& msg);
     static Utility& getInstance();
 
     ~Utility();
 
     void askMap();
     void freeInstance();
-
     QString getString(const QString& name);
     QList<QString> getStringArr(const QString& name);
+
 };
 
+void log(QtMsgType type, const QMessageLogContext& log, const QString& msg);
 
 #endif // UTILITIES_H

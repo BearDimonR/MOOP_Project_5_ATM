@@ -38,7 +38,7 @@ public:
 
     void updateCash(const long);
 
-    QPixmap getQRPixmap();
+    QPixmap getQRPixmap() const;
 
 };
 

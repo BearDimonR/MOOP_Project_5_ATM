@@ -35,7 +35,7 @@ public:
     void sendMessage(const QString&, const QString&);
 
 public slots:
-
+    void onError(QAbstractSocket::SocketError);
     void onConnected() { doOnConnected(); };
     void onDisconnected() { doOnDisconnected(); };
     void onTextMessageReceived(QString message) { doOnTextMessageReceived(toJson(message)); };
