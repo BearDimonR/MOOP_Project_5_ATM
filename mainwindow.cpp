@@ -136,7 +136,8 @@ void MainWindow::on_selectorButton_clicked()
 //page 0 -- insert card
 void MainWindow::on_insertButton_page0_clicked()
 {
-    // відправити номер картки
+
+    ui_->lineEdit_attemptNum->setText("3");
     ui_->mainStackedWidget->setCurrentIndex(4);
 }
 
@@ -546,7 +547,7 @@ void MainWindow::takeCashQuestion(size_t sum)
     QMessageBox msgBox;
     msgBox.setWindowTitle("Помилка");
     msgBox.setText("Впевнені що хочете зняти " + QString::number(sum) + "boobliks ?\n"
-                                                                        "Майте на увазі з Вас зніметься комісія ! ");
+                                                                        "Майте на увазі з Вас зніметься комісія рівна: " + atm_->withdrawInterest() + "boobliks ?");
 
     msgBox.setIconPixmap(QPixmap(":/imgs/img/thinking-speaking-emoji-draper-inc-blog-site-4.png"));
     msgBox.setStandardButtons(QMessageBox::No|QMessageBox::Yes);
