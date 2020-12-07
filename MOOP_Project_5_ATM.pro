@@ -54,10 +54,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     resource.qrc
 
-DISTFILES += \
-    build-MOOP_Project_5_ATM-Desktop_x86_windows_msvc2019_pe_64bit-Debug/config.json \
-    config.json
-
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/qt-bqrencode-master/build/release/ -lBQREncode
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/qt-bqrencode-master/build/debug/ -lBQREncode
