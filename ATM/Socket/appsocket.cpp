@@ -10,16 +10,18 @@ QUrl AppSocket::HOST_URL = Utility::getInstance().getString("AppSocket_HOSTNAME"
 
 void AppSocket::doOnConnected()
 {
+    timer_->stop();
     qDebug() << "connected";
     connect(socket_, &QWebSocket::textMessageReceived,
             this, &AppSocket::onTextMessageReceived);
+    connect(socket_, &QWebSocket::pong, this, &AppSocket::onPong);
+    onPong();
 }
 
 void AppSocket::doOnDisconnected()
 {
-    disconnect();
     qFatal("%s", QString(ClientError("Disconnected",
-                                     ClientError::CONNECTION_ERROR, "Socket was disconnected")).toLatin1().constData());
+                                     ClientError::CONNECTION_ERROR, "Socket connection error")).toLatin1().constData());
 }
 
 void AppSocket::doOnSslErrors(const QList<QSslError> &errors)
@@ -58,14 +60,18 @@ QJsonObject AppSocket::toJson(const QString & str)
 
 AppSocket::AppSocket(QObject *parent):
     QObject(parent),
-    socket_(new QWebSocket())
+    socket_(new QWebSocket()),
+    timer_(new QTimer())
 {
+    timer_->setSingleShot(true);
+    connect(timer_, &QTimer::timeout, this, &AppSocket::onDisconnected);
     connect(socket_, &QWebSocket::connected, this, &AppSocket::onConnected);
     typedef void (QWebSocket:: *sslErrorsSignal)(const QList<QSslError> &);
     connect(socket_, static_cast<sslErrorsSignal>(&QWebSocket::sslErrors),
         this, &AppSocket::onSslErrors);
-    connect(socket_, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(onError(QAbstractSocket::SocketError)));
     socket_->open(QUrl(HOST_URL));
+    timer_->setInterval(5000);
+    timer_->start();
 }
 
 AppSocket::~AppSocket()
@@ -87,8 +93,10 @@ void AppSocket::sendMessage(const QString & event, const QString& content)
     socket_->sendTextMessage(QString(bytes));
 }
 
-void AppSocket::onError(QAbstractSocket::SocketError)
+void AppSocket::onPong()
 {
-    qFatal("%s", QString(ClientError("Socket error",
-                                     ClientError::CONNECTION_ERROR, socket_->errorString())).toLatin1().constData());
+    timer_->stop();
+    socket_->ping();
+    timer_->setInterval(5000);
+    timer_->start();
 }

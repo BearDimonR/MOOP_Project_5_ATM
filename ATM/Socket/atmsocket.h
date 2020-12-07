@@ -51,9 +51,9 @@ signals:
     void replyOnValidatePin(const size_t);
     void replyOnSuccessPin();
     void replyOnChangePin();
-    void replyOnSendToCard(const ATMCard&);
+    void replyOnSendToCard(const float, const float, const float, const size_t);
     void replyOnCheckBal(const ATMCard&);
-    void replyOnTakeCash(const ATMCard&, const long);
+    void replyOnTakeCash(const float, const float, const float, const size_t);
 };
 
 #endif // ATMSOCKET_H

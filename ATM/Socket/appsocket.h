@@ -5,6 +5,7 @@
 #include <QtWebSockets/QWebSocket>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QTimer>
 
 class AppSocket : public QObject
 {
@@ -35,14 +36,17 @@ public:
     void sendMessage(const QString&, const QString&);
 
 public slots:
-    void onError(QAbstractSocket::SocketError);
     void onConnected() { doOnConnected(); };
     void onDisconnected() { doOnDisconnected(); };
-    void onTextMessageReceived(QString message) { doOnTextMessageReceived(toJson(message)); };
+    void onTextMessageReceived(QString message) { doOnTextMessageReceived(toJson(message));};
     void onSslErrors(const QList<QSslError> &errors) { doOnSslErrors(errors); };
 
 protected:
     QWebSocket* socket_;
+    QTimer* timer_;
+
+protected slots:
+    void onPong();
 };
 
 #endif // APPSOCKET_H

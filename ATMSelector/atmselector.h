@@ -14,7 +14,6 @@ class ATMSelector: public QObject
 
 private:
     QList<ATMParams>* params_;
-
     ATMSelectorSocket* socket_;
 
     void updateParams(const QList<ATMParams>&);

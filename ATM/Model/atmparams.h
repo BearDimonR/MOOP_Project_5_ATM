@@ -13,15 +13,12 @@ private:
     size_t atm_id_;
     QString bank_name_;
     long cash_;
-    size_t withdraw_int_;
-    size_t transact_int_;
     QPixmap* qrcode_;
 
 public:
     static ATMParams fromJson(const QJsonObject&);
 
-    ATMParams(const size_t atm_id, const QString& bank_name,const long money,
-              const size_t withdraw_int, const size_t transact_int_);
+    ATMParams(const size_t atm_id, const QString& bank_name,const long money);
 
     ATMParams(const ATMParams&);
     ATMParams& operator=(const ATMParams&);
@@ -33,8 +30,6 @@ public:
     size_t atmId() const;
     const QString& bankName() const;
     long cash() const;
-    size_t withdrawInterest() const;
-    size_t transactInterest() const;
 
     void updateCash(const long);
 

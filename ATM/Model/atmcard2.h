@@ -6,20 +6,25 @@
 class ATMCard
 {
 private:
-    long bal_;
-    long creditAval_;
-    long creditLim_;
+    float bal_;
+    float creditAval_;
+    float creditLim_;
+    size_t with_int_;
+    size_t trans_int_;
 
+    ATMCard(const float, const float, const float, const size_t, const size_t);
 public:
 
-    long bal() const;
-    long creditAval() const;
-    long creditLim() const;
-
+    float bal() const;
+    float creditAval() const;
+    float creditLim() const;
+    size_t withdraw() const;
+    size_t transact() const;
 
     static ATMCard fromJson(const QJsonObject&);
 
-    ATMCard(const long, const long, const long);
+    void updateBal(const float, const float, const float);
+
     ~ATMCard();
     ATMCard(const ATMCard&);
     ATMCard& operator=(const ATMCard&);

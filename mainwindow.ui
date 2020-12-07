@@ -58,7 +58,7 @@
 </string>
     </property>
     <property name="currentIndex">
-     <number>8</number>
+     <number>9</number>
     </property>
     <widget class="QWidget" name="page0_cardInsertion">
      <widget class="QLabel" name="page0_Logo">
@@ -1037,7 +1037,7 @@ border-color: rgb(0, 0, 0);
        <string>Скануйте QR-код</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="clearButton_page3">
+     <widget class="QPushButton" name="backButton_page3">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -2976,6 +2976,9 @@ border-color: rgb(0, 0, 0);
       </property>
      </widget>
      <widget class="QLineEdit" name="lineEdit_repeatChangePIN">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>400</x>

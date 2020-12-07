@@ -29,7 +29,7 @@ void ATMSelectorWidget::startSelector()
 {
     ATMSelectorWidget* w(&ATMSelectorWidget::getInstance());
     w->show();
-    w->on_refreshButton_clicked();
+    //w->on_refreshButton_clicked();
 }
 
 void ATMSelectorWidget::hideSelector()

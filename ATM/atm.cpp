@@ -14,11 +14,9 @@ void ATM::backOnStart(const ATMParams & par)
     connect(socket_, SIGNAL(replyOnValidatePin(const size_t)), this, SLOT(backValidatePin(const size_t)));
     connect(socket_, SIGNAL(replyOnSuccessPin()), this, SLOT(backPinSuccess()));
     connect(socket_, SIGNAL(replyOnChangePin()), this, SLOT(backChangePin()));
-    connect(socket_, SIGNAL(replyOnSendToCard(const ATMCard&)), this, SLOT(backSendToCard(const ATMCard&)));
+    connect(socket_, SIGNAL(replyOnSendToCard(const float, const float, const float,  const size_t)), this, SLOT(backSendToCard(const float, const float, const float,  const size_t)));
     connect(socket_, SIGNAL(replyOnCheckBal(const ATMCard&)), this, SLOT(backCheckBal(const ATMCard&)));
-    connect(socket_, SIGNAL(replyOnTakeCash(const ATMCard&, const long)), this, SLOT(backTakeCash(const ATMCard&, long)));
-
-    connect(socket_, SIGNAL(replyOnError(const QString&)), this, SLOT(backError(const QString&)));
+    connect(socket_, SIGNAL(replyOnTakeCash(const float, const float, const float,  const size_t)), this, SLOT(backTakeCash(const float, const float, const float,  const size_t)));
 
     emit atmStarted();
 }
@@ -56,12 +54,10 @@ void ATM::backChangePin()
     emit pinChanged();
 }
 
-void ATM::backSendToCard(const ATMCard & card)
+void ATM::backSendToCard(const float bal, const float lim, const float aval,  const size_t inter)
 {
-    if(card_ != Q_NULLPTR)
-        delete card_;
-    card_ = new ATMCard(card);
-    emit cashSend();
+    card_->updateBal(bal, lim, aval);
+    emit cashSend(inter);
 }
 
 void ATM::backCheckBal(const ATMCard & card)
@@ -72,13 +68,10 @@ void ATM::backCheckBal(const ATMCard & card)
     emit balChecked();
 }
 
-void ATM::backTakeCash(const ATMCard & card, const long money)
+void ATM::backTakeCash(const float bal, const float lim, const float aval,  const size_t inter)
 {
-    if(card_ != Q_NULLPTR)
-        delete card_;
-    card_ = new ATMCard(card);
-    long m = par_->cash();
-    emit cashTaken(m - money);
+    card_->updateBal(bal, lim, aval);
+    emit cashTaken(inter);
 }
 
 void ATM::backError(const QString & error)
@@ -96,10 +89,11 @@ ATM::ATM(const size_t atm_id):
     QEventLoop loop;
     connect( socket_, &ATMSocket::replyOnConnected, &loop, &QEventLoop::quit );
     connect( &timer, &QTimer::timeout, &loop, &QEventLoop::quit );
-    timer.start(20000);
+    timer.start(10000);
     loop.exec();
     if(timer.isActive()) {
         connect(socket_, SIGNAL(replyOnStart(const ATMParams&)), this, SLOT(backOnStart(const ATMParams&)));
+        connect(socket_, SIGNAL(replyOnError(const QString&)), this, SLOT(backError(const QString&)));
         socket_->askStart(atm_id);
     }
     else
@@ -124,16 +118,6 @@ ATMCard *ATM::card()
 QString ATM::bankName() const
 {
     return par_->bankName();
-}
-
-size_t ATM::withdrawInterest() const
-{
-    return par_->withdrawInterest();
-}
-
-size_t ATM::transactInterest() const
-{
-    return par_->transactInterest();
 }
 
 QPixmap ATM::qrcode() const

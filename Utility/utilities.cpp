@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <QDir>
 #include <QDateTime>
+#include <QMessageBox>
 
 Utility::Utility():
     map_(Q_NULLPTR),
@@ -34,8 +35,8 @@ Utility::~Utility()
 void Utility::askMap()
 {
     QString path(QDir::currentPath() + "/config.json");
-    //QFile file(path);
-    QFile file("/Users/sofixeno/Desktop/Booblik/MOOP_Project_5_ATM/config.json");
+    QFile file(path);
+    //QFile file("/Users/sofixeno/Desktop/Booblik/MOOP_Project_5_ATM/config.json");
     if (!file.open(QIODevice::ReadOnly))
         qFatal("%s", QString(ClientError("Utilities on open file error",
                                        ClientError::FILE_ERROR, path)).toLatin1().constData());
@@ -83,19 +84,27 @@ QList<QString> Utility::getStringArr(const QString& name)
 
 void log(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
-        if (type == QtDebugMsg)
-            return;
+       // if (type == QtDebugMsg)
+       //     return;
         QTextStream out(Utility::getInstance().logFile_);
         out << QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz ");
         switch (type)
         {
         case QtInfoMsg:     out << "INF "; break;
-        case QtDebugMsg:    break;
+        case QtDebugMsg:    out << "DBG";  break;
         case QtWarningMsg:  out << "WRN "; break;
         case QtCriticalMsg: out << "CRT "; break;
         case QtFatalMsg:    out << "FTL "; break;
         }
-        out << context.category << ": " << endl
+        out << "   " << context.category << ": " << endl
             << msg << endl << endl;
         out.flush();
+        if (type == QtFatalMsg)
+        {
+            QMessageBox msgBox;
+            msgBox.setWindowTitle("Fatal");
+            msgBox.setText("Сталася помилка, банкомат буде закритий автоматично!\nІнформацію про помилку ви знайдете в логах.");
+            msgBox.setStandardButtons(QMessageBox::Ok);
+            msgBox.exec();
+        }
 }

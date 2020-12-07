@@ -29,9 +29,9 @@ protected slots:
     void backValidatePin(const size_t);
     void backPinSuccess();
     void backChangePin();
-    void backSendToCard(const ATMCard&);
+    void backSendToCard(const float, const float, const float, const size_t);
     void backCheckBal(const ATMCard&);
-    void backTakeCash(const ATMCard&, long);
+    void backTakeCash(const float, const float, const float,  const size_t);
 
     void backError(const QString&);
 
@@ -41,8 +41,6 @@ public:
 
     ATMCard* card();
     QString bankName() const;
-    size_t withdrawInterest() const;
-    size_t transactInterest() const;
     QPixmap qrcode() const;
 
 public slots:
@@ -63,9 +61,9 @@ signals:
     void pinValidated(const size_t);
     void pinSuccess();
     void pinChanged();
-    void cashSend();
+    void cashSend(const size_t);
     void balChecked();
-    void cashTaken(const long money);
+    void cashTaken(const size_t);
     void errorOccured(const QString&);
 };
 

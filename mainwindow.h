@@ -30,10 +30,16 @@ private:
 
     void activate(size_t);
 
+    void pinCheck(const int);
+    QLineEdit* chooseSelectedLineEdit(QLineEdit* line1, QLineEdit* line2);
+    void takeCashQuestion ();
+
+
 public:
     static void startMainWindow(const size_t);
     virtual ~MainWindow();
 
+    void reconnect();
 private slots:
 
     void successStart();
@@ -47,18 +53,12 @@ private slots:
 
     void onBalCheckedAnswer();
 
-    void onSuccessCashTaken(const long money);
-    void onSuccessCashSend();
+    void onSuccessCashTaken(const size_t);
+    void onSuccessCashSend(const size_t);
 
     void onSuccessPINchange();
 
     void onSuccessFreeCard();
-
-   //-----------------Utilities----------------------
-    QLineEdit* chooseSelectedLineEdit(QLineEdit* line1, QLineEdit* line2);
-    void checkSum(size_t);
-    void errorMsg(QLineEdit * );
-    void takeCashQuestion (size_t sum, size_t commis_percent);
 
     //--------------------Buttons------------------------
 
@@ -128,10 +128,7 @@ private slots:
 
     //----------------QR page-------------------
 
-    void on_clearButton_page3_clicked();
-
-    void onSuccessQr();
-
+    void on_backButton_page3_clicked();
 
     //----------------Main menu page-------------------
 
@@ -276,7 +273,5 @@ private slots:
     void on_clearButton_page11_clicked();
     void on_backButton_page11_clicked();
     void on_okButton_page11_clicked();
-
-
 };
 

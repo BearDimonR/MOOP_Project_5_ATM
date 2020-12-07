@@ -17,26 +17,19 @@ ATMParams ATMParams::fromJson(const QJsonObject & obj)
     QJsonValue atm_id(obj["atm_id"]);
     QJsonValue bank_name(obj["bank_name"]);
     QJsonValue cash(obj["cash"]);
-    QJsonValue withdraw(obj["withdraw_interest"]);
-    QJsonValue transact(obj["transact_interest"]);
     if(atm_id.isNull() || atm_id.isUndefined() || !atm_id.isDouble()
             || bank_name.isNull() || bank_name.isUndefined() || !bank_name.isString()
-            || cash.isNull() || cash.isUndefined() || !cash.isDouble()
-            || withdraw.isNull() || withdraw.isUndefined() || !withdraw.isDouble()
-            || transact.isNull() || transact.isUndefined() || !transact.isDouble())
+            || cash.isNull() || cash.isUndefined() || !cash.isDouble())
         qFatal(QString(ClientError("ATMParams json error", ClientError::PARSING_ERROR, QJsonDocument(obj).toBinaryData())).toLatin1().constData());
     return ATMParams(atm_id.toVariant().toULongLong(), bank_name.toVariant().toString(),
-                 cash.toVariant().toULongLong(), withdraw.toVariant().toUInt(), transact.toVariant().toUInt());
+                 cash.toVariant().toULongLong());
 }
 
 
-ATMParams::ATMParams(const size_t atm_id, const QString &bank_name, const long cash,
-                     const size_t withdraw, const size_t transact):
+ATMParams::ATMParams(const size_t atm_id, const QString &bank_name, const long cash):
     atm_id_(atm_id),
     bank_name_(bank_name),
     cash_(cash),
-    withdraw_int_(withdraw),
-    transact_int_(transact),
     qrcode_(Q_NULLPTR)
 {
 }
@@ -45,8 +38,6 @@ ATMParams::ATMParams(const ATMParams & p):
     atm_id_(p.atm_id_),
     bank_name_(p.bank_name_),
     cash_(p.cash_),
-    withdraw_int_(p.withdraw_int_),
-    transact_int_(p.transact_int_),
     qrcode_(p.qrcode_)
 {}
 
@@ -57,8 +48,6 @@ ATMParams &ATMParams::operator=(const ATMParams & that)
     atm_id_ = that.atm_id_;
     bank_name_ = that.bank_name_;
     cash_ = that.cash_;
-    withdraw_int_ = that.withdraw_int_;
-    transact_int_ = that.transact_int_;
     if (qrcode_ != Q_NULLPTR)
         delete qrcode_;
     qrcode_ = that.qrcode_;
@@ -91,16 +80,6 @@ long ATMParams::cash() const
     return cash_;
 }
 
-size_t ATMParams::withdrawInterest() const
-{
-    return withdraw_int_;
-}
-
-size_t ATMParams::transactInterest() const
-{
-    return transact_int_;
-}
-
 void ATMParams::updateCash(const long cash)
 {
     cash_ = cash;
@@ -116,6 +95,14 @@ QPixmap ATMParams::getQRPixmap() const
     BQRCode *codeQR=generator.encode(HOSTNAME + QString::number(atm_id_));
     BQRImageFactory *factory= new BQRDefaultImageFactory();
     QImage *qrCodeImage=factory->buildImageFromCode(codeQR);
+    for(int y = 0; y < qrCodeImage->height(); y++)
+    {
+      for(int x= 0; x < qrCodeImage->width(); x++)
+      {
+          if(qrCodeImage->pixelColor(x,y) == Qt::white)
+                qrCodeImage->setPixelColor(x,y,QColor(255, 234, 189));
+      }
+    }
     QPixmap res(QPixmap::fromImage(*qrCodeImage));
     delete codeQR;
     delete factory;
