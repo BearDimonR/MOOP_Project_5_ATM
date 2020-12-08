@@ -138,14 +138,14 @@ void ATMSocket::askFreeCard()
     sendMessage(EVENT_STRINGS.at(EVENTS::FREE_CARD), "");
 }
 
-void ATMSocket::askValidatePin(const size_t pin)
+void ATMSocket::askValidatePin(const QString& pin)
 {
-    sendMessage(EVENT_STRINGS.at(EVENTS::CHECK_PIN), QString::number(pin));
+    sendMessage(EVENT_STRINGS.at(EVENTS::CHECK_PIN), pin);
 }
 
-void ATMSocket::askChangePin(const size_t pin)
+void ATMSocket::askChangePin(const QString& pin)
 {
-    sendMessage(EVENT_STRINGS.at(EVENTS::CHANGE_PIN), QString::number(pin));
+    sendMessage(EVENT_STRINGS.at(EVENTS::CHANGE_PIN), pin);
 }
 
 void ATMSocket::askSendToCard(const QString & number, const size_t sum)

@@ -35,8 +35,8 @@ public slots:
     void askStart(const size_t);
     void askInsertCard(const QString&);
     void askFreeCard();
-    void askValidatePin(const size_t);
-    void askChangePin(const size_t);
+    void askValidatePin(const QString&);
+    void askChangePin(const QString&);
     void askSendToCard(const QString&, const size_t);
     void askCheckBal();
     void askTakeCash(const size_t);

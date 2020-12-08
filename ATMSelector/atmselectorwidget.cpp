@@ -14,9 +14,13 @@ ATMSelectorWidget::ATMSelectorWidget(QWidget *parent) :
     ui_(new Ui::ATMSelectorWidget)
 
 {
+    setMinimumSize(800, 600);
+    resize(800, 600);
+
     ui_->setupUi(this);
     connect(out_, SIGNAL(paramsChanged()), this, SLOT(onParamsUpdated()));
     connect(out_, SIGNAL(errorOccured(const QString&)), this, SLOT(showError(const QString&)));
+
 }
 
 ATMSelectorWidget& ATMSelectorWidget::getInstance()

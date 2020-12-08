@@ -136,12 +136,12 @@ void ATM::freeCard()
     socket_->askFreeCard();
 }
 
-void ATM::validatePin(const size_t pin)
+void ATM::validatePin(const QString& pin)
 {
     socket_->askValidatePin(pin);
 }
 
-void ATM::changePin(const size_t pin)
+void ATM::changePin(const QString& pin)
 {
     socket_->askChangePin(pin);
 }

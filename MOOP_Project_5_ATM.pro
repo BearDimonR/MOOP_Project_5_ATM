@@ -1,4 +1,5 @@
 QT += core gui
+QT += testlib
 QT += websockets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -26,6 +27,7 @@ SOURCES += \
     ATM/clienterror.cpp \
     ATMSelector/atmselector.cpp \
     ATMSelector/atmselectorwidget.cpp \
+    Tests/atmtest.cpp \
     Utility/utilities.cpp \
     main.cpp \
     mainwindow.cpp
@@ -40,6 +42,7 @@ HEADERS += \
     ATM/clienterror.h \
     ATMSelector/atmselector.h \
     ATMSelector/atmselectorwidget.h \
+    Tests/atmtest.h \
     Utility/utilities.h \
     mainwindow.h
 

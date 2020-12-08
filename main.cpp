@@ -4,6 +4,8 @@
 #include "ATMSelector/atmselectorwidget.h"
 #include "ATM/atm.h"
 #include "mainwindow.h"
+#include <QtTest/QTest>
+#include "Tests/atmtest.h"
 
 int main(int argc, char *argv[])
 {
@@ -11,7 +13,10 @@ int main(int argc, char *argv[])
     Utility::getInstance().freeInstance();
     qInstallMessageHandler(log);
 
-	QApplication a(argc, argv);
+    QApplication a(argc, argv);
+
+    //QTest::qExec(new ATMTest(), argc, argv);
+
     // опція 1
     // при виборі банкомата атмселектор запускає сам
     ATMSelectorWidget::startSelector();

@@ -7,6 +7,7 @@
 #include "ATMSelector/atmselector.h"
 #include "ATMSelector/atmselectorwidget.h"
 #include <QLineEdit>
+#include <QPushButton>
 #include "ATM/atm.h"
 
 class ATM;
@@ -33,7 +34,6 @@ private:
     void pinCheck(const int);
     QLineEdit* chooseSelectedLineEdit(QLineEdit* line1, QLineEdit* line2);
     void takeCashQuestion ();
-
 
 public:
     static void startMainWindow(const size_t);
@@ -273,5 +273,13 @@ private slots:
     void on_clearButton_page11_clicked();
     void on_backButton_page11_clicked();
     void on_okButton_page11_clicked();
+
+
+    void on_lineEdit_PIN_textChanged(const QString &arg1);
+    void on_lineEdit_cardNum_textChanged(const QString &arg1);
+    void on_lineEdit_enterSum_textChanged(const QString &arg1);
+    void on_lineEdit_repeatChangePIN_textChanged(const QString &arg1);
+    void on_lineEdit_anotherCardNum_textChanged(const QString &arg1);
+    void on_lineEdit_enterSumForTransfer_11_textChanged(const QString &arg1);
 };
 

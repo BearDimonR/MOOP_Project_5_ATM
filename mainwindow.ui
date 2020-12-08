@@ -47,9 +47,21 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>819</width>
-      <height>575</height>
+      <width>820</width>
+      <height>600</height>
      </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>820</width>
+      <height>600</height>
+     </size>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 234, 189);
@@ -58,7 +70,7 @@
 </string>
     </property>
     <property name="currentIndex">
-     <number>9</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="page0_cardInsertion">
      <widget class="QLabel" name="page0_Logo">
@@ -80,8 +92,8 @@
      <widget class="QLabel" name="page0_label">
       <property name="geometry">
        <rect>
-        <x>90</x>
-        <y>210</y>
+        <x>100</x>
+        <y>200</y>
         <width>371</width>
         <height>31</height>
        </rect>
@@ -89,7 +101,7 @@
       <property name="font">
        <font>
         <family>Futura</family>
-        <pointsize>21</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -159,7 +171,7 @@
         <x>70</x>
         <y>370</y>
         <width>161</width>
-        <height>41</height>
+        <height>51</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -198,7 +210,7 @@ border-width: 5px;
         <x>190</x>
         <y>450</y>
         <width>131</width>
-        <height>41</height>
+        <height>51</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -237,7 +249,7 @@ border-width: 5px;
         <x>290</x>
         <y>370</y>
         <width>161</width>
-        <height>41</height>
+        <height>51</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -294,7 +306,7 @@ border-width: 5px;
      <widget class="QLabel" name="page1_label">
       <property name="geometry">
        <rect>
-        <x>320</x>
+        <x>290</x>
         <y>40</y>
         <width>221</width>
         <height>41</height>
@@ -349,7 +361,7 @@ border-color: rgb(0, 0, 0);
        <rect>
         <x>490</x>
         <y>270</y>
-        <width>311</width>
+        <width>310</width>
         <height>51</height>
        </rect>
       </property>
@@ -378,9 +390,9 @@ border-color: rgb(0, 0, 0);
      <widget class="QPushButton" name="cardBalanceButton">
       <property name="geometry">
        <rect>
-        <x>490</x>
+        <x>489</x>
         <y>140</y>
-        <width>311</width>
+        <width>310</width>
         <height>51</height>
        </rect>
       </property>
@@ -442,8 +454,8 @@ border-color: rgb(0, 0, 0);
        <rect>
         <x>330</x>
         <y>480</y>
-        <width>161</width>
-        <height>41</height>
+        <width>171</width>
+        <height>51</height>
        </rect>
       </property>
       <property name="font">
@@ -862,23 +874,26 @@ border-color: rgb(0, 0, 0);
      <widget class="QLabel" name="label_page2_2">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>240</y>
-        <width>191</width>
-        <height>21</height>
+        <x>93</x>
+        <y>239</y>
+        <width>80</width>
+        <height>30</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>13</pointsize>
+        <pointsize>15</pointsize>
        </font>
       </property>
       <property name="styleSheet">
        <string notr="true">color: rgb(0, 0, 0);</string>
       </property>
       <property name="text">
-       <string>Кількість спроб що залишились</string>
+       <string>Спроби</string>
+      </property>
+      <property name="textFormat">
+       <enum>Qt::PlainText</enum>
       </property>
      </widget>
      <widget class="QLabel" name="page2_Logo">
@@ -951,6 +966,9 @@ border-color: rgb(0, 0, 0);
       </property>
      </widget>
      <widget class="QLineEdit" name="lineEdit_attemptNum">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>100</x>
@@ -983,6 +1001,9 @@ border-color: rgb(0, 0, 0);
       </property>
      </widget>
      <widget class="QPushButton" name="okButton_page2">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>610</x>
@@ -1018,9 +1039,9 @@ border-color: rgb(0, 0, 0);
      <widget class="QLabel" name="label_3_1">
       <property name="geometry">
        <rect>
-        <x>310</x>
+        <x>294</x>
         <y>50</y>
-        <width>241</width>
+        <width>250</width>
         <height>51</height>
        </rect>
       </property>
@@ -1105,8 +1126,8 @@ border-color: rgb(0, 0, 0);
      <widget class="QLabel" name="page4_label">
       <property name="geometry">
        <rect>
-        <x>300</x>
-        <y>50</y>
+        <x>260</x>
+        <y>40</y>
         <width>291</width>
         <height>31</height>
        </rect>
@@ -1489,6 +1510,9 @@ border-color: rgb(0, 0, 0);
       </property>
      </widget>
      <widget class="QPushButton" name="okButton_page4">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>620</x>
@@ -1517,6 +1541,9 @@ border-color: rgb(0, 0, 0);
       </property>
       <property name="text">
        <string>Підтвердити &gt; &gt;</string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
       </property>
      </widget>
      <widget class="QLabel" name="page4_Logo">
@@ -3049,7 +3076,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>27</pointsize>
+        <pointsize>20</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -3438,7 +3465,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>21</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -3469,7 +3496,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>21</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -3500,7 +3527,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>21</pointsize>
+        <pointsize>17</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -3524,7 +3551,7 @@ border-color: rgb(0, 0, 0);
      <widget class="QLabel" name="label_page5_5">
       <property name="geometry">
        <rect>
-        <x>260</x>
+        <x>220</x>
         <y>40</y>
         <width>371</width>
         <height>41</height>
@@ -4099,7 +4126,7 @@ border-color: rgb(0, 0, 0);
         </widget>
        </item>
        <item row="0" column="0">
-        <widget class="QPushButton" name="num2_12">
+        <widget class="QPushButton" name="num1_11">
          <property name="font">
           <font>
            <family>Arial Black</family>
@@ -4171,7 +4198,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>17</pointsize>
+        <pointsize>15</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -4202,7 +4229,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>17</pointsize>
+        <pointsize>15</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -4213,9 +4240,7 @@ border-color: rgb(0, 0, 0);
 background-color: rgb(255, 190, 123);
 border-style: solid;
 border-width: 2px;
-border-color: rgb(0, 0, 0);
-
-</string>
+border-color: rgb(0, 0, 0);</string>
       </property>
       <property name="text">
        <string>Підтвердити &gt; &gt;</string>
@@ -4233,7 +4258,7 @@ border-color: rgb(0, 0, 0);
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>17</pointsize>
+        <pointsize>15</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -4271,7 +4296,7 @@ border-color: rgb(0, 0, 0);
      <widget class="QLabel" name="page11_label">
       <property name="geometry">
        <rect>
-        <x>260</x>
+        <x>210</x>
         <y>40</y>
         <width>361</width>
         <height>41</height>

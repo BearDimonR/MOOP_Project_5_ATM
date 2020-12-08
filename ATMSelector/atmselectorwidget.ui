@@ -6,9 +6,27 @@
    <rect>
     <x>0</x>
     <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
     <width>771</width>
     <height>551</height>
-   </rect>
+   </size>
+  </property>
+  <property name="baseSize">
+   <size>
+    <width>771</width>
+    <height>551</height>
+   </size>
   </property>
   <property name="tabletTracking">
    <bool>false</bool>
@@ -22,7 +40,7 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>230</x>
+     <x>190</x>
      <y>40</y>
      <width>411</width>
      <height>41</height>
@@ -66,10 +84,10 @@
   <widget class="QPushButton" name="refreshButton">
    <property name="geometry">
     <rect>
-     <x>640</x>
-     <y>510</y>
-     <width>121</width>
-     <height>31</height>
+     <x>630</x>
+     <y>520</y>
+     <width>131</width>
+     <height>51</height>
     </rect>
    </property>
    <property name="font">
@@ -97,11 +115,17 @@ border-color: rgb(0, 0, 0);
   <widget class="QListWidget" name="atmsList">
    <property name="geometry">
     <rect>
-     <x>50</x>
+     <x>60</x>
      <y>100</y>
      <width>681</width>
      <height>401</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Times New Roman</family>
+     <pointsize>15</pointsize>
+    </font>
    </property>
    <property name="cursor" stdset="0">
     <cursorShape>PointingHandCursor</cursorShape>
@@ -109,8 +133,11 @@ border-color: rgb(0, 0, 0);
    <property name="styleSheet">
     <string notr="true">color: rgb(0, 0, 0);</string>
    </property>
+   <property name="frameShape">
+    <enum>QFrame::NoFrame</enum>
+   </property>
    <property name="spacing">
-    <number>2</number>
+    <number>10</number>
    </property>
    <property name="sortingEnabled">
     <bool>false</bool>

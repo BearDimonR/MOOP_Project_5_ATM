@@ -19,6 +19,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui_(new Ui::MainWindow)
 
 {
+
+    setMinimumSize(800, 600);
+    resize(800, 600);
+
     ui_->setupUi(this);
 
     ui_->lineEdit_cardNum->setInputMask("9999-9999-9999-9999");
@@ -26,7 +30,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui_->lineEdit_anotherCardNum->setInputMask("9999-9999-9999-9999");
 
-    ui_->lineEdit_enterSum->setInputMask("9999999");//поставити обмеження на картку
+    ui_->lineEdit_enterSum->setInputMask("999999");//поставити обмеження на картку
+    ui_->lineEdit_enterSumForTransfer_11->setInputMask("999999");
 
     ui_->lineEdit_PIN->setInputMask("XXXX");//поставити обмеження на ПІН в чотири символи
 
@@ -194,7 +199,6 @@ void MainWindow::onSuccessFreeCard()
 
 void MainWindow::onWrongPIN(const size_t attempts)
 {
-
     ui_->lineEdit_PIN->clear();
     pin_.clear();
     ui_->lineEdit_attemptNum->setText(QString::number (attempts));
@@ -464,7 +468,7 @@ void MainWindow::on_backButton_page2_clicked()
 
 void MainWindow::on_okButton_page2_clicked()
 {
-    atm_->validatePin(pin_.toUInt());
+    atm_->validatePin(pin_);
 }
 
 //page 1 -- main card menu
@@ -720,7 +724,7 @@ void MainWindow::on_backButton_page8_clicked()
 
 void MainWindow::on_OKButton_page8_clicked()
 {
-    atm_->changePin(ui_->lineEdit_changePIN->text().toUInt());
+    atm_->changePin(ui_->lineEdit_changePIN->text());
     ui_->lineEdit_changePIN->clear();
     ui_->lineEdit_repeatChangePIN->clear();
 }
@@ -923,4 +927,34 @@ void MainWindow::on_okButton_page11_clicked()
 {
     sum_ = ui_->lineEdit_enterSumForTransfer_11->text().toInt();
     atm_->checkBal();
+}
+
+void MainWindow::on_lineEdit_PIN_textChanged(const QString & pin)
+{
+    ui_->okButton_page2->setEnabled(pin.length() == 4);
+}
+
+void MainWindow::on_lineEdit_cardNum_textChanged(const QString & n)
+{
+    ui_->okButton_page4->setEnabled(n.length() == 19);
+}
+
+void MainWindow::on_lineEdit_enterSum_textChanged(const QString &n)
+{
+    ui_->okButton_page6->setEnabled(n.length() != 0);
+}
+
+void MainWindow::on_lineEdit_repeatChangePIN_textChanged(const QString &pin)
+{
+    ui_->OKButton_page8->setEnabled(pin.length() ==  4);
+}
+
+void MainWindow::on_lineEdit_anotherCardNum_textChanged(const QString &n)
+{
+    ui_->okButton_page9->setEnabled(n.length() == 19);
+}
+
+void MainWindow::on_lineEdit_enterSumForTransfer_11_textChanged(const QString &n)
+{
+    ui_->okButton_page11->setEnabled(n.length() != 0);
 }
