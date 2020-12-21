@@ -4,3 +4,5 @@
 ## Client: QT application
 
 ## Server: node.js server
+
+## *by Mykhailo Romanenko, Sofiia Xenofontova & Miedviediev Dmytro.*
